@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/stepsFragment"
+        android:title="Step Count"
+        android:icon="@drawable/steps"/>
+    <item
+        android:id="@+id/heartPointsFragment"
+        android:title="Heart Points"
+        android:icon="@drawable/ic_heartbeat_solid"/>
+    <item
+        android:id="@+id/journalFragment"
+        android:title="Journal"
+        android:icon="@drawable/ic_file_alt_solid"/>
+
+
+</menu>
