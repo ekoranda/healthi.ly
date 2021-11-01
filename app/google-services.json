@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "124073370670",
+    "firebase_url": "https://healthi-ly-default-rtdb.firebaseio.com",
+    "project_id": "healthi-ly",
+    "storage_bucket": "healthi-ly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124073370670:android:0f948c3ad8f9dea6f2ebbf",
+        "android_client_info": {
+          "package_name": "com.cs506.healthily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124073370670-hef9bb1os5bdl59s1d2ak36bb0v24v4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8m8xRtSA17SbieNLfUjPrdVFv5uUGaHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124073370670-5uuktiselqrpbtqj3fi2uqtnqf54sjtv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124073370670:android:93b4cebf3a2c4276f2ebbf",
+        "android_client_info": {
+          "package_name": "com.healthi.ly.spike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124073370670-hef9bb1os5bdl59s1d2ak36bb0v24v4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8m8xRtSA17SbieNLfUjPrdVFv5uUGaHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124073370670-5uuktiselqrpbtqj3fi2uqtnqf54sjtv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
