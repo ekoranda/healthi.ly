@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'com.google.gms.google-services'
 
 }
@@ -47,6 +49,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
@@ -63,6 +66,25 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    //Maps
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.libraries.places:places:2.5.0'
+    implementation 'com.android.volley:volley:1.2.1'
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+
+    //Jetbrains
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    secrets {
+        defaultPropertiesFileName 'local.properties'
+        // To add your Maps API key to this project:
+        // 1. Open the root project's local.properties file
+        // 2. Add this line, where YOUR_API_KEY is your API key:
+        //        MAPS_API_KEY=YOUR_API_KEY
+    }
 
     // google fit
     implementation("com.google.android.gms:play-services-fitness:20.0.0")
