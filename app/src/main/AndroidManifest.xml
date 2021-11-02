@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cs506.healthily">
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthily">
+        <activity
+            android:name=".view.activities.SignInGoogleFitActivity"
+            android:exported="true" />
         <activity
             android:name=".view.activities.SignedInActivity"
             android:exported="true" />

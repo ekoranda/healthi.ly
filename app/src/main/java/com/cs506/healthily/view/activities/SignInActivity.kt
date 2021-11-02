@@ -1,18 +1,24 @@
 package com.cs506.healthily.view.activities
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.cs506.healthily.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -20,6 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 class SignInActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val Req_Code: Int = 123
+    val GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1234
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +81,20 @@ class SignInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                    // Permission is not granted
+                    ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                        123)
+                }
+
+
+
+
                 //SavedPreference.setEmail(this, account.email.toString())
                 //SavedPreference.setUsername(this, account.displayName.toString())
-                val intent = Intent(this, SignedInActivity::class.java)
+                val intent = Intent(this, SignInGoogleFitActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -88,7 +106,7 @@ class SignInActivity : AppCompatActivity() {
         if (GoogleSignIn.getLastSignedInAccount(this) != null) {
             startActivity(
                 Intent(
-                    this, SignedInActivity
+                    this, SignInGoogleFitActivity
                     ::class.java
                 )
             )

@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_sign_in_google_fit.xml" value="0.14375" />
         <entry key="app/src/main/res/layout/activity_signed_in.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/fragment_heart_points.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1503623188405797" />
