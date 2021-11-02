@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/map"
+        tools:context=".view.fragments.HomeFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/currentLoc"
+        android:layout_width="30sp"
+        android:layout_height="40sp"
+        android:layout_alignBottom="@id/map"
+        android:layout_alignEnd="@id/map"
+        android:layout_alignRight="@id/map"
+        android:layout_marginRight="30sp"
+        android:layout_marginBottom="30sp"
+        />
+
+</RelativeLayout>
