@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/stepsFragment"
-        android:name="com.cs506.healthily.view.fragments.JournalFragment"
+        android:name="com.cs506.healthily.view.fragments.StepsFragment"
         android:label="fragment_steps"
         tools:layout="@layout/fragment_steps" />
     <fragment
