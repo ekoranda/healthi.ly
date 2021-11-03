@@ -16,4 +16,100 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string-array name="Genders">
+        <item>Gender:</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="Ages">
+        <item>Age:</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+    </string-array>
+
+
+
+    <string-array name="Weights">
+        <item>Weight:</item>
+        <item>160</item>
+        <item>161</item>
+        <item>162</item>
+        <item>163</item>
+        <item>164</item>
+        <item>165</item>
+        <item>166</item>
+        <item>167</item>
+        <item>168</item>
+        <item>169</item>
+        <item>170</item>
+        <item>171</item>
+        <item>172</item>
+        <item>173</item>
+        <item>174</item>
+        <item>175</item>
+        <item>176</item>
+        <item>177</item>
+        <item>178</item>
+        <item>179</item>
+        <item>180</item>
+        <item>181</item>
+        <item>182</item>
+        <item>183</item>
+        <item>184</item>
+    </string-array>
+
+    <!--
+
+    <string-array name="Heights">
+        <item>Height:</item>
+        <item>5' 00"</item>
+        <item>5' 01"</item>
+        <item>5' 02"</item>
+        <item>5' 03"</item>
+        <item>5' 04"</item>
+        <item>5' 05"</item>
+        <item>5' 06"</item>
+        <item>5' 07"</item>
+        <item>5' 08"</item>
+        <item>5' 09"</item>
+        <item>5' 10"</item>
+        <item>5' 11"</item>
+        <item>6' 00"</item>
+        <item>6' 01"</item>
+        <item>6' 02"</item>
+        <item>6' 03"</item>
+        <item>6' 04"</item>
+        <item>6' 05"</item>
+    </string-array>
+
+    -->
+
+
 </resources>
