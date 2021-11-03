@@ -106,7 +106,7 @@ class SignInActivity : AppCompatActivity() {
         if (GoogleSignIn.getLastSignedInAccount(this) != null) {
             startActivity(
                 Intent(
-                    this, SignInGoogleFitActivity
+                    this, MainActivity
                     ::class.java
                 )
             )

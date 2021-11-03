@@ -29,5 +29,22 @@ class UserSettingsRepository(userId : String) {
         database.child("Users").child(userId).child("weight").setValue(weight)
     }
 
+    fun getUserSettings(): MutableLiveData<UserSettings> {
+        val userSettingsObject: MutableLiveData<UserSettings> = MutableLiveData()
+        val data = UserSettings()
+        val userRef = Firebase.database.getReference("Users/${userId}")
+        userRef.get().addOnSuccessListener {
+            data.age = it.child("age").value.toString()
+            data.gender = it.child("gender").value.toString()
+            data.height = it.child("height").value.toString()
+            data.weight = it.child("weight").value.toString()
+            userSettingsObject.postValue(data)
+        }.addOnFailureListener{
+
+        }
+
+        return userSettingsObject
+    }
+
 
 }

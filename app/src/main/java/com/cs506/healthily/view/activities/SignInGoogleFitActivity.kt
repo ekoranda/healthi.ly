@@ -43,7 +43,13 @@ class SignInGoogleFitActivity : AppCompatActivity() {
 
         } else {
 
-            accessGoogleFit()
+            startActivity(
+                Intent(
+                    this, MainActivity
+                    ::class.java
+                )
+            )
+            finish()
         }
 
 
