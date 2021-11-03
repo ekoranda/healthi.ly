@@ -68,7 +68,7 @@ class SignInGoogleFitActivity : AppCompatActivity() {
     private fun accessGoogleFit() {
         startActivity(
             Intent(
-                this, MainActivity
+                this, AboutYouActivity
                 ::class.java
             )
         )
