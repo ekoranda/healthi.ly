@@ -9,9 +9,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.ArrayList
 
-class UserSettingsRepository(userId : String) {
-    val database = Firebase.database.reference
-    var userId: String = userId
+class UserSettingsRepository(var userId: String) {
+    private val database = Firebase.database.reference
 
     fun setGender(gender : String){
         database.child("Users").child(userId).child("gender").setValue(gender)
