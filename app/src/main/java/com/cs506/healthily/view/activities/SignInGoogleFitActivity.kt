@@ -48,8 +48,8 @@ class SignInGoogleFitActivity : AppCompatActivity() {
                     this, MainActivity
                     ::class.java
                 )
+
             )
-            finish()
         }
 
 
