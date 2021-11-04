@@ -75,7 +75,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment. Load the map fragment (from fragment_home.xml)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -91,14 +91,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
 
-        // [START_EXCLUDE silent]
-        // Construct a PlacesClient
+        // Initialize the Places SDK
         Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
+        // Create a new PlacesClient instance
         placesClient = Places.createClient(requireContext())
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
+        //Register the map callback. Update the map.
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
     }
@@ -117,21 +118,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
     // [END maps_current_place_on_save_instance_state]
 
+
+    //The OptionsMenu methods provide the user a list of likely places to choose from
+    //Works with the Get Places option.
     /**
      * Sets up the options menu.
-     * @param menu The options menu.
-     * @return Boolean.
      */
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.current_place_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
-     * Handles a click on the menu option to get a place.
-     * @param item The menu item to handle.
-     * @return Boolean.
+     * Get the current place when the user clicks the Get Place option
      */
     // [START maps_current_place_on_options_item_selected]
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -145,6 +144,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
+     * Set up the map when the GoogleMap object is available:
      */
     // [START maps_current_place_on_map_ready]
     override fun onMapReady(map: GoogleMap) {
@@ -153,7 +153,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // [START_EXCLUDE]
         // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
+        // info window contents. Inflate the layout and load the info window content:
         this.map?.setInfoWindowAdapter(object : InfoWindowAdapter {
             // Return null here, so that getInfoContents() is called next.
             override fun getInfoWindow(arg0: Marker): View? {
@@ -187,6 +187,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     /**
      * Gets the current location of the device, and positions the map's camera.
+     * Use the location provider to find the device's last-known location,
+     * then use that location to position the map
      */
     // [START maps_current_place_get_device_location]
     private fun getDeviceLocation() {
@@ -224,15 +226,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     // [END maps_current_place_get_device_location]
 
     /**
-     * Prompts the user for permission to use the device location.
+     * Request location permission, so that we can get the location of the
+     * device. The result of the permission request is handled by a callback,
+     * onRequestPermissionsResult.
+     *
+     * Checks whether the user has granted fine location permission. If not, it requests the permission:
      */
     // [START maps_current_place_location_permission]
     private fun getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
@@ -263,7 +264,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
-        updateLocationUI()
+        updateLocationUI() //update location
     }
     // [END maps_current_place_on_request_permissions_result]
 
@@ -374,7 +375,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     // [END maps_current_place_open_places_dialog]
 
     /**
-     * Updates the map's UI settings based on whether the user has granted location permission.
+     * Set the location controls on the map. If the user has granted location permission,
+     * enable the My Location layer and the related control on the map,
+     * otherwise disable the layer and the control and set the current location to null
      */
     // [START maps_current_place_update_location_ui]
     private fun updateLocationUI() {
@@ -397,16 +400,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
     // [END maps_current_place_update_location_ui]
 
+    /**
+     * Below companion objects assist in saving the maps camera position and device location
+     *
+     * Handles the cases when user rotates the device or makes other configuration changes
+     *
+     */
+
     companion object {
         private val TAG = HomeFragment::class.java.simpleName
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
-        // Keys for storing activity state.
-        // [START maps_current_place_state_keys]
+        // Key values for storing activity state.
         private const val KEY_CAMERA_POSITION = "camera_position"
         private const val KEY_LOCATION = "location"
-        // [END maps_current_place_state_keys]
 
         // Used for selecting the current place.
         private const val M_MAX_ENTRIES = 5
