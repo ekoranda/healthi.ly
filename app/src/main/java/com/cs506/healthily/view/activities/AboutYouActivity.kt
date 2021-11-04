@@ -23,7 +23,7 @@ class AboutYouActivity : AppCompatActivity() {
         next.setOnClickListener {
             startActivity(
                 Intent(
-                    this, MainActivity
+                    this, StepCountGoalActivity
                     ::class.java
                 )
             )
