@@ -7,10 +7,8 @@ import com.cs506.healthily.data.model.UserSettings
 import com.cs506.healthily.data.repository.GoalsRepository
 import com.cs506.healthily.data.repository.UserSettingsRepository
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
-class stepCountGoal(application: Application) : AndroidViewModel(application) {
+class goalViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAge(userId: String): String? {
 
@@ -30,13 +28,14 @@ class stepCountGoal(application: Application) : AndroidViewModel(application) {
 
 
 
-    fun getGoalOne(): MutableLiveData<UserSettings>? {
+    fun getUserSettings(): MutableLiveData<UserSettings>? {
         return userRepository.getUserSettings()
     }
 
     fun setStepGoal(stepGoal : String) {
-        goalsRepository.setStepsGoal(stepGoal)
+        goalsRepository.setStepGoal(stepGoal)
     }
+
 
 
 

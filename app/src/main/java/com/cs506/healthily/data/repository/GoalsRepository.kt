@@ -10,7 +10,7 @@ import java.util.ArrayList
 class GoalsRepository(var userId: String) {
     private val database = Firebase.database.reference
 
-    fun setStepsGoal(stepGoal : String){
+    fun setStepGoal(stepGoal : String){
         database.child("Users").child(userId).child("stepGoal").setValue(stepGoal)
     }
 

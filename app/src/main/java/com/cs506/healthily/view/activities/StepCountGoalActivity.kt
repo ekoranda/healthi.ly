@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.lifecycle.ViewModelProviders
 import com.cs506.healthily.R
 import com.cs506.healthily.data.repository.GoalsRepository
-import com.cs506.healthily.viewModel.stepCountGoal
+import com.cs506.healthily.viewModel.goalViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class StepCountGoalActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class StepCountGoalActivity : AppCompatActivity() {
         nextBtn.setOnClickListener {
             startActivity(
                 Intent(
-                    this, MainActivity
+                    this, HeartPointGoalActivity
                     ::class.java
                 )
             )
@@ -38,9 +38,9 @@ class StepCountGoalActivity : AppCompatActivity() {
 
 
     private fun setButtons() {
-        val stepGoalViewModel: stepCountGoal =
-            ViewModelProviders.of(this).get(stepCountGoal::class.java)
-            stepGoalViewModel.getGoalOne()?.observe(this) { goals ->
+        val stepGoalViewModel: goalViewModel =
+            ViewModelProviders.of(this).get(goalViewModel::class.java)
+            stepGoalViewModel.getUserSettings()?.observe(this) { goals ->
             age = goals.age.toString()
                 var stepGoal: String = " "
                 var ageInt = age.toInt()
@@ -55,7 +55,7 @@ class StepCountGoalActivity : AppCompatActivity() {
                     }
                 }
 
-                val stepBtn1 : Button = findViewById(R.id.btn_step_goal_1)
+                val stepBtn1 : Button = findViewById(R.id.btn_heart_goal_1)
                 stepBtn1.text = stepGoal
 
                 var stepGoal2: String = " "
@@ -69,7 +69,7 @@ class StepCountGoalActivity : AppCompatActivity() {
                         stepGoal2 =  "11000"
                     }
                 }
-                val stepBtn2 : Button = findViewById(R.id.btn_step_goal_2)
+                val stepBtn2 : Button = findViewById(R.id.btn_heart_goal_2)
                 stepBtn2.text = stepGoal2
 
                 var stepGoal3: String = " "
@@ -83,7 +83,7 @@ class StepCountGoalActivity : AppCompatActivity() {
                         stepGoal3 =  "12000"
                     }
                 }
-                val stepBtn3 : Button = findViewById(R.id.btn_step_goal_3)
+                val stepBtn3 : Button = findViewById(R.id.btn_heart_goal_3)
                 stepBtn3.text = stepGoal3
 
 
@@ -92,31 +92,31 @@ class StepCountGoalActivity : AppCompatActivity() {
     }
 
     private fun getGoal(){
-        val btn1 : Button = findViewById(R.id.btn_step_goal_1)
+        val btn1 : Button = findViewById(R.id.btn_heart_goal_1)
         btn1.setOnClickListener {
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
                 )
-            }?.setStepsGoal(btn1.text.toString())
+            }?.setStepGoal(btn1.text.toString())
         }
 
-        val btn2 : Button = findViewById(R.id.btn_step_goal_2)
+        val btn2 : Button = findViewById(R.id.btn_heart_goal_2)
         btn2.setOnClickListener {
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
                 )
-            }?.setStepsGoal(btn2.text.toString())
+            }?.setStepGoal(btn2.text.toString())
         }
 
-        val btn3 : Button = findViewById(R.id.btn_step_goal_3)
+        val btn3 : Button = findViewById(R.id.btn_heart_goal_3)
         btn3.setOnClickListener {
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
                 )
-            }?.setStepsGoal(btn3.text.toString())
+            }?.setStepGoal(btn3.text.toString())
         }
     }
 
