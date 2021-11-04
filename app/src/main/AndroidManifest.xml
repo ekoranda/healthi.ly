@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthily">
         <activity
+            android:name=".view.activities.HeartPointGoalActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.activities.StepCountGoalActivity"
             android:exported="true" />
         <activity

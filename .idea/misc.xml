@@ -10,20 +10,21 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_shoe_prints_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/steps.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/activity_about_you.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/activity_heart_point_goal.xml" value="0.13179347826086957" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.32395833333333335" />
-        <entry key="app/src/main/res/layout/activity_signed_in.xml" value="0.2246376811594203" />
-        <entry key="app/src/main/res/layout/activity_step_count_goal.xml" value="0.246875" />
-        <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.157548125633232" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.10558350058163034" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_sign_in_google_fit.xml" value="0.14375" />
+        <entry key="app/src/main/res/layout/activity_signed_in.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/activity_step_count_goal.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/fragment_heart_points.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/fragment_journal.xml" value="0.1503623188405797" />
-        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.16041666666666668" />
-        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.3220108695652174" />
-        <entry key="app/src/main/res/layout/fragment_maps1.xml" value="0.16041666666666668" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1265625" />
         <entry key="app/src/main/res/layout/fragment_steps.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.16770833333333332" />
-        <entry key="app/src/main/res/menu/current_place_menu.xml" value="0.32395833333333335" />
       </map>
     </option>
   </component>
@@ -32,12 +33,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.1503623188405797" />
-      </ProjectState>
-    </option>
   </component>
 </project>
