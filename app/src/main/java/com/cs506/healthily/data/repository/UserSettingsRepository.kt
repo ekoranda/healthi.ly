@@ -2,12 +2,8 @@ package com.cs506.healthily.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.cs506.healthily.data.model.UserSettings
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.util.ArrayList
 
 class UserSettingsRepository(var userId: String) {
     private val database = Firebase.database.reference
@@ -43,6 +39,20 @@ class UserSettingsRepository(var userId: String) {
         }
 
         return userSettingsObject
+    }
+
+    fun getAge(): String? {
+        var age: String? = null
+        val userRef = Firebase.database.getReference("Users/${userId}")
+        userRef.get().addOnSuccessListener {
+            age = it.child("age").value.toString()
+            age = "23"
+
+        }.addOnFailureListener{
+            age = "22"
+        }
+
+        return age
     }
 
 
