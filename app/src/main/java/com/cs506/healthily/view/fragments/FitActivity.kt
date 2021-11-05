@@ -17,10 +17,13 @@ package com.cs506.healthily.view.fragments
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.widget.TextViewCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.cs506.healthily.view.logger.Log
@@ -43,6 +46,8 @@ import java.util.Date
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 import com.cs506.healthily.R
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 const val TAG = "FitAPI"
 
@@ -52,8 +57,9 @@ const val TAG = "FitAPI"
  * subsequent execution of the desired action.
  */
 enum class FitActionRequestCode {
-    READ_STEPS,
-    READ_HEART_POINTS
+    READ_DAILY_STEPS,
+    READ_DAILY_HEART_POINTS,
+    READ_WEEKLY_STEPS
 }
 
 /**
@@ -65,8 +71,9 @@ class FitActivity : AppCompatActivity() {
     private val dateFormat = DateFormat.getDateInstance()
     private val fitnessOptions: FitnessOptions by lazy {
         FitnessOptions.builder()
-                .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
-                .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_WRITE)
+                .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
                 .build()
     }
 
@@ -76,7 +83,7 @@ class FitActivity : AppCompatActivity() {
 
         initializeLogging()
 
-        fitSignIn(FitActionRequestCode.READ_HEART_POINTS)
+        fitSignIn(FitActionRequestCode.READ_WEEKLY_STEPS)
     }
 
     /**
@@ -123,8 +130,9 @@ class FitActivity : AppCompatActivity() {
      * @param requestCode The code corresponding to the action to perform.
      */
     private fun performActionForRequestCode(requestCode: FitActionRequestCode) = when (requestCode) {
-        FitActionRequestCode.READ_STEPS -> getDailySteps()
-        FitActionRequestCode.READ_HEART_POINTS -> getDailyHeartPoints()
+        FitActionRequestCode.READ_WEEKLY_STEPS -> readWeeklyStepData()
+        FitActionRequestCode.READ_DAILY_HEART_POINTS -> getDailyHeartPoints()
+        FitActionRequestCode.READ_DAILY_STEPS -> getDailySteps()
     }
 
     private fun oAuthErrorMsg(requestCode: Int, resultCode: Int) {
@@ -151,9 +159,9 @@ class FitActivity : AppCompatActivity() {
      * Asynchronous task to read the history data. When the task succeeds, it will print out the
      * data.
      */
-    private fun readHistoryData(): Task<DataReadResponse> {
+    fun readWeeklyStepData(): Task<DataReadResponse> {
         // Begin by creating the query.
-        val readRequest = queryFitnessData()
+        val readRequest = queryStepData()
 
         // Invoke the History API to fetch the data with the query
         return Fitness.getHistoryClient(this, getGoogleAccount())
@@ -170,17 +178,17 @@ class FitActivity : AppCompatActivity() {
     }
 
     /**
-     * Asynchronous task to read the history data. When the task succeeds, it will print out the
-     * data.
+     * Returns the daily step count (not live- shows most recent count in API
+     * but doesn't always line up with fit app, still working on that)
      */
-    private fun getDailySteps(): Task<DataSet> {
+    fun getDailySteps(): Task<DataSet> {
 
         // Invoke the History API to fetch the data with the query
         return Fitness.getHistoryClient(this, getGoogleAccount())
             .readDailyTotal(DataType.TYPE_STEP_COUNT_DELTA)
             .addOnSuccessListener { result ->
                 val totalSteps =
-                    result.dataPoints.firstOrNull()?.getValue(Field.FIELD_STEPS)?.asInt() ?: 0
+                    result.dataPoints.firstOrNull()?.getValue(Field.FIELD_STEPS)?.asInt() ?: 2
                 Log.i(TAG, "STEPS: ${totalSteps}")
             }
             .addOnFailureListener { e ->
@@ -189,26 +197,22 @@ class FitActivity : AppCompatActivity() {
     }
 
     /**
-     * Asynchronous task to read the history data. When the task succeeds, it will print out the
-     * data.
+     * Returns the daily heart point count (not live- shows most recent count in API
+     * but doesn't always line up with fit app, still working on that)
      */
-    private fun getDailyHeartPoints(): Task<DataSet> {
+    fun getDailyHeartPoints(): Task<DataSet> {
+        val current = Calendar.getInstance()
 
-        // Invoke the History API to fetch the data with the query
         return Fitness.getHistoryClient(this, getGoogleAccount())
-            .readDailyTotal(DataType.AGGREGATE_HEART_POINTS)
+            .readDailyTotal(DataType.TYPE_HEART_POINTS)
             .addOnSuccessListener { result ->
-                val totalHeartPoints =
-                    result.dataPoints.firstOrNull()?.getValue(Field.FIELD_INTENSITY)?.asInt() ?: 0
-                Log.i(TAG, "STEPS: ${totalHeartPoints}")
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "There was a problem reading the data.", e)
+                val dailyHeartPoints = result.dataPoints.firstOrNull()?.getValue(Field.FIELD_INTENSITY)?.asFloat()?.toInt() ?: 0
+                Log.i(TAG, "Total heart points: $dailyHeartPoints")
             }
     }
 
     /** Returns a [DataReadRequest] for all step count changes in the past week.  */
-    private fun queryFitnessData(): DataReadRequest {
+    fun queryStepData(): DataReadRequest {
         // [START build_read_data_request]
         // Setting a start and end date using a range of 1 week before this moment.
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
@@ -244,7 +248,7 @@ class FitActivity : AppCompatActivity() {
      * consideration. A better option would be to dump the data you receive to a local data
      * directory to avoid exposing it to other applications.
      */
-    private fun printData(dataReadResult: DataReadResponse) {
+    fun printData(dataReadResult: DataReadResponse) {
         // [START parse_read_data_result]
         // If the DataReadRequest object specified aggregated data, dataReadResult will be returned
         // as buckets containing DataSets, instead of just DataSets.

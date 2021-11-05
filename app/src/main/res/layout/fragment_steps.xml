@@ -14,15 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Steps: " />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/title_text_view">
+
         <com.cs506.healthily.view.logger.LogView
             android:id="@+id/sample_logview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white"
+            android:scrollbars="vertical" />
     </ScrollView>
 </RelativeLayout>
