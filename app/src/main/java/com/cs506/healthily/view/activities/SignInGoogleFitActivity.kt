@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.cs506.healthily.R
+import com.cs506.healthily.view.fragments.FitActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.FitnessOptions
@@ -68,7 +69,7 @@ class SignInGoogleFitActivity : AppCompatActivity() {
     private fun accessGoogleFit() {
         startActivity(
             Intent(
-                this, MainActivity
+                this, FitActivity
                 ::class.java
             )
         )
