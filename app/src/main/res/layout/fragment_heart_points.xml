@@ -80,4 +80,17 @@
         <!--            android:layout_marginBottom="100dp"/>-->
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/graph_layout">
+
+        <com.cs506.healthily.view.logger.LogView
+            android:id="@+id/sample_logview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:scrollbars="vertical" />
+    </ScrollView>
+
 </FrameLayout>
