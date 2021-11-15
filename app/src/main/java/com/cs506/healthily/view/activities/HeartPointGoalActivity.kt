@@ -17,7 +17,7 @@ class HeartPointGoalActivity : AppCompatActivity() {
         setButtons()
         getGoal()
 
-        val nextBtn : Button = findViewById(R.id.btn_next)
+        val nextBtn : Button = findViewById(R.id.step_button)
         nextBtn.setOnClickListener {
             startActivity(
                 Intent(
