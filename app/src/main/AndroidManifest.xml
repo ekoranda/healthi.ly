@@ -27,9 +27,6 @@
         <activity
             android:name=".view.activities.AboutYouActivity"
             android:exported="true" />
-        <activity
-            android:name=".viewModel.AboutYouActivity"
-            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,9 +41,6 @@
 
         <activity
             android:name=".view.activities.SignInGoogleFitActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.activities.SignedInActivity"
             android:exported="true" />
         <activity
             android:name=".view.activities.SignInActivity"
