@@ -1,6 +1,7 @@
 package com.cs506.healthily.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,13 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.cs506.healthily.R
+import com.cs506.healthily.data.model.DaySteps
 import com.cs506.healthily.data.repository.GoalsRepository
+import com.cs506.healthily.view.adapter.DayStepAdapter
+import com.cs506.healthily.viewModel.DayStepsViewModel
 import com.cs506.healthily.viewModel.goalViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.jjoe64.graphview.series.BarGraphSeries
@@ -38,6 +43,10 @@ class StepsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var gv: GraphView? = null
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +60,8 @@ class StepsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        gv = view?.findViewById(R.id.graph)
+        bindData()
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_steps, container, false)
         val progressBar: ProgressBar = view.findViewById(R.id.progress_bar)
@@ -63,20 +74,6 @@ class StepsFragment : Fragment() {
 
 
         val graph = view.findViewById(R.id.graph) as GraphView
-        val series: BarGraphSeries<DataPoint> = BarGraphSeries(
-            arrayOf(
-                DataPoint(-7.0, 9785.0),
-                DataPoint(-6.0, 11034.0),
-                DataPoint(-5.0, 9231.0),
-                DataPoint(-4.0, 12023.0),
-                DataPoint(-3.0, 8672.0),
-                DataPoint(-2.0, 9521.0),
-                DataPoint(-1.0, 11302.0),
-                DataPoint(0.0, currentProgress.toDouble()),
-            )
-        )
-        graph.addSeries(series)
-        series.setSpacing(50)
 
 
         return view
@@ -100,5 +97,39 @@ class StepsFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun setupGraphView(days: List<DaySteps>) {
+
+
+        val series: BarGraphSeries<DataPoint> = BarGraphSeries(
+            arrayOf(
+                days[0].steps?.let { DataPoint(1.0, it.toDouble()) },
+                days[1].steps?.let { DataPoint(2.0, it.toDouble()) },
+                days[2].steps?.let { DataPoint(3.0, it.toDouble()) },
+                days[3].steps?.let { DataPoint(4.0, it.toDouble()) },
+                days[4].steps?.let { DataPoint(5.0, it.toDouble()) },
+                days[5].steps?.let { DataPoint(6.0, it.toDouble()) },
+                days[6].steps?.let { DataPoint(7.0, it.toDouble()) },
+
+            )
+        )
+        val graph = view?.findViewById(R.id.graph) as GraphView
+        graph.addSeries(series)
+        series.setSpacing(50)
+
+
+    }
+
+
+    private fun bindData(){
+        val viewModel: DayStepsViewModel =
+            ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
+
+        viewModel.getAllDays()?.observe(viewLifecycleOwner) { mDays ->
+
+            setupGraphView(mDays)
+
+        }
     }
 }
