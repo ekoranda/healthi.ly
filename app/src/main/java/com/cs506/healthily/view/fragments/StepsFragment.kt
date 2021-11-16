@@ -1,5 +1,6 @@
 package com.cs506.healthily.view.fragments
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -137,6 +138,19 @@ class StepsFragment : Fragment() {
         val progressPercentage = 100 * currentProgress / stepGoal!!
         if (progressBar != null) {
             progressBar.setProgress(progressPercentage)
+            var color = 0xffff0000
+            if(currentProgress < stepGoal){
+                 color = 0xffff0000
+            }else{
+                color = -16711936
+            }
+
+
+
+            progressBar.getIndeterminateDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
+            progressBar.getProgressDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
+
+
         }
     }
 
