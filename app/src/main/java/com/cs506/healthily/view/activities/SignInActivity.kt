@@ -22,6 +22,26 @@ import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.auth.GetTokenResult
+
+import androidx.annotation.NonNull
+import com.google.android.gms.auth.GoogleAuthUtil
+
+import com.google.android.gms.tasks.OnCompleteListener
+
+import com.google.firebase.auth.FirebaseUser
+import com.google.android.gms.tasks.Tasks
+
+import com.google.android.gms.fitness.result.DataReadResponse
+
+import com.google.android.gms.fitness.request.DataReadRequest
+
+import com.google.android.gms.fitness.Fitness
+import java.util.*
+
 
 class SignInActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -101,9 +121,28 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    private fun sendTokenToFirebase() {
+        val userId = Firebase.auth.currentUser?.uid
+        val mUser = FirebaseAuth.getInstance().currentUser
+        mUser!!.getIdToken(true)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val idToken = task.result.token
+                    val database = Firebase.database.reference
+                    database.child("Users").child(userId.toString()).child("token").setValue(idToken)
+                    // ...
+                } else {
+                    // Handle error -> task.getException();
+                }
+            }
+    }
+
     override fun onStart() {
         super.onStart()
         if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+
+            val user = Firebase.auth.currentUser?.uid
+            sendTokenToFirebase()
             startActivity(
                 Intent(
                     this, MainActivity
