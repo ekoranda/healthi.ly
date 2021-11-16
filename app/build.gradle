@@ -94,4 +94,7 @@ dependencies {
     // Lifecycle components
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.1.0'
+
+    // Graphs
+    implementation 'com.jjoe64:graphview:4.2.2'
 }
