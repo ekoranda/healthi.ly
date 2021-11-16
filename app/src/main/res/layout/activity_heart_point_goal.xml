@@ -54,28 +54,31 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Low Goal"
         app:layout_constraintEnd_toStartOf="@+id/btn_heart_goal_1"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="160dp" />
+        app:layout_constraintTop_toTopOf="@+id/btn_heart_goal_1" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Medium Goal"
         app:layout_constraintEnd_toStartOf="@+id/btn_heart_goal_2"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="278dp" />
+        app:layout_constraintTop_toTopOf="@+id/btn_heart_goal_2" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="High Goal"
         app:layout_constraintEnd_toStartOf="@+id/btn_heart_goal_3"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="403dp" />
+        app:layout_constraintTop_toTopOf="@+id/btn_heart_goal_3" />
 
     <TextView
         android:id="@+id/textView8"
