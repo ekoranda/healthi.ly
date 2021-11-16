@@ -64,16 +64,10 @@ class StepsFragment : Fragment() {
         bindData()
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_steps, container, false)
-        val progressBar: ProgressBar = view.findViewById(R.id.progress_bar)
-        val progressText: TextView = view.findViewById(R.id.progress_text)
-        val currentProgress = 6923
-        val stepGoal = 10000
-        progressText.text = "" + currentProgress + " / " + stepGoal
-        val progressPercentage = 100 * currentProgress / stepGoal
-        progressBar.setProgress(progressPercentage)
 
 
-        val graph = view.findViewById(R.id.graph) as GraphView
+
+
 
 
         return view
@@ -121,14 +115,35 @@ class StepsFragment : Fragment() {
 
     }
 
+    private fun setUpCurrentProgress(days: List<DaySteps>){
+        val progressBar: ProgressBar? = view?.findViewById(R.id.progress_bar)
+        val progressText: TextView? = view?.findViewById(R.id.progress_text)
+        var totalSteps = 0
+        for (day in days) {
+            totalSteps += day.steps?.toInt()!!
+        }
+
+
+
+
+        val currentProgress = totalSteps / 7
+        val stepGoal = 10000
+        if (progressText != null) {
+            progressText.text = "" + currentProgress + " / " + stepGoal
+        }
+        val progressPercentage = 100 * currentProgress / stepGoal
+        if (progressBar != null) {
+            progressBar.setProgress(progressPercentage)
+        }
+    }
+
 
     private fun bindData(){
         val viewModel: DayStepsViewModel =
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
-
-        viewModel.getAllDays()?.observe(viewLifecycleOwner) { mDays ->
-
-            setupGraphView(mDays)
+            viewModel.getAllDays()?.observe(viewLifecycleOwner) { mDays ->
+                setupGraphView(mDays)
+                setUpCurrentProgress(mDays)
 
         }
     }
