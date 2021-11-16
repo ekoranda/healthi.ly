@@ -45,7 +45,6 @@ class StepsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var gv: GraphView? = null
 
 
 
@@ -62,7 +61,6 @@ class StepsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        gv = view?.findViewById(R.id.graph)
         bindData()
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_steps, container, false)

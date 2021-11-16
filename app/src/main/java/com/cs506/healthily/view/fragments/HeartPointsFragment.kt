@@ -1,5 +1,6 @@
 package com.cs506.healthily.view.fragments
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,8 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProviders
 import com.cs506.healthily.R
+import com.cs506.healthily.data.model.DayHeart
+import com.cs506.healthily.data.model.DaySteps
 import com.cs506.healthily.data.repository.DailStepsRepository
+import com.cs506.healthily.viewModel.DailyHeartPointsViewModel
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
@@ -44,35 +49,13 @@ class HeartPointsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        bindData()
 
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_heart_points, container, false)
-        val progressBar: ProgressBar = view.findViewById(R.id.progress_bar)
-        val progressText: TextView = view.findViewById(R.id.progress_text)
-        val currentProgress = 15.3
-        val stepGoal = 21
-        progressText.text = "" + currentProgress + " / " + stepGoal
-        val progressPercentage = 100 * currentProgress / stepGoal
-        progressBar.setProgress(progressPercentage.toInt())
 
 
-        val graph = view.findViewById(R.id.graph) as GraphView
 
-        val series: BarGraphSeries<DataPoint> = BarGraphSeries(
-            arrayOf(
-                DataPoint(1.0, 20.0),
-                DataPoint(2.0, 7.2),
-                DataPoint(3.0, 23.4),
-                DataPoint(4.0, 22.1),
-                DataPoint(5.0, 19.2),
-                DataPoint(6.0, 16.0),
-                DataPoint(7.0, 17.8),
-
-            )
-        )
-        graph.addSeries(series)
-        series.setSpacing(50)
 
 
         return view
@@ -96,5 +79,76 @@ class HeartPointsFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun setupGraphView(days: List<DayHeart>) {
+
+
+        val series: BarGraphSeries<DataPoint> = BarGraphSeries(
+            arrayOf(
+                days[0].heartPoints?.let { DataPoint(1.0, it.toDouble()) },
+                days[1].heartPoints?.let { DataPoint(2.0, it.toDouble()) },
+                days[2].heartPoints?.let { DataPoint(3.0, it.toDouble()) },
+                days[3].heartPoints?.let { DataPoint(4.0, it.toDouble()) },
+                days[4].heartPoints?.let { DataPoint(5.0, it.toDouble()) },
+                days[5].heartPoints?.let { DataPoint(6.0, it.toDouble()) },
+                days[6].heartPoints?.let { DataPoint(7.0, it.toDouble()) },
+
+                )
+        )
+        val graph = view?.findViewById(R.id.graph) as GraphView
+        graph.addSeries(series)
+        series.setSpacing(50)
+
+
+    }
+
+    private fun setUpCurrentProgress(days: List<DayHeart>){
+        val progressBar: ProgressBar? = view?.findViewById(R.id.progress_bar)
+        val progressText: TextView? = view?.findViewById(R.id.progress_text)
+        var totalSteps = 0
+        for (day in days) {
+            totalSteps += day.heartPoints?.toInt()!!
+        }
+
+
+
+
+
+
+        val currentProgress = totalSteps / 7
+        val stepGoal = days[0].heartGoal?.toInt()
+        if (progressText != null) {
+            progressText.text = "" + currentProgress + " / " + stepGoal
+        }
+        val progressPercentage = 100 * currentProgress / stepGoal!!
+        if (progressBar != null) {
+            progressBar.setProgress(progressPercentage)
+            var color = 0xffff0000
+            if(currentProgress < stepGoal){
+                color = 0xffff0000
+            }else{
+                color = -16711936
+            }
+
+
+
+            progressBar.getIndeterminateDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
+            progressBar.getProgressDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
+
+
+        }
+    }
+
+
+    private fun bindData(){
+        val viewModel: DailyHeartPointsViewModel =
+            ViewModelProviders.of(this).get(DailyHeartPointsViewModel::class.java)
+        viewModel.getAllDays()?.observe(viewLifecycleOwner) { mDays ->
+            setupGraphView(mDays)
+            setUpCurrentProgress(mDays)
+        }
+
+
     }
 }
