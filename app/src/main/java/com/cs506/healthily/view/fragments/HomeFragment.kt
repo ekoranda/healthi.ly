@@ -32,13 +32,13 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cs506.healthily.BuildConfig
+import com.cs506.healthily.adapter.RecyclerAdapter
 
 
 /**
@@ -70,26 +70,33 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private var likelyPlaceAttributions: Array<List<*>?> = arrayOfNulls(0)
     private var likelyPlaceLatLngs: Array<LatLng?> = arrayOfNulls(0)
 
+    var fragmentView : View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment. Load the map fragment (from fragment_home.xml)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        fragmentView= inflater.inflate(R.layout.fragment_home, container, false)
+        return fragmentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
-        // [START_EXCLUDE silent]
         // Retrieve location and camera position from saved instance state.
-        // [START maps_current_place_on_create_save_instance_state]
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
+       /* recycler_view.apply {
+            // set a LinearLayoutManager to handle Android
+            // RecyclerView behavior
+            layoutManager = LinearLayoutManager(activity)
+            // set the custom adapter to the RecyclerView
+            adapter = RecyclerAdapter()
+        }*/
 
         // Initialize the Places SDK
         Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
@@ -108,7 +115,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     /**
      * Saves the state of the map when the activity is paused.
      */
-    // [START maps_current_place_on_save_instance_state]
     override fun onSaveInstanceState(outState: Bundle) {
         map?.let { map ->
             outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
@@ -116,13 +122,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
         super.onSaveInstanceState(outState)
     }
-    // [END maps_current_place_on_save_instance_state]
 
-
-    //The OptionsMenu methods provide the user a list of likely places to choose from
-    //Works with the Get Places option.
     /**
-     * Sets up the options menu.
+     *The OptionsMenu methods provide the user a list of likely places to choose from
+     *Works with the Get Places button from current_place_menu.xml
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.current_place_menu, menu)
@@ -132,26 +135,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     /**
      * Get the current place when the user clicks the Get Place option
      */
-    // [START maps_current_place_on_options_item_selected]
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.option_get_place) {
             showCurrentPlace()
         }
         return true
     }
-    // [END maps_current_place_on_options_item_selected]
 
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
      * Set up the map when the GoogleMap object is available:
      */
-    // [START maps_current_place_on_map_ready]
     override fun onMapReady(map: GoogleMap) {
         this.map = map
-
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents. Inflate the layout and load the info window content:
         this.map?.setInfoWindowAdapter(object : InfoWindowAdapter {
@@ -171,26 +168,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 return infoWindow
             }
         })
-        // [END map_current_place_set_info_window_adapter]
-
         // Prompt the user for permission.
         getLocationPermission()
-        // [END_EXCLUDE]
-
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI()
-
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
     }
-    // [END maps_current_place_on_map_ready]
 
     /**
      * Gets the current location of the device, and positions the map's camera.
      * Use the location provider to find the device's last-known location,
      * then use that location to position the map
      */
-    // [START maps_current_place_get_device_location]
     private fun getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
@@ -223,7 +213,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             Log.e("Exception: %s", e.message, e)
         }
     }
-    // [END maps_current_place_get_device_location]
 
     /**
      * Request location permission, so that we can get the location of the
@@ -232,7 +221,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
      *
      * Checks whether the user has granted fine location permission. If not, it requests the permission:
      */
-    // [START maps_current_place_location_permission]
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -244,12 +232,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         }
     }
-    // [END maps_current_place_location_permission]
 
     /**
      * Handles the result of the request for location permissions.
      */
-    // [START maps_current_place_on_request_permissions_result]
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
@@ -266,13 +252,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
         updateLocationUI() //update location
     }
-    // [END maps_current_place_on_request_permissions_result]
 
     /**
+     * Places API integration.
      * Prompts the user to select the current place from a list of likely places, and shows the
      * current place on the map - provided the user has granted location permission.
      */
-    // [START maps_current_place_show_current_place]
     @SuppressLint("MissingPermission")
     private fun showCurrentPlace() {
         if (map == null) {
@@ -336,12 +321,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             getLocationPermission()
         }
     }
-    // [END maps_current_place_show_current_place]
 
     /**
      * Displays a form allowing the user to select a place from a list of likely places.
      */
-    // [START maps_current_place_open_places_dialog]
     private fun openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         val listener = DialogInterface.OnClickListener { dialog, which -> // The "which" argument contains the position of the selected item.
@@ -372,7 +355,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             .setItems(likelyPlaceNames, listener)
             .show()
     }
-    // [END maps_current_place_open_places_dialog]
 
     /**
      * Set the location controls on the map. If the user has granted location permission,
@@ -398,7 +380,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             Log.e("Exception: %s", e.message, e)
         }
     }
-    // [END maps_current_place_update_location_ui]
 
     /**
      * Below companion objects assist in saving the maps camera position and device location

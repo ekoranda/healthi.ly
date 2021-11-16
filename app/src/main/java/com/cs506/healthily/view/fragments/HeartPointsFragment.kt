@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import com.cs506.healthily.R
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.BarGraphSeries
+import com.jjoe64.graphview.series.DataPoint
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +40,33 @@ class HeartPointsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_heart_points, container, false)
+        val view:View = inflater.inflate(R.layout.fragment_heart_points, container, false)
+        val progressBar: ProgressBar = view.findViewById(R.id.progress_bar)
+        val progressText: TextView = view.findViewById(R.id.progress_text)
+        val currentProgress = 15.3
+        val stepGoal = 21
+        progressText.text = "" + currentProgress + " / " + stepGoal
+        val progressPercentage = 100 * currentProgress / stepGoal
+        progressBar.setProgress(progressPercentage.toInt())
+
+
+        val graph = view.findViewById(R.id.graph) as GraphView
+        val series: BarGraphSeries<DataPoint> = BarGraphSeries(
+            arrayOf(
+                DataPoint(-7.0, 12.0),
+                DataPoint(-6.0, 7.2),
+                DataPoint(-5.0, 23.4),
+                DataPoint(-4.0, 22.1),
+                DataPoint(-3.0, 19.2),
+                DataPoint(-2.0, 16.0),
+                DataPoint(-1.0, 17.8),
+                DataPoint(0.0, currentProgress),
+            )
+        )
+        graph.addSeries(series)
+        series.setSpacing(50)
+
+        return view
     }
 
     companion object {
