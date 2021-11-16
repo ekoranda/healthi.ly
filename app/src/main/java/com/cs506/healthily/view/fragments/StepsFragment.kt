@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.cs506.healthily.R
 import com.cs506.healthily.data.model.DaySteps
+import com.cs506.healthily.data.model.Goals
 import com.cs506.healthily.data.repository.GoalsRepository
 import com.cs506.healthily.view.adapter.DayStepAdapter
 import com.cs506.healthily.viewModel.DayStepsViewModel
@@ -126,16 +127,20 @@ class StepsFragment : Fragment() {
 
 
 
+
+
         val currentProgress = totalSteps / 7
-        val stepGoal = 10000
+        val stepGoal = days[0].stepGoal?.toInt()
         if (progressText != null) {
             progressText.text = "" + currentProgress + " / " + stepGoal
         }
-        val progressPercentage = 100 * currentProgress / stepGoal
+        val progressPercentage = 100 * currentProgress / stepGoal!!
         if (progressBar != null) {
             progressBar.setProgress(progressPercentage)
         }
     }
+
+
 
 
     private fun bindData(){
@@ -146,5 +151,7 @@ class StepsFragment : Fragment() {
                 setUpCurrentProgress(mDays)
 
         }
+
+
     }
 }

@@ -18,14 +18,19 @@ class DailStepsRepository {
     fun getDailySteps(): MutableLiveData<List<DaySteps>>? {
         val mLiveData: MutableLiveData<List<DaySteps>> = MutableLiveData()
         val data = ArrayList<DaySteps>()
-        val userRef = Firebase.database.getReference("Users/$user/dailySteps")
+        val userRef = Firebase.database.getReference("Users/$user")
         userRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val children = snapshot!!.children
+                val stepGoal = snapshot.child("stepGoal").value.toString()
+
+                val children = snapshot!!.child("dailySteps").children
                 children.forEach{
                     val day: DaySteps = DaySteps()
                     day.day = it.key.toString()
                     day.steps = it.value.toString()
+                    day.stepGoal = stepGoal
+
+
                     data.add(day)
 
                 }
