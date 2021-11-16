@@ -36,9 +36,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cs506.healthily.BuildConfig
 import com.cs506.healthily.adapter.RecyclerAdapter
+import com.cs506.healthily.viewModel.DailyHeartPointsViewModel
+import com.cs506.healthily.viewModel.DayStepsViewModel
 
 
 /**
@@ -400,5 +403,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // Used for selecting the current place.
         private const val M_MAX_ENTRIES = 5
     }
+
+
+
 
 }
