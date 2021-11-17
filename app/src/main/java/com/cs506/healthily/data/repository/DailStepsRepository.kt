@@ -52,4 +52,9 @@ class DailStepsRepository {
 
         return mLiveData
     }
+
+    fun addDailySteps(day: DaySteps){
+        val userRef = Firebase.database.getReference("Users/$user/test")
+        userRef.setValue(day.steps)
+    }
 }
