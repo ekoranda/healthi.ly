@@ -18,6 +18,7 @@ import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.fitness.request.GoalsReadRequest
+import com.google.android.gms.fitness.request.SessionReadRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.Instant
 import java.time.LocalDateTime
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         readWeeklyHP()
         readHPGoal()
         readStepGoal()
+        getActivities()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
@@ -105,10 +107,12 @@ class MainActivity : AppCompatActivity() {
         .toLocalDateTime().toString()
 
     @RequiresApi(Build.VERSION_CODES.O)
+    val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+    @RequiresApi(Build.VERSION_CODES.O)
+    val startTime = endTime.minusWeeks(1)
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun readWeeklyHP() {
-        // Read the data that's been collected throughout the past week.
-        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
-        val startTime = endTime.minusWeeks(1)
         Log.i(TAG, "Range Start: $startTime")
         Log.i(TAG, "Range End: $endTime")
 
@@ -162,6 +166,36 @@ class MainActivity : AppCompatActivity() {
                     val stepGoal = metricObjective.value
                     Log.i(TAG, "Step Goal: $stepGoal")
                 }
+            }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getActivities() {
+        val activitiesReadRequest = SessionReadRequest.Builder()
+            .setTimeInterval(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
+            .read(DataType.TYPE_ACTIVITY_SEGMENT)
+            .setSessionName("curr_session")
+            .build()
+
+        Fitness.getSessionsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+            .readSession(activitiesReadRequest)
+            .addOnSuccessListener { response ->
+                // Get a list of the sessions that match the criteria to check the result.
+                val sessions = response.sessions
+                Log.i(TAG, "Number of returned sessions is: ${sessions.size}")
+                for (session in sessions) {
+                    // Process the session
+                    // dumpSession(session)
+
+                    // Process the data sets for this session
+                    val dataSets = response.getDataSet(session)
+                    for (dataSet in dataSets) {
+                        printAndPostToFirebase(dataSet)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG,"Failed to read session", e)
             }
     }
 
