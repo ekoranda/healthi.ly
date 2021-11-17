@@ -17,6 +17,7 @@ import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
 import com.google.android.gms.fitness.request.DataReadRequest
+import com.google.android.gms.fitness.request.GoalsReadRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.Instant
 import java.time.LocalDateTime
@@ -32,9 +33,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Initialize the bottom navigation view
         //create bottom navigation view object
-
         readWeeklySteps()
         readWeeklyHP()
+        readHPGoal()
+        readStepGoal()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
@@ -46,9 +48,6 @@ class MainActivity : AppCompatActivity() {
             .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
             .build()
     }
-
-    private fun getGoogleAccount(): GoogleSignInAccount =
-        GoogleSignIn.getAccountForExtension(this, fitnessOptions)
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun readWeeklySteps() {
@@ -68,11 +67,8 @@ class MainActivity : AppCompatActivity() {
             .readData(readRequest)
             .addOnSuccessListener { response ->
                 for (dataSet in response.buckets.flatMap { it.dataSets }) {
-
-
                     // iterates through data points
                     printAndPostToFirebase(dataSet)
-
                 }
             }
             .addOnFailureListener { e ->
@@ -135,14 +131,45 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    private val hpReadRequest: GoalsReadRequest by lazy {
+        GoalsReadRequest.Builder()
+            .addDataType(DataType.TYPE_HEART_POINTS)
+            .build()
+    }
+
+    private fun readHPGoal() {
+        Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+            .readCurrentGoals(hpReadRequest)
+            .addOnSuccessListener { goals ->
+                goals.firstOrNull()?.apply {
+                    val heartPointGoal = metricObjective.value
+                    Log.i(TAG, "HP Goal: $heartPointGoal")
+                }
+            }
+    }
+
+    private val stepReadRequest: GoalsReadRequest by lazy {
+        GoalsReadRequest.Builder()
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+            .build()
+    }
+
+    private fun readStepGoal() {
+        Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+            .readCurrentGoals(stepReadRequest)
+            .addOnSuccessListener { goals ->
+                goals.firstOrNull()?.apply {
+                    val stepGoal = metricObjective.value
+                    Log.i(TAG, "Step Goal: $stepGoal")
+                }
+            }
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindData(day: DaySteps) {
         val viewModel: DayStepsViewModel =
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
             viewModel.addDay(day)
-
-
-
     }
 
 
