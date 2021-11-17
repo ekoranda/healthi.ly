@@ -21,4 +21,6 @@ class DayStepsViewModel(application: Application) : AndroidViewModel(application
     fun getAllDays(): MutableLiveData<List<DaySteps>>? {
         return repo.getDailySteps()
     }
+
+    fun addDay(day: DaySteps) = repo.addDailySteps(day)
 }

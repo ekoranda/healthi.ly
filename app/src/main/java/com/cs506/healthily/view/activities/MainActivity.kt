@@ -4,28 +4,23 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cs506.healthily.R
-import com.cs506.healthily.view.fragments.getEndTimeString
-import com.cs506.healthily.view.fragments.getStartTimeString
+import com.cs506.healthily.data.model.DaySteps
+import com.cs506.healthily.viewModel.DayStepsViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
-import com.google.android.gms.fitness.data.Goal.*
 import com.google.android.gms.fitness.request.DataReadRequest
-import com.google.android.gms.fitness.request.GoalsReadRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.Instant
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 val TAG = "FIT"
@@ -37,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Initialize the bottom navigation view
         //create bottom navigation view object
+
         readWeeklySteps()
         readWeeklyHP()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
@@ -72,8 +68,11 @@ class MainActivity : AppCompatActivity() {
             .readData(readRequest)
             .addOnSuccessListener { response ->
                 for (dataSet in response.buckets.flatMap { it.dataSets }) {
+
+
                     // iterates through data points
                     printAndPostToFirebase(dataSet)
+
                 }
             }
             .addOnFailureListener { e ->
@@ -89,8 +88,12 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG,"\tType: ${dp.dataType.name}")
             Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
             Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
+
             for (field in dp.dataType.fields) {
                 Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
+                val day : DaySteps = DaySteps()
+                day.steps = dp.getValue(field).toString()
+                bindData(day)
             }
         }
     }
@@ -130,6 +133,16 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.w(TAG,"There was an error reading data from Google Fit", e)
             }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun bindData(day: DaySteps) {
+        val viewModel: DayStepsViewModel =
+            ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
+            viewModel.addDay(day)
+
+
+
     }
 
 
