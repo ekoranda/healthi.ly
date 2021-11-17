@@ -10,6 +10,8 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cs506.healthily.R
+import com.cs506.healthily.databinding.ActivityMainBinding
+import com.cs506.healthily.databinding.NavigationDrawerLayoutBinding
 import com.cs506.healthily.view.fragments.getEndTimeString
 import com.cs506.healthily.view.fragments.getStartTimeString
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,6 +23,9 @@ import com.google.android.gms.fitness.data.Goal.*
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.fitness.request.GoalsReadRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -30,11 +35,21 @@ import java.util.concurrent.TimeUnit
 
 val TAG = "FIT"
 
+
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var navigationDrawerLayoutBinding: NavigationDrawerLayoutBinding
+    private lateinit var mainBinding: ActivityMainBinding
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        firebaseAuth = Firebase.auth
+
         //Initialize the bottom navigation view
         //create bottom navigation view object
         readWeeklyTotal()
