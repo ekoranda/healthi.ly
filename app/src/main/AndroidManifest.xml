@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
 
     <application
@@ -20,6 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthily">
+        <activity
+            android:name=".view.activities.LogoutActivity"
+            android:exported="true" />
         <activity
             android:name=".view.activities.HeartPointGoalActivity"
             android:exported="true" />
@@ -64,8 +67,7 @@
         <activity
             android:name=".view.fragments.FitActivity"
             android:exported="true"
-            android:label="FitActivity">
-        </activity>
+            android:label="FitActivity"></activity>
         <activity
             android:name=".view.activities.SignInActivity"
             android:exported="true" />
