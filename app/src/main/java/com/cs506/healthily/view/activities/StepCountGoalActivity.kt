@@ -45,6 +45,13 @@ class StepCountGoalActivity : AppCompatActivity() {
         val importBtn : Button = findViewById(R.id.btn_import_from_google)
         importBtn.setOnClickListener {
             readStepGoal()
+            startActivity(
+                Intent(
+                    this, HeartPointGoalActivity
+                    ::class.java
+                )
+            )
+            finish()
         }
 
 
