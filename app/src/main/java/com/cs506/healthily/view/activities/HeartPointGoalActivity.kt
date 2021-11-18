@@ -1,16 +1,25 @@
 package com.cs506.healthily.view.activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProviders
 import com.cs506.healthily.R
 import com.cs506.healthily.data.repository.GoalsRepository
 import com.cs506.healthily.viewModel.goalViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.fitness.Fitness
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
+import com.google.android.gms.fitness.request.GoalsReadRequest
 import com.google.firebase.auth.FirebaseAuth
 
 class HeartPointGoalActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_heart_point_goal)
@@ -27,10 +36,58 @@ class HeartPointGoalActivity : AppCompatActivity() {
             )
             finish()
         }
+
+        val importBtn : Button = findViewById(R.id.btn_import_from_google)
+        importBtn.setOnClickListener {
+            readHeartGoal()
+            startActivity(
+                Intent(
+                    this, MainActivity
+                    ::class.java
+                )
+            )
+            finish()
+        }
         
         // https://www.cdc.gov/physicalactivity/basics/age-chart.html
         
         
+    }
+
+    private val fitnessOptions: FitnessOptions by lazy {
+        FitnessOptions.builder()
+            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
+            .build()
+    }
+
+
+    private val hpReadRequest: GoalsReadRequest by lazy {
+        GoalsReadRequest.Builder()
+            .addDataType(DataType.TYPE_HEART_POINTS)
+            .build()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun readHeartGoal() {
+        Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+            .readCurrentGoals(hpReadRequest)
+            .addOnSuccessListener { goals ->
+                goals.firstOrNull()?.apply {
+                    val heartGoal = metricObjective.value
+
+                    Log.i(TAG, "Heart Goal: $heartGoal")
+                    bindHeartGoal(heartGoal.toInt().toString())
+                }
+            }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun bindHeartGoal(goal: String) {
+        val viewModel: goalViewModel =
+            ViewModelProviders.of(this).get(goalViewModel::class.java)
+            viewModel.setHeartGoal(goal)
+
     }
 
     var age: String = ""
