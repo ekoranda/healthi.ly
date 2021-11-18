@@ -36,6 +36,10 @@ class goalViewModel(application: Application) : AndroidViewModel(application) {
         goalsRepository.setStepGoal(stepGoal)
     }
 
+    fun setHeartGoal(heartGoal: String){
+        goalsRepository.setHeartGoal(heartGoal)
+    }
+
 
 
 

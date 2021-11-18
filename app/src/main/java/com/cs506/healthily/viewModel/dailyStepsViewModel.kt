@@ -23,4 +23,6 @@ class DayStepsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun addDay(day: DaySteps) = repo.addDailySteps(day)
+
+    fun deleteDailySteps() = repo.deleteDailySteps()
 }
