@@ -13,6 +13,11 @@
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_heart_points.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_journal.xml" value="0.36614583333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_atm.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_back.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_car_wash.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_email_filled.xml" value="0.26458333333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_help 2.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/circular_progress_bar.xml" value="0.184375" />
         <entry key="app/src/main/res/drawable/home.xml" value="0.18385416666666668" />
@@ -21,7 +26,10 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_shoe_prints_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/steps.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/font/playfair_display 2.xml" value="0.2786458333333333" />
+        <entry key="app/src/main/res/font/playfair_display.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/activity_about_you.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/activity_direction.xml" value="0.18135764944275581" />
         <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/activity_heart_point_goal.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_logout.xml" value="0.1" />
@@ -29,15 +37,21 @@
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_sign_in_google_fit.xml" value="0.14375" />
         <entry key="app/src/main/res/layout/activity_signed_in.xml" value="0.14447463768115942" />
-        <entry key="app/src/main/res/layout/activity_step_count_goal.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_step_count_goal.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragment_heart_points.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/fragment_journal.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/fragment_saved_place.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1265625" />
         <entry key="app/src/main/res/layout/fragment_steps.xml" value="0.25" />
         <entry key="app/src/main/res/layout/journal_cardview.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/place_item_layout.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.16770833333333332" />
+        <entry key="app/src/main/res/menu/map_type_menu.xml" value="0.2484375" />
+        <entry key="app/src/main/res/menu/nav_menu.xml" value="0.1984375" />
       </map>
     </option>
   </component>
