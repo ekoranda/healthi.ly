@@ -1,6 +1,7 @@
 package com.cs506.healthily.view.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -46,6 +47,7 @@ import com.cs506.healthily.models.googlePlaceModel.GoogleResponseModel
 //import com.cs506.healthily.permissions.AppPermissions
 import com.cs506.healthily.utility.LoadingDialog
 import com.cs506.healthily.utility.State
+import com.cs506.healthily.view.activities.DirectionActivity
 import com.cs506.healthily.viewModel.LocationViewModel
 import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.flow.collect
@@ -464,7 +466,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
     }
 
     override fun onDirectionClick(googlePlaceModel: GooglePlaceModel) {
-        TODO("Not yet implemented")
+        val placeId = googlePlaceModel.placeId
+        val lat = googlePlaceModel.geometry?.location?.lat
+        val lng = googlePlaceModel.geometry?.location?.lng
+        val intent = Intent(requireContext(), DirectionActivity::class.java)
+        intent.putExtra("placeId", placeId)
+        intent.putExtra("lat", lat)
+        intent.putExtra("lng", lng)
+
+        startActivity(intent)
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -472,5 +482,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
         binding.placesRecyclerView.scrollToPosition(markerTag)
         return false
     }
+
+
 
 }
