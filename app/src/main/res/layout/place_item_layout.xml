@@ -74,17 +74,10 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
-                        android:onClick="@{()->listener.onSaveClick(googlePlaceModel)}"
-                        android:src="@drawable/ic_bookmark"
-                        app:tint="@color/primaryColor" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_toStartOf="@+id/imgSaveLocation"
                         android:onClick="@{()->listener.onDirectionClick(googlePlaceModel)}"
                         android:src="@drawable/ic_direction"
                         app:tint="@color/primaryColor" />
+
                 </RelativeLayout>
 
                 <TextView
