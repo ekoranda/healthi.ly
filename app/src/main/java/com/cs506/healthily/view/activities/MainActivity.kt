@@ -18,6 +18,9 @@ import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -26,12 +29,19 @@ import java.util.concurrent.TimeUnit
 val TAG = "FIT"
 
 class MainActivity : AppCompatActivity() {
+
+
+    private lateinit var firebaseAuth: FirebaseAuth
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //Initialize the bottom navigation view
         //create bottom navigation view object
+
+        firebaseAuth = Firebase.auth
 
         readWeeklySteps()
         readWeeklyHP()
