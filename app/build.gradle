@@ -12,6 +12,8 @@ plugins {
 
     id 'androidx.navigation.safeargs'
 
+    id 'kotlin-kapt'
+
 }
 
 

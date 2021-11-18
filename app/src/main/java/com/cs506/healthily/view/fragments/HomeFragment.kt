@@ -2,6 +2,8 @@ package com.cs506.healthily.view.fragments
 
 import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -15,17 +17,15 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -34,8 +34,14 @@ import com.google.firebase.ktx.Firebase
 import com.cs506.healthily.R
 import com.cs506.healthily.constant.AppConstant
 import com.cs506.healthily.databinding.FragmentHomeBinding
+import com.cs506.healthily.models.googlePlaceModel.GooglePlaceModel
+import com.cs506.healthily.models.googlePlaceModel.GoogleResponseModel
 //import com.cs506.healthily.permissions.AppPermissions
 import com.cs506.healthily.utility.LoadingDialog
+import com.cs506.healthily.utility.State
+import com.cs506.healthily.viewModel.LocationViewModel
+import com.google.android.gms.maps.model.*
+import kotlinx.coroutines.flow.collect
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -56,8 +62,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private var isTrafficEnable: Boolean = false
     private var radius = 1500
-    //  private val locationViewModel: LocationViewModel by viewModels<LocationViewModel>()
-    // private lateinit var googlePlaceList: ArrayList<GooglePlaceModel>
+      private val locationViewModel: LocationViewModel by viewModels<LocationViewModel>()
+     private lateinit var googlePlaceList: ArrayList<GooglePlaceModel>
     // private lateinit var googlePlaceAdapter: GooglePlaceAdapter
     private var userSavedLocaitonId: ArrayList<String> = ArrayList()
     // private var infoWindowAdapter: InfoWindowAdapter? = null
@@ -78,6 +84,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         //appPermission = AppPermissions()
         loadingDialog = LoadingDialog(requireActivity())
         firebaseAuth = Firebase.auth
+        googlePlaceList = ArrayList()
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -146,6 +153,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        binding.placesGroup.setOnCheckedChangeListener { _, checkedId ->
+
+            if (checkedId != -1) {
+                val placeModel = AppConstant.placesName[checkedId - 1]
+                binding.edtPlaceName.setText(placeModel.name)
+                getNearByPlace(placeModel.placeType)
+            }
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -312,6 +327,89 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             startLocationUpdates()
             currentMarker?.remove()
         }
+    }
+
+    private fun getNearByPlace(placeType: String) {
+        val url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+                + currentLocation.latitude + "," + currentLocation.longitude
+                + "&radius=" + radius + "&type=" + placeType + "&key=" +
+                resources.getString(R.string.API_KEY))
+
+        lifecycleScope.launchWhenStarted {
+            locationViewModel.getNearByPlace(url).collect {
+                when (it) {
+                    is State.Loading -> {
+                        if (it.flag == true) {
+                            loadingDialog.startLoading()
+                        }
+                    }
+
+                    is State.Success -> {
+                        loadingDialog.stopLoading()
+                        val googleResponseModel: GoogleResponseModel =
+                            it.data as GoogleResponseModel
+
+                        if (googleResponseModel.googlePlaceModelList !== null &&
+                            googleResponseModel.googlePlaceModelList.isNotEmpty()
+                        ) {
+                            googlePlaceList.clear()
+                            mGoogleMap?.clear()
+
+                            for (i in googleResponseModel.googlePlaceModelList.indices) {
+                                googlePlaceList.add(googleResponseModel.googlePlaceModelList[i])
+                                addMarker(googleResponseModel.googlePlaceModelList[i], i)
+                            }
+                        } else {
+                            mGoogleMap?.clear()
+                            googlePlaceList.clear()
+
+                        }
+
+                    }
+                    is State.Failed -> {
+                        loadingDialog.stopLoading()
+                        Snackbar.make(
+                            binding.root, it.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+
+
+        }
+    }
+
+    private fun addMarker(googlePlaceModel: GooglePlaceModel, position: Int) {
+        val markerOptions = MarkerOptions()
+            .position(
+                LatLng(
+                    googlePlaceModel.geometry?.location?.lat!!,
+                    googlePlaceModel.geometry.location.lng!!
+                )
+            )
+            .title(googlePlaceModel.name)
+            .snippet(googlePlaceModel.vicinity)
+
+        markerOptions.icon(getCustomIcon())
+        mGoogleMap?.addMarker(markerOptions)?.tag = position
+
+    }
+
+    private fun getCustomIcon(): BitmapDescriptor {
+
+        val background = ContextCompat.getDrawable(requireContext(), R.drawable.ic_location)
+        background?.setTint(resources.getColor(R.color.quantum_googred900, null))
+        background?.setBounds(0, 0, background.intrinsicWidth, background.intrinsicHeight)
+        val bitmap = Bitmap.createBitmap(
+            background?.intrinsicWidth!!, background.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        background.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+
     }
 
 }
