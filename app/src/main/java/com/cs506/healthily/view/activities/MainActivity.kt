@@ -31,7 +31,7 @@ val TAG = "FIT"
 class MainActivity : AppCompatActivity() {
 
 
-    private lateinit var firebaseAuth: FirebaseAuth
+   // private lateinit var firebaseAuth: FirebaseAuth
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         //Initialize the bottom navigation view
         //create bottom navigation view object
 
-        firebaseAuth = Firebase.auth
+        //firebaseAuth = Firebase.auth
 
         readWeeklySteps()
         readWeeklyHP()
