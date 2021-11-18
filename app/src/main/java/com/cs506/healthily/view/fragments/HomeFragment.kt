@@ -37,6 +37,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.cs506.healthily.R
 import com.cs506.healthily.adapter.GooglePlaceAdapter
+import com.cs506.healthily.adapter.InfoWindowAdapter
 import com.cs506.healthily.constant.AppConstant
 import com.cs506.healthily.databinding.FragmentHomeBinding
 import com.cs506.healthily.interfaces.NearLocationInterface
@@ -72,7 +73,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
      private lateinit var googlePlaceList: ArrayList<GooglePlaceModel>
     private lateinit var googlePlaceAdapter: GooglePlaceAdapter
     private var userSavedLocaitonId: ArrayList<String> = ArrayList()
-    // private var infoWindowAdapter: InfoWindowAdapter? = null
+     private var infoWindowAdapter: InfoWindowAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -292,6 +293,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
         fusedLocationProviderClient.lastLocation.addOnSuccessListener {
 
             currentLocation = it
+            infoWindowAdapter=null
+            infoWindowAdapter = InfoWindowAdapter(currentLocation!!,requireContext())
+            mGoogleMap?.setInfoWindowAdapter(infoWindowAdapter)
             moveCameraToLocation(currentLocation)
         }
     }
