@@ -243,6 +243,7 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
 
                         is State.Success -> {
+
                             loadingDialog.stopLoading()
                             clearUI()
 
@@ -264,32 +265,14 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
                             }
 
 
-                            mGoogleMap?.addMarker(
-                                MarkerOptions()
-                                    .position(
-                                        LatLng(
-                                            legModel.endLocation?.lat!!, legModel.endLocation.lat!!
-                                        )
-                                    )
-                                    .title("End Location")
-                            )
-
-                            mGoogleMap?.addMarker(
-                                MarkerOptions()
-                                    .position(
-                                        LatLng(
-                                            legModel.startLocation?.lat!!, legModel.startLocation.lat!!
-                                        )
-                                    )
-                                    .title("Start Location")
-                            )
-
-
                             adapterStep.setDirectionStepModels(legModel.steps!!)
 
                             val stepList:MutableList<LatLng> = ArrayList()
+
+                            //finallly found the method to distinguish route polylines!!!!!
                             val options = PolylineOptions().apply{
                                 width(25f)
+                                color(Color.BLUE)
                                 geodesic(true)
                                 clickable(true)
                                 visible(true)
@@ -302,8 +285,8 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
                                 pattern = listOf(
                                     Dot(), Gap(10f)
                                 )
-
                                 options.jointType(JointType.ROUND)
+
                             }else{
 
                                 pattern = listOf(
@@ -338,6 +321,18 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
 
                             )
 
+                            mGoogleMap?.addMarker(
+                                MarkerOptions()
+                                    .position(endLocation)
+                                    .title("End Location")
+                            )
+
+                            mGoogleMap?.addMarker(
+                                MarkerOptions()
+                                    .position(startLocation)
+                                    .title("Start Location")
+                            )
+
                             val builder = LatLngBounds.builder()
                             builder.include(endLocation).include(startLocation)
                             val latLngBounds = builder.build()
@@ -363,6 +358,7 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    //Clear the directions UI screen
     private fun clearUI() {
         mGoogleMap?.clear()
         binding.txtStartLocation.text = ""
@@ -372,6 +368,9 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
         bottomSheetLayoutBinding.txtSheetTime.text = ""
     }
 
+
+    //Straight from google, to decode the distance/direction and route between two locations
+    //It takes small increments of distance between the locations and adds them up to draw the line!
     private fun decode(points: String): List<com.google.maps.model.LatLng> {
         val len = points.length
         val path: MutableList<com.google.maps.model.LatLng> = java.util.ArrayList(len / 2)
