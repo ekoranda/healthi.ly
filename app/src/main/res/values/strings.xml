@@ -14,6 +14,13 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="login_string">Already have an account? <b>Login here</b></string>
+    <string name="API_KEY">AIzaSyCiifl9Dea9qD50ZlRlVpSDnb14PuIncDU</string>
+
+    <string name="open_navigation_drawer">Open Drawer</string>
+    <string name="close_navigation_drawer">Open Drawer</string>
+
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 

@@ -53,5 +53,16 @@ class DailyHeartPointsRepository {
         return mLiveData
     }
 
+    fun deleteDailyHeartPoints(){
+        val userRef = Firebase.database.getReference("Users/$user/dailyHeartPoints")
+        userRef.removeValue()
+    }
+
+    fun addHeartPointsDay(day: DayHeart){
+        val date = day.day
+        val userRef = Firebase.database.getReference("Users/$user/dailyHeartPoints/$date")
+        userRef.setValue(day.heartPoints)
+    }
+
 
 }
