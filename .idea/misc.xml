@@ -13,43 +13,17 @@
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_heart_points.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_journal.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/drawable-v24/edittext_background.xml" value="0.26510416666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_atm.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_back.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_car_wash.xml" value="0.26458333333333334" />
-        <entry key="app/src/main/res/drawable-v24/ic_direction.xml" value="0.3472222222222222" />
-        <entry key="app/src/main/res/drawable-v24/ic_email.xml" value="0.26510416666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_email_filled.xml" value="0.26458333333333334" />
-        <entry key="app/src/main/res/drawable-v24/ic_gas_station.xml" value="0.26510416666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_help 2.xml" value="0.26458333333333334" />
-        <entry key="app/src/main/res/drawable-v24/ic_help.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_home.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_hospital.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_hotel.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_info.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.26510416666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18385416666666668" />
-        <entry key="app/src/main/res/drawable-v24/ic_location.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_lock.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_map_type.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_my_location.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_next.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_person.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_pharmacy.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_phone.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_restaurant.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_saloon.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_security.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_setting.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/ic_shopping_cart.xml" value="0.26510416666666664" />
-        <entry key="app/src/main/res/drawable-v24/map_background.xml" value="0.26510416666666664" />
         <entry key="app/src/main/res/drawable/circular_progress_bar.xml" value="0.184375" />
         <entry key="app/src/main/res/drawable/home.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_file_alt_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_heartbeat_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18385416666666668" />
-        <entry key="app/src/main/res/drawable/ic_left_arrow.xml" value="0.3472222222222222" />
-        <entry key="app/src/main/res/drawable/ic_right_arrow.xml" value="0.3472222222222222" />
         <entry key="app/src/main/res/drawable/ic_shoe_prints_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/steps.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/font/playfair_display 2.xml" value="0.2786458333333333" />
@@ -65,17 +39,16 @@
         <entry key="app/src/main/res/layout/activity_signed_in.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/activity_step_count_goal.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.2484375" />
-        <entry key="app/src/main/res/layout/card.xml" value="0.14990942028985507" />
         <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragment_heart_points.xml" value="0.14447463768115942" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2684509326845093" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/fragment_journal.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/fragment_saved_place.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1265625" />
         <entry key="app/src/main/res/layout/fragment_steps.xml" value="0.25" />
         <entry key="app/src/main/res/layout/journal_cardview.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/place_item_layout.xml" value="0.3975619281220332" />
+        <entry key="app/src/main/res/layout/place_item_layout.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/menu/map_type_menu.xml" value="0.2484375" />
         <entry key="app/src/main/res/menu/nav_menu.xml" value="0.1984375" />
