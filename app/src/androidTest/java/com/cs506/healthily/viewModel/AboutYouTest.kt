@@ -5,7 +5,7 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.google.common.truth.Truth.assertThat
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-
+import org.junit.After
 
 
 import org.junit.Before
@@ -23,6 +23,10 @@ class AboutYouTest {
     fun setup() {
         viewModel = AboutYou(getApplicationContext())
     }
+
+
+
+
 
     /**
      * Test the function setGenderFromRepo(userId: String, gender: String) in AboutYou viewModel
@@ -42,6 +46,7 @@ class AboutYouTest {
      *     not empty.
      * function setGenderFromRepo(userId: String, gender: String) should throw an exception.
      */
+    /*
     @Test
     fun setGenderFromRepoOfAboutYou1(){
         val userId = ""
@@ -54,7 +59,10 @@ class AboutYouTest {
 
         }
 
+
     }
+
+     */
 
     /**
      * Test the function setGenderFromRepo(userId: String, gender: String) of AboutYou viewModel.
@@ -62,6 +70,7 @@ class AboutYouTest {
      *     gender should be a string not empty.
      * function setGenderFromRepo(userId: String, gender: String) should throw an exception.
      */
+    /*
     @Test
     fun setGenderFromRepoOfAboutYou2(){
         val userId = "setGenderFromRepoOfAboutYou2"
@@ -74,7 +83,10 @@ class AboutYouTest {
 
         }
 
+
     }
+
+     */
 
     /**
      * Test the function setGenderFromRepo(userId: String, gender: String) of AboutYou viewModel.
@@ -82,6 +94,7 @@ class AboutYouTest {
      *     gender should only be string "male" or "female".
      * function setGenderFromRepo(userId: String, gender: String) should throw an exception.
      */
+    /*
     @Test
     fun setGenderFromRepoOfAboutYou3(){
         val userId = "setGenderFromRepoOfAboutYou3"
@@ -96,6 +109,8 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setGenderFromRepo(userId: String, gender: String) of AboutYou viewModel.
      * when: userId = "setGenderFromRepoOfAboutYou4", gender = "male", this function should work.
@@ -104,12 +119,13 @@ class AboutYouTest {
      */
     @Test
     fun setGenderFromRepoOfAboutYou4(){
-        val userId = "setGenderFromRepoOfAboutYou4"
+        val userId = "testingAccount"
         val gender = "male"
         viewModel.setGenderFromRepo(userId, gender)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
             assertThat(it.child("gender").value).isEqualTo("male")
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -123,6 +139,7 @@ class AboutYouTest {
      *     not empty.
      * function setAgeFromRepo(userId: String, age: String) should throw an exception.
      */
+    /*
     @Test
     fun setAgeFromRepoOfAboutYou1(){
         val userId = ""
@@ -137,12 +154,15 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setAgeFromRepo(userId: String, age: String) of AboutYou viewModel.
      * when: userId = "setAgeFromRepoOfAboutYou2", age = "", this function should not work since
      *     age should be a string not empty.
      * function setAgeFromRepo(userId: String, age: String) should throw an exception.
      */
+    /*
     @Test
     fun setAgeFromRepoOfAboutYou2(){
         val userId = "setAgeFromRepoOfAboutYou2"
@@ -157,12 +177,15 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setAgeFromRepo(userId: String, age: String) of AboutYou viewModel.
      * when: userId = "setAgeFromRepoOfAboutYou3", age = "hello", this function should not work since
      *     age should only be string consisting number.
      * function setAgeFromRepo(userId: String, age: String) should throw an exception.
      */
+    /*
     @Test
     fun setAgeFromRepoOfAboutYou3(){
         val userId = "setAgeFromRepoOfAboutYou3"
@@ -177,6 +200,8 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setAgeFromRepo(userId: String, age: String) of AboutYou viewModel.
      * when: userId = "setAgeFromRepoOfAboutYou4", age = "29", this function should work.
@@ -185,12 +210,13 @@ class AboutYouTest {
      */
     @Test
     fun setAgeFromRepoOfAboutYou4(){
-        val userId = "setAgeFromRepoOfAboutYou4"
+        val userId = "testingAccount"
         val age = "20"
         viewModel.setAgeFromRepo(userId, age)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
             assertThat(it.child("age").value).isEqualTo("20")
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -203,6 +229,7 @@ class AboutYouTest {
      *     not empty.
      * function setWeightFromRepo(userId: String, weight: String) should throw an exception.
      */
+    /*
     @Test
     fun setWeightFromRepoOfAboutYou1(){
         val userId = ""
@@ -217,12 +244,15 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setWeightFromRepo(userId: String, weight: String) of AboutYou viewModel.
      * when: userId = "setWeightFromRepoOfAboutYou2", weight = "", this function should not work since
      *     weight should be a string not empty.
      * function setWeightFromRepo(userId: String, weight: String) should throw an exception.
      */
+    /*
     @Test
     fun setWeightFromRepoOfAboutYou2(){
         val userId = "setWeightFromRepoOfAboutYou2"
@@ -237,12 +267,15 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setWeightFromRepo(userId: String, weight: String) of AboutYou viewModel.
      * when: userId = "setWeightFromRepoOfAboutYou3", weight = "hello", this function should not work since
      *     weight should only be string consisting only number.
      * function setWeightFromRepo(userId: String, weight: String) should throw an exception.
      */
+    /*
     @Test
     fun setWeightFromRepoOfAboutYou3(){
         val userId = "setWeightFromRepoOfAboutYou3"
@@ -257,6 +290,8 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setWeightFromRepo(userId: String, weight: String) of AboutYou viewModel.
      * when: userId = "setWeightFromRepoOfAboutYou4", weight = "60", this function should work.
@@ -265,12 +300,13 @@ class AboutYouTest {
      */
     @Test
     fun setWeightFromRepoOfAboutYou4(){
-        val userId = "setWeightFromRepoOfAboutYou4"
+        val userId = "testingAccount"
         val weight = "60"
         viewModel.setWeightFromRepo(userId, weight)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
             assertThat(it.child("weight").value).isEqualTo("60")
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -283,6 +319,7 @@ class AboutYouTest {
      *     not empty.
      * function setWeightFromRepo(userId: String, height: String) should throw an exception.
      */
+    /*
     @Test
     fun setHeightFromRepoOfAboutYou1(){
         val userId = ""
@@ -297,12 +334,15 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setHeightFromRepo(userId: String, height: String) of AboutYou viewModel.
      * when: userId = "setHeightFromRepoOfAboutYou2", height = "", this function should not work since
      *     height should be a string not empty.
      * function setHeightFromRepo(userId: String, height: String) should throw an exception.
      */
+    /*
     @Test
     fun setHeightFromRepoOfAboutYou2(){
         val userId = "setHeightFromRepoOfAboutYou2"
@@ -317,17 +357,20 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setHeightFromRepo(userId: String, height: String) of AboutYou viewModel.
      * when: userId = "setHeightFromRepoOfAboutYou3", height = "hello", this function should not work since
      *     height should only be string consisting only number.
      * function setHeightFromRepo(userId: String, height: String) should throw an exception.
      */
+    /*
     @Test
     fun setHeightFromRepoOfAboutYou3(){
         val userId = "setHeightFromRepoOfAboutYou3"
         val height = "hello"
-        viewModel.setAgeFromRepo(userId, height)
+        viewModel.setHeightFromRepo(userId, height)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
             assertThat(it.hasChild("height")).isFalse()
@@ -337,6 +380,8 @@ class AboutYouTest {
 
     }
 
+     */
+
     /**
      * Test the function setHeightFromRepo(userId: String, height: String) of AboutYou viewModel.
      * when: userId = "setHeightFromRepoOfAboutYou4", height = "180", this function should work.
@@ -345,16 +390,23 @@ class AboutYouTest {
      */
     @Test
     fun setHeightFromRepoOfAboutYou4(){
-        val userId = "setHeightFromRepoOfAboutYou4"
+        val userId = "testingAccount"
         val height = "180"
-        viewModel.setAgeFromRepo(userId, height)
+        viewModel.setHeightFromRepo(userId, height)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
             assertThat(it.child("height").value).isEqualTo("180")
+            tearDown()
+
         }.addOnFailureListener{
 
         }
 
+
+    }
+
+    private fun tearDown(){
+        database.child("Users/testingAccount").removeValue()
     }
 
 }
