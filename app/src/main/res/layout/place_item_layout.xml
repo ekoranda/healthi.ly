@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -15,8 +16,7 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -82,9 +82,9 @@
 
                 <TextView
                     android:id="@+id/txtPlaceName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="103dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="1dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@{googlePlaceModel.name!=null?googlePlaceModel.name:`No Name`,default=`Place Name`}"
@@ -93,15 +93,24 @@
 
                 <TextView
                     android:id="@+id/txtPlaceAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_width="271dp"
+                    android:layout_height="29dp"
+                    android:layout_marginTop="1dp"
+
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="@{googlePlaceModel.vicinity!=null?googlePlaceModel.vicinity:`No Address`,default=`Place Address`}"
                     android:textColor="@color/black" />
 
+
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgSav"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_right_arrow"
+                app:tint="@color/primaryColor" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
