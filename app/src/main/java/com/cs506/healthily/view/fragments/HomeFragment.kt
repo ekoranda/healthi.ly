@@ -166,7 +166,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
 
             if (checkedId != -1) {
                 val placeModel = AppConstant.placesName[checkedId - 1]
-                binding.edtPlaceName.setText(placeModel.name)
                 getNearByPlace(placeModel.placeType)
             }
         }
