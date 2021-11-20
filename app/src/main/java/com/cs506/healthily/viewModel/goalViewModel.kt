@@ -3,6 +3,7 @@ package com.cs506.healthily.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.cs506.healthily.data.model.Goals
 import com.cs506.healthily.data.model.UserSettings
 import com.cs506.healthily.data.repository.GoalsRepository
 import com.cs506.healthily.data.repository.UserSettingsRepository
@@ -35,6 +36,12 @@ class goalViewModel(application: Application) : AndroidViewModel(application) {
     fun setStepGoal(stepGoal : String) {
         goalsRepository.setStepGoal(stepGoal)
     }
+
+    fun setHeartGoal(heartGoal: String){
+        goalsRepository.setHeartGoal(heartGoal)
+    }
+
+
 
 
 

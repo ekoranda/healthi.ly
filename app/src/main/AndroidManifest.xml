@@ -8,8 +8,10 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
 
     <application
         android:allowBackup="true"
@@ -19,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthily">
         <activity
-            android:name=".view.activities.ProfileEditorActivity"
+            android:name=".view.activities.LogoutActivity"
             android:exported="true" />
         <activity
             android:name=".view.activities.HeartPointGoalActivity"
@@ -30,6 +32,9 @@
         <activity
             android:name=".view.activities.AboutYouActivity"
             android:exported="true" />
+        <activity
+            android:name=".view.activities.ProfileEditorActivity"
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,15 +43,21 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="@string/API_KEY" />
 
+        <activity android:name=".view.activities.DirectionActivity" />
         <activity
             android:name=".view.activities.SignInGoogleFitActivity"
             android:exported="true" />
         <activity
-            android:name=".view.activities.SignInActivity"
+            android:name=".view.activities.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.Healthily.NoActionBar">
@@ -61,8 +72,7 @@
             android:exported="true"
             android:label="FitActivity"></activity>
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".view.activities.SignInActivity"
             android:exported="true" />
     </application>
-
 </manifest>

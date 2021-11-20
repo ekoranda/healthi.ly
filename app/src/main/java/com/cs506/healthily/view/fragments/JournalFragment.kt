@@ -2,15 +2,22 @@ package com.cs506.healthily.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cs506.healthily.R
-import com.cs506.healthily.view.activities.ProfileEditorActivity
+import com.cs506.healthily.data.model.JournalActivity
+import com.cs506.healthily.view.activities.LogoutActivity
 import com.cs506.healthily.view.activities.SignInActivity
+import com.cs506.healthily.view.adapter.JournalAdapter
+import com.cs506.healthily.viewModel.JournalViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -36,6 +43,10 @@ class JournalFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var rv: RecyclerView? = null
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,58 +68,35 @@ class JournalFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v: View =  inflater.inflate(R.layout.fragment_journal, container, false)
-        val fitnessOptions = FitnessOptions.builder()
-            .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
-            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
-            .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
-            .addDataType(DataType.AGGREGATE_HEART_POINTS, FitnessOptions.ACCESS_READ)
-            .build()
-
-        // call requestIdToken as follows
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
 
 
-        mGoogleSignInClient = GoogleSignIn.getClient(activity, gso)
-
-
-
-        val logout: Button = v.findViewById<Button>(R.id.logout)
-        logout.setOnClickListener {
-            mGoogleSignInClient.signOut().addOnCompleteListener {
-                val intent = Intent(activity, SignInActivity::class.java)
-                Toast.makeText(activity, "Logging Out", Toast.LENGTH_SHORT).show()
-                startActivity(intent)
-
-            }
+        val logoutBtn: Button = v.findViewById<Button>(R.id.btn_logout)
+        logoutBtn.setOnClickListener {
+            val intent = Intent(activity, LogoutActivity::class.java)
+            startActivity(intent)
         }
 
-        val profileEditor: Button = v.findViewById<Button>(R.id.profileEditor)
-        profileEditor.setOnClickListener {
-            mGoogleSignInClient.signOut().addOnCompleteListener {
-                val intent = Intent(activity, ProfileEditorActivity::class.java)
-//                Toast.makeText(activity, "Logging Out", Toast.LENGTH_SHORT).show()
-                startActivity(intent)
+        rv = v.findViewById(R.id.rv_activities)
+        bindData()
 
-            }
-        }
-
-        val disable: Button = v.findViewById<Button>(R.id.disable)
-        disable.setOnClickListener {
-            val fitnessOptions = FitnessOptions.builder()
-                .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
-                .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
-                .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
-                .addDataType(DataType.AGGREGATE_HEART_POINTS, FitnessOptions.ACCESS_READ)
-                .build()
-            val signInOptions = GoogleSignInOptions.Builder().addExtension(fitnessOptions).build()
-            val client = GoogleSignIn.getClient(activity, signInOptions)
-            client.revokeAccess()
-        }
         return v
     }
+
+    private  fun setupRecyclerView(activities: List<JournalActivity>){
+        rv!!.layoutManager = LinearLayoutManager(this.context)
+
+        val adapter = JournalAdapter(activities)
+        rv!!.adapter = adapter
+    }
+
+    private fun bindData() {
+        val viewModel: JournalViewModel =
+            ViewModelProviders.of(this).get(JournalViewModel::class.java)
+            viewModel.getAllActivities()?.observe(viewLifecycleOwner) { mActivities ->
+                Log.d("FIT", "HERE")
+                setupRecyclerView(mActivities)
+            }
+        }
 
     companion object {
         /**
