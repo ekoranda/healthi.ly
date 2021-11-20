@@ -1,6 +1,7 @@
 package com.cs506.healthily.viewModel
 
 import android.util.Log
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.cs506.healthily.data.model.DaySteps
@@ -9,18 +10,18 @@ import com.google.common.truth.Truth.assertWithMessage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import org.junit.After
+import org.junit.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-
-
-import org.junit.Before
-import org.junit.Test
+import org.junit.rules.TestRule
 
 class DailyStepTest {
     private lateinit var viewModel: DayStepsViewModel
     private val userId = Firebase.auth.currentUser?.uid
 
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
 
     private val database = Firebase.database.reference
 
@@ -76,8 +77,20 @@ class DailyStepTest {
 
     @Test
     fun testGetAllDays(){
+        database.child("Users/$userId/dailySteps/fakeDay").setValue("1234")
 
-        // TODO: figure out how to test mutable live data
+        viewModel.getAllDays()?.observeForever{ mList ->
+            var repSteps = "-1"
+            for (step in mList){
+                if(step.day == "fakeDay"){
+                    repSteps = step.steps.toString()
+                }
+            }
+
+            Assert.assertEquals("1234", repSteps)
+            database.child("Users/$userId/dailySteps/fakeDay").removeValue()
+        }
+
 
 
     }

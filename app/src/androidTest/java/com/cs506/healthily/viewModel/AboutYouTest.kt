@@ -34,11 +34,7 @@ class AboutYouTest {
      *     not empty.
      *
      */
-    @Test
-    fun test1(){
-        val a = 2
-        assertThat(a).isEqualTo(2)
-    }
+
 
     /**
      * Test the function setGenderFromRepo(userId: String, gender: String) of AboutYou viewModel.

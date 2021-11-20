@@ -23,9 +23,7 @@ import kotlin.coroutines.coroutineContext
 import androidx.lifecycle.LifecycleOwner
 
 import androidx.lifecycle.LifecycleRegistry
-
-
-
+import org.junit.rules.TestRule
 
 
 class GoalsRepositoryTest{
@@ -119,8 +117,9 @@ class GoalsRepositoryTest{
      *
      */
 
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
 
 
 
@@ -130,69 +129,15 @@ class GoalsRepositoryTest{
 
     @Test
     fun getGoalsTest() {
+        database.child("Users/$userId/stepGoal").setValue("1200")
+        database.child("Users/$userId/heartGoal").setValue("40")
 
-        val lifecycle = LifecycleRegistry(mock(LifecycleOwner::class.java))
-
-
-
-
-
-
-
-
-
-
-
-        database.child("Users/$userId/heartGoal").setValue("90")
-        database.child("Users/$userId/stepGoal").setValue("50")
-
-
-        var bool = false
-        var mList: MutableLiveData<Goals> = MutableLiveData<Goals>()
-
-        var goalsObject: MutableLiveData<Goals> = MutableLiveData<Goals>()
-
-
-
-
-
-
-
-
-
-        var goal : Goals = Goals()
-        goal.heartGoal = "90"
-        goal.stepGoal = "50"
-
-        mList.postValue(goal)
-
-
-
-
-
-
-        if (goalsObject != null){
-            Log.d("FIT", "HEERE")
+        repository.getGoals()?.observeForever{ mData ->
+           assertEquals("1200", mData.stepGoal)
+            assertEquals("40", mData.heartGoal)
+            tearDown()
         }
 
-
-        val Goals = goalsObject.value
-        if (Goals != null) {
-            Log.d("FIT", Goals.heartGoal.toString())
-        }
-
-
-        if (Goals != null) {
-
-
-
-
-            if(Goals.heartGoal == "90" && Goals.stepGoal == "50" ){
-                bool = true
-            }
-        }
-
-        assertThat(bool).isTrue()
 
 
     }

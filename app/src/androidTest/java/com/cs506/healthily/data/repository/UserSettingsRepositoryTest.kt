@@ -1,11 +1,15 @@
 package com.cs506.healthily.data.repository
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.cs506.healthily.data.model.UserSettings
 import com.google.common.truth.Truth.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 
 class UserSettingsRepositoryTest{
 
@@ -14,6 +18,14 @@ class UserSettingsRepositoryTest{
 
     val userId: String = "testUser"
     val repository : UserSettingsRepository = UserSettingsRepository(userId)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    fun tearDown(){
+        database.child("Users/$userId").removeValue()
+    }
 
     /**
      * Test the function setGenderTest() in UserSettingsRepository
@@ -26,6 +38,7 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("gender").value).isEqualTo(gender)
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -42,6 +55,7 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("age").value).isEqualTo(age)
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -58,6 +72,7 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("height").value).isEqualTo(height)
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -74,6 +89,7 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("weight").value).isEqualTo(weight)
+            tearDown()
         }.addOnFailureListener{
 
         }
@@ -85,36 +101,35 @@ class UserSettingsRepositoryTest{
      */
     @Test
     fun getUserSettingsTest() {
-        var bool = false
-        var userSettingsObject: MutableLiveData<UserSettings> = MutableLiveData()
 
-        userSettingsObject = repository.getUserSettings()
 
-        val TestUserSettings = userSettingsObject.value
 
-        if (TestUserSettings != null) {
-            if(TestUserSettings.age == "23" && TestUserSettings.gender == "male" && TestUserSettings.height == "180" && TestUserSettings.weight == "60"){
-                bool = true
-            }
+        database.child("Users/$userId/age").setValue("23")
+        database.child("Users/$userId/gender").setValue("male")
+        database.child("Users/$userId/height").setValue("180")
+        database.child("Users/$userId/weight").setValue("60")
+
+
+
+
+        repository.getUserSettings()?.observeForever{ mData ->
+            assertEquals("23", mData.age)
+            assertEquals("male", mData.gender)
+            assertEquals("180", mData.height)
+            assertEquals("60", mData.weight)
+            tearDown()
         }
 
-        assertThat(bool).isTrue()
+
+
+
+
+
+
+
 
     }
 
-    /**
-     * Test the function getUserSettingsTest() in UserSettingsRepository
-     *
-     */
-    @Test
-    fun getAgeTest() {
-        var age : String
 
-        age = repository.getAge().toString()
-
-
-        assertThat(age).isEqualTo("23")
-
-    }
 
 }

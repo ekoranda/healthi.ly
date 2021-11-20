@@ -10,15 +10,9 @@ import com.cs506.healthily.data.repository.JournalActivityRepository
 
 class JournalViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repo: JournalActivityRepository
-
-    //TODO: make data class
+    private val repo: JournalActivityRepository = JournalActivityRepository()
 
 
-
-    init {
-        repo = JournalActivityRepository()
-    }
     fun getAllActivities(): MutableLiveData<List<JournalActivity>>? {
         return repo.getAllActivities()
     }
