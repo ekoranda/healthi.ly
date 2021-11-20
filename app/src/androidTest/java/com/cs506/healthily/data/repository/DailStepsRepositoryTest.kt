@@ -14,12 +14,15 @@ class DailStepsRepositoryTest{
     private val database = Firebase.database.reference
     private val user = Firebase.auth.currentUser?.uid
 
+
     val repository : DailStepsRepository = DailStepsRepository()
 
     /**
      * Test the function addDailySteps(day: DaySteps) in DailStepsRepository
      *
      */
+
+
     @Test
     fun addDailyStepsTest() {
         val day : DaySteps = DaySteps("10", "100", "1000")
@@ -27,7 +30,8 @@ class DailStepsRepositoryTest{
         repository.addDailySteps(day)
 
         database.child("Users").get().addOnSuccessListener {
-            Truth.assertThat(it.child(user!!).child("dailySteps").value).isEqualTo(day.steps)
+            Truth.assertThat(it.child(user!!).child("dailySteps/10").value).isEqualTo(day.steps)
+            database.child("Users/$user/dailySteps/10").removeValue()
         }.addOnFailureListener{
 
         }
@@ -44,5 +48,14 @@ class DailStepsRepositoryTest{
         val mLiveData: MutableLiveData<List<DaySteps>>? = repository.getDailySteps()
 
         // TODO()
+    }
+
+    @Test
+    fun test_removeDailyStep(){
+        repository.deleteDailySteps()
+
+        database.child("Users").get().addOnSuccessListener {
+            assertFalse(it.child("$user/dailySteps").exists())
+        }
     }
 }

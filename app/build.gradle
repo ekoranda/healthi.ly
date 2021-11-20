@@ -154,6 +154,8 @@ dependencies {
     //Jetbrains
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+
     secrets {
         defaultPropertiesFileName 'local.properties'
         // To add your Maps API key to this project:

@@ -1,15 +1,32 @@
 package com.cs506.healthily.data.repository
 
 import android.util.Log
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.test.core.app.ApplicationProvider
 import com.cs506.healthily.data.model.Goals
 import com.cs506.healthily.data.model.UserSettings
+import com.cs506.healthily.viewModel.AboutYou
+import com.cs506.healthily.viewModel.goalViewModel
 import com.google.common.truth.Truth
 import com.google.common.truth.Truth.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.Mockito.mock
+import kotlin.coroutines.coroutineContext
+import androidx.lifecycle.LifecycleOwner
+
+import androidx.lifecycle.LifecycleRegistry
+
+
+
+
 
 class GoalsRepositoryTest{
 
@@ -17,9 +34,22 @@ class GoalsRepositoryTest{
     val userId: String = "testUser"
     val repository : GoalsRepository = GoalsRepository(userId)
 
-    private fun tearDown(){
+    private lateinit var viewModel: goalViewModel
+
+
+
+
+
+    @Before
+    fun setup() {
+        viewModel = goalViewModel(ApplicationProvider.getApplicationContext())
+
+    }
+
+    fun tearDown(){
         database.child("Users/$userId").removeValue()
     }
+
 
     /**
      * Test the function setStepGoal(stepGoal : String) in GoalsRepository
@@ -89,16 +119,67 @@ class GoalsRepositoryTest{
      *
      */
 
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
+
+
+
+
+
+
     @Test
     fun getGoalsTest() {
 
+        val lifecycle = LifecycleRegistry(mock(LifecycleOwner::class.java))
+
+
+
+
+
+
+
+
+
+
+
+        database.child("Users/$userId/heartGoal").setValue("90")
+        database.child("Users/$userId/stepGoal").setValue("50")
+
 
         var bool = false
-        var goalsObject: MutableLiveData<Goals> = MutableLiveData()
+        var mList: MutableLiveData<Goals> = MutableLiveData<Goals>()
 
-        goalsObject = repository.getGoals()
+        var goalsObject: MutableLiveData<Goals> = MutableLiveData<Goals>()
+
+
+
+
+
+
+
+
+
+        var goal : Goals = Goals()
+        goal.heartGoal = "90"
+        goal.stepGoal = "50"
+
+        mList.postValue(goal)
+
+
+
+
+
+
+        if (goalsObject != null){
+            Log.d("FIT", "HEERE")
+        }
+
 
         val Goals = goalsObject.value
+        if (Goals != null) {
+            Log.d("FIT", Goals.heartGoal.toString())
+        }
 
 
         if (Goals != null) {
@@ -118,3 +199,6 @@ class GoalsRepositoryTest{
 
 
 }
+
+
+

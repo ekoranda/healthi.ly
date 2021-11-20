@@ -3,6 +3,7 @@ package com.cs506.healthily.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.cs506.healthily.data.model.Goals
 import com.cs506.healthily.data.model.UserSettings
 import com.cs506.healthily.data.repository.GoalsRepository
 import com.cs506.healthily.data.repository.UserSettingsRepository
@@ -38,6 +39,10 @@ class goalViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setHeartGoal(heartGoal: String){
         goalsRepository.setHeartGoal(heartGoal)
+    }
+
+    fun getGoals(): MutableLiveData<Goals>?{
+        return goalsRepository.getGoals()
     }
 
 

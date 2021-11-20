@@ -54,6 +54,7 @@ class DailStepsRepository {
     }
 
     fun addDailySteps(day: DaySteps){
+
         val date = day.day
         val userRef = Firebase.database.getReference("Users/$user/dailySteps/$date")
         userRef.setValue(day.steps)
