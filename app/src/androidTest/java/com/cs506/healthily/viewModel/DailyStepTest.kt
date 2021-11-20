@@ -55,13 +55,7 @@ class DailyStepTest {
         }
     }
 
-    var step1 = "0"
-    var step2 = "0"
-    var step3 = "0"
-    var step4 = "0"
-    var step5 = "0"
-    var step6 = "0"
-    var step7 = "0"
+
 
     @Test
     fun testDeleteSteps(){
@@ -86,10 +80,10 @@ class DailyStepTest {
         // TODO: figure out how to test mutable live data
 
 
-        }
-
-
     }
+
+
+
 
 
 
