@@ -7,12 +7,7 @@ import com.cs506.healthily.data.model.DaySteps
 import com.cs506.healthily.data.repository.DailStepsRepository
 
 class DayStepsViewModel(application: Application) : AndroidViewModel(application) {
-    //TODO: make repository
     private val repo: DailStepsRepository
-
-    //TODO: make data class
-
-
 
     init {
        repo = DailStepsRepository()
