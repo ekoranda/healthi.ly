@@ -41,9 +41,7 @@ class goalViewModel(application: Application) : AndroidViewModel(application) {
         goalsRepository.setHeartGoal(heartGoal)
     }
 
-    fun getGoals(): MutableLiveData<Goals>?{
-        return goalsRepository.getGoals()
-    }
+
 
 
 

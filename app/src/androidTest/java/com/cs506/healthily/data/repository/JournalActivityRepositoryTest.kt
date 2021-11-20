@@ -22,37 +22,7 @@ import org.mockito.Mock
 
 
 class JournalActivityRepositoryTest {
-    @Rule @JvmField
-    var rule: TestRule = InstantTaskExecutorRule()
 
-    private val database = Firebase.database.reference
-    private val user = Firebase.auth.currentUser?.uid
-
-   val api: Application = ApplicationProvider.getApplicationContext()
-    val viewModel = JournalViewModel(api)
-
-    @Test
-    fun testJournal() {
-
-
-        database.child("Users/$user/dailyActivity/fakeActivity/activity").setValue("fakeActivity")
-
-
-        viewModel.getAllActivities()?.observeForever {mList ->
-
-            database.child("Users").get().addOnSuccessListener {
-                val size = mList.size
-                val repAct = mList[1].activity
-                assertEquals("fakeActivity", repAct)
-                database.child("Users/$user/dailyActivity/fakeActivity").removeValue()
-            }
-
-
-
-        }
-
-
-    }
 
 
 
