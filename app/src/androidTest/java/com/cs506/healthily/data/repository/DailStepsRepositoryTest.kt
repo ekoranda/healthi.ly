@@ -49,4 +49,13 @@ class DailStepsRepositoryTest{
 
         // TODO()
     }
+
+    @Test
+    fun test_removeDailyStep(){
+        repository.deleteDailySteps()
+
+        database.child("Users").get().addOnSuccessListener {
+            assertFalse(it.child("$user/dailySteps").exists())
+        }
+    }
 }
