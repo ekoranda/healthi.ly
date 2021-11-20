@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.cs506.healthily.R
+import com.cs506.healthily.view.activities.ProfileEditorActivity
 import com.cs506.healthily.view.activities.SignInActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -75,13 +76,20 @@ class JournalFragment : Fragment() {
 
 
         val logout: Button = v.findViewById<Button>(R.id.logout)
-
-
-
         logout.setOnClickListener {
             mGoogleSignInClient.signOut().addOnCompleteListener {
                 val intent = Intent(activity, SignInActivity::class.java)
                 Toast.makeText(activity, "Logging Out", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+
+            }
+        }
+
+        val profileEditor: Button = v.findViewById<Button>(R.id.profileEditor)
+        profileEditor.setOnClickListener {
+            mGoogleSignInClient.signOut().addOnCompleteListener {
+                val intent = Intent(activity, ProfileEditorActivity::class.java)
+//                Toast.makeText(activity, "Logging Out", Toast.LENGTH_SHORT).show()
                 startActivity(intent)
 
             }
@@ -99,8 +107,6 @@ class JournalFragment : Fragment() {
             val client = GoogleSignIn.getClient(activity, signInOptions)
             client.revokeAccess()
         }
-
-
         return v
     }
 

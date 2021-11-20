@@ -26,6 +26,10 @@ import com.cs506.healthily.viewModel.goalViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import android.widget.ArrayAdapter
+
+
+
 
 class ProfileEditorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,32 +62,41 @@ class ProfileEditorActivity : AppCompatActivity() {
             genderSpinner.adapter = adapter
 
             // Added code that should set the spinner to whatever the user's current settings are
-            var gender: String = ""
             val goalViewModel: goalViewModel =
                 ViewModelProviders.of(this).get(goalViewModel::class.java)
             goalViewModel.getUserSettings()?.observe(this) { goals ->
-                gender = goals.gender.toString()
-            }
-            var genderIndex = 0
-            for (elem in genders.indices) {
-                if (genders[elem].toString().contentEquals(gender)) {
-                    genderIndex = elem
+                var currGender = goals.gender.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var genderIndex = 0
+                for (elem in genders.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (genders[elem].toString().contentEquals(currGender)) {
+                        genderIndex = elem
+                        genderSpinner.setSelection(genderIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-            genderSpinner.setSelection(genderIndex)
+
+//            Toast.makeText(this, currGender, Toast.LENGTH_SHORT).show()
+
+
 
             genderSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     println("Nothing Selected")
                 }
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    val gender = genders[position]
-                    val user = Firebase.auth.currentUser?.uid
-                    if (user != null) {
-                        bindGender(user, gender)
+                    if (selectionCount > 0) {
+                        val gender = genders[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindGender(user, gender)
+                        }
                     }
+                    selectionCount++
                 }
 
             }
