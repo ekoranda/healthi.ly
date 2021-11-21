@@ -11,14 +11,15 @@ class AppConstant {
 
         const val LOCATION_REQUEST_CODE = 2000
 
+        //These can be changed to include any place type available on google places API. These are displayed in home fragment
         @JvmStatic
         val placesName =
             listOf<PlaceModel>(
-                PlaceModel(1, R.drawable.ic_saloon, "Gyms", "gym"),
-                PlaceModel(2, R.drawable.ic_saloon, "Bar", "bar"),
-                PlaceModel(3, R.drawable.ic_pharmacy, "Pharmacies", "pharmacy"),
-                PlaceModel(4, R.drawable.ic_hospital, "Hospitals & Clinics", "hospital"),
-                PlaceModel(5, R.drawable.ic_saloon, "Beauty Salons", "beauty_salon")
+                PlaceModel(1, R.drawable.ic_gym, "Gyms", "gym"),
+                PlaceModel(2, R.drawable.ic_tennis, "Parks", "park"),
+                PlaceModel(3, R.drawable.ic_restaurant, "Restaurants", "restaurant"),
+                PlaceModel(4, R.drawable.ic_camp, "Campground", "campground"),
+                PlaceModel(5, R.drawable.ic_saloon, "Spas", "spa")
             )
 
     }
