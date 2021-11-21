@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Initialize the bottom navigation view
         //create bottom navigation view object
-       // readWeeklySteps()
-       // readWeeklyHP()
-      //  readHPGoal()
-      //  readStepGoal()
+        readWeeklySteps()
+        readWeeklyHP()
+        readHPGoal()
+        readStepGoal()
         getActivities()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         val navController = findNavController(R.id.nav_fragment)
@@ -108,12 +108,10 @@ class MainActivity : AppCompatActivity() {
         .toLocalDateTime().toString()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
-    @RequiresApi(Build.VERSION_CODES.O)
-    val startTime = endTime.minusWeeks(1)
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun readWeeklyHP() {
+        // Read the data that's been collected throughout the past week.
+        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+        val startTime = endTime.minusWeeks(1)
         Log.i(TAG, "Range Start: $startTime")
         Log.i(TAG, "Range End: $endTime")
 
@@ -172,6 +170,9 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getActivities() {
+        // Read the data that's been collected throughout the past week.
+        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+        val startTime = endTime.minusWeeks(1)
         val activitiesReadRequest = DataReadRequest.Builder()
             .aggregate(DataType.TYPE_ACTIVITY_SEGMENT)
             .bucketByTime(1, TimeUnit.DAYS)
@@ -247,8 +248,6 @@ class MainActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
             viewModel.addDay(day)
     }
-
-
 }
 
 
