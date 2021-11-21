@@ -51,7 +51,7 @@ import com.cs506.healthily.viewModel.DayStepsViewModel
  */
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
-    private var map: GoogleMap? = null
+    var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
 
     // The entry point to the Places API.
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
-    private var locationPermissionGranted = false
+    var locationPermissionGranted = false
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
@@ -184,7 +184,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
      * Use the location provider to find the device's last-known location,
      * then use that location to position the map
      */
-    private fun getDeviceLocation() {
+    fun getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -224,7 +224,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
      *
      * Checks whether the user has granted fine location permission. If not, it requests the permission:
      */
-    private fun getLocationPermission() {
+    fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
@@ -262,7 +262,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
      * current place on the map - provided the user has granted location permission.
      */
     @SuppressLint("MissingPermission")
-    private fun showCurrentPlace() {
+    fun showCurrentPlace() {
         if (map == null) {
             return
         }

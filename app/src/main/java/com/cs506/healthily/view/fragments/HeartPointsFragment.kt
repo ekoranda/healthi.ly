@@ -81,7 +81,7 @@ class HeartPointsFragment : Fragment() {
             }
     }
 
-    private fun setupGraphView(days: List<DayHeart>) {
+    fun setupGraphView(days: List<DayHeart>) {
 
 
         val series: BarGraphSeries<DataPoint> = BarGraphSeries(
@@ -103,7 +103,7 @@ class HeartPointsFragment : Fragment() {
 
     }
 
-    private fun setUpCurrentProgress(days: List<DayHeart>){
+    fun setUpCurrentProgress(days: List<DayHeart>){
         val progressBar: ProgressBar? = view?.findViewById(R.id.progress_bar)
         val progressText: TextView? = view?.findViewById(R.id.progress_text)
         var totalSteps = 0
@@ -141,7 +141,7 @@ class HeartPointsFragment : Fragment() {
     }
 
 
-    private fun bindData(){
+    fun bindData(){
         val viewModel: DailyHeartPointsViewModel =
             ViewModelProviders.of(this).get(DailyHeartPointsViewModel::class.java)
         viewModel.getAllDays()?.observe(viewLifecycleOwner) { mDays ->
