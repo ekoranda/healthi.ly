@@ -270,7 +270,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
             Looper.getMainLooper()
         )?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(requireContext(), "Location update start", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Location update start", Toast.LENGTH_SHORT).show()
             }
         }
 
