@@ -1,9 +1,13 @@
 package com.cs506.healthily.view.activities
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -54,6 +58,17 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
+        val profile : ImageView = findViewById<ImageView>(R.id.profile_button)
+
+        profile.setOnClickListener {
+            startActivity(
+                Intent(
+                    this, ProfileEditorActivity
+                    ::class.java
+                )
+            )
+            finish()
+        }
     }
 
     private val fitnessOptions: FitnessOptions by lazy {

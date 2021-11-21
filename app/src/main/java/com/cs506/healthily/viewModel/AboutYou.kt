@@ -27,5 +27,13 @@ class AboutYou(application: Application) : AndroidViewModel(application) {
         val repository : UserSettingsRepository = UserSettingsRepository(userId)
         repository.setHeight(height)
     }
+    fun setAvailabilityStartFromRepo(userId: String, start: String){
+        val repository : UserSettingsRepository = UserSettingsRepository(userId)
+        repository.setAvailabilityStart(start)
+    }
+    fun setAvailabilityEndFromRepo(userId: String, end: String){
+        val repository : UserSettingsRepository = UserSettingsRepository(userId)
+        repository.setAvailabilityEnd(end)
+    }
 
 }

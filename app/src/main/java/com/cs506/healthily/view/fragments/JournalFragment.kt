@@ -79,7 +79,6 @@ class JournalFragment : Fragment() {
         rv = v.findViewById(R.id.rv_activities)
         bindData()
 
-
         return v
     }
 
@@ -96,9 +95,8 @@ class JournalFragment : Fragment() {
             viewModel.getAllActivities()?.observe(viewLifecycleOwner) { mActivities ->
                 Log.d("FIT", "HERE")
                 setupRecyclerView(mActivities)
-
+            }
         }
-    }
 
     companion object {
         /**

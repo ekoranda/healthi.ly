@@ -68,8 +68,9 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
             placeId = getStringExtra("placeId")!!
         }
 
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
         //appPermissions = AppPermissions()
         loadingDialog = LoadingDialog(this)
 
@@ -251,8 +252,9 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
                                 it.data as DirectionResponseModel
                             val routeModel: DirectionRouteModel =
                                 directionResponseModel.directionRouteModels!![0]
-
-                            supportActionBar!!.title = routeModel.summary
+                            if (supportActionBar != null) {
+                                supportActionBar!!.title = routeModel.summary
+                            }
                             val legModel: DirectionLegModel = routeModel.legs?.get(0)!!
                             binding.apply {
                                 txtStartLocation.text = legModel.startAddress
@@ -363,7 +365,9 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
         mGoogleMap?.clear()
         binding.txtStartLocation.text = ""
         binding.txtEndLocation.text = ""
-        supportActionBar!!.title = ""
+        if (supportActionBar != null) {
+            supportActionBar!!.title = ""
+        }
         bottomSheetLayoutBinding.txtSheetDistance.text = ""
         bottomSheetLayoutBinding.txtSheetTime.text = ""
     }

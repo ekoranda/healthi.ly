@@ -89,7 +89,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //appPermission = AppPermissions()
         loadingDialog = LoadingDialog(requireActivity())
         firebaseAuth = Firebase.auth
@@ -270,7 +269,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
             Looper.getMainLooper()
         )?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(requireContext(), "Location update start", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Location update start", Toast.LENGTH_SHORT).show()
             }
         }
 

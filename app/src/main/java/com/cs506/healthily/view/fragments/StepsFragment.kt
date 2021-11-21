@@ -138,15 +138,11 @@ class StepsFragment : Fragment() {
             progressBar.setProgress(progressPercentage)
             var color = 0xffff0000
             if(currentProgress < stepGoal){
-                 color = 0xffff0000
             }else{
-                color = -16711936
+                color = 0xFF4DCE47
+                progressBar.getIndeterminateDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
+                progressBar.getProgressDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
             }
-
-
-
-            progressBar.getIndeterminateDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
-            progressBar.getProgressDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
 
 
         }

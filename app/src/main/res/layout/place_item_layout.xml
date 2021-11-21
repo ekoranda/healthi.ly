@@ -2,6 +2,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
 
         <variable
@@ -23,93 +24,137 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <ImageView
+                android:id="@+id/location_image"
                 loadImage="@{googlePlaceModel.icon}"
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="0.5"
                 android:scaleType="centerCrop"
-                android:src="@color/black" />
+                android:src="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:orientation="vertical"
-                android:padding="10dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/location_image"
+                >
 
-                <RelativeLayout
-                    android:id="@+id/rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/txtPlaceDRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{googlePlaceModel.rating!=null?String.valueOf(googlePlaceModel.rating):`New`,default=3.4}"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:drawableStartCompat="@drawable/ic_rating"
-                        app:drawableTint="@color/primaryColor" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/txtPlaceDRating"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="1dp"
-                        android:text="@{googlePlaceModel.userRatingsTotal!=null?`(`+String.valueOf(googlePlaceModel.userRatingsTotal)+`)`:``,default=`(123)`}"
-                        android:textColor="@color/itemTextColor" />
-
-                    <ImageView
-                        android:id="@+id/imgSaveLocation"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:onClick="@{()->listener.onDirectionClick(googlePlaceModel)}"
-                        android:src="@drawable/ic_direction"
-                        app:tint="@color/primaryColor" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/txtPlaceName"
-                    android:layout_width="103dp"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtPlaceDRating3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@{googlePlaceModel.name!=null?googlePlaceModel.name:`No Name`,default=`Place Name`}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtPlaceDRating"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_rating"
+                    app:drawableTint="@color/primaryColor" />
 
-                <TextView
-                    android:id="@+id/txtPlaceAddress"
-                    android:layout_width="271dp"
-                    android:layout_height="29dp"
-                    android:layout_marginTop="1dp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="@{googlePlaceModel.vicinity!=null?googlePlaceModel.vicinity:`No Address`,default=`Place Address`}"
-                    android:textColor="@color/black" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtPlaceDRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="1dp"
+                    android:text="@{googlePlaceModel.rating!=null?String.valueOf(googlePlaceModel.rating):`New`,default=3.4}"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtPlaceDRating2"
+                    app:layout_constraintStart_toEndOf="@+id/txtPlaceDRating3"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtPlaceDRating2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtPlaceDRating"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="1dp"
+                    android:text="@{googlePlaceModel.userRatingsTotal!=null?`(`+String.valueOf(googlePlaceModel.userRatingsTotal)+`)`:``,default=`(123)`}"
+                    android:textColor="@color/itemTextColor" />
 
-            </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imgSaveLocation"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:onClick="@{()->listener.onDirectionClick(googlePlaceModel)}"
+                android:src="@drawable/ic_direction"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:tint="@color/primaryColor" />
+
+            <TextView
+                android:id="@+id/txtPlaceName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/txtPlaceAddress"
+                app:layout_constraintTop_toBottomOf="@+id/rating"
+                app:layout_constraintStart_toEndOf="@+id/location_image"
+                app:layout_constraintEnd_toStartOf="@+id/imgSav"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{googlePlaceModel.name!=null?googlePlaceModel.name:`No Name`,default=`Place Name`}"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtPlaceAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPlaceName"
+                app:layout_constraintStart_toEndOf="@+id/location_image"
+                app:layout_constraintEnd_toStartOf="@+id/imgSav"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{googlePlaceModel.vicinity!=null?googlePlaceModel.vicinity:`No Address`,default=`Place Address`}"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/imgSav"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgSaveLocation"
                 app:tint="@color/primaryColor" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/information"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/location_image"
+                app:layout_constraintEnd_toEndOf="parent">
 
-        </LinearLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

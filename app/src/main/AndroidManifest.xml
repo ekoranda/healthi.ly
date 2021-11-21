@@ -32,6 +32,9 @@
         <activity
             android:name=".view.activities.AboutYouActivity"
             android:exported="true" />
+        <activity
+            android:name=".view.activities.ProfileEditorActivity"
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -54,7 +57,7 @@
             android:name=".view.activities.SignInGoogleFitActivity"
             android:exported="true" />
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".view.activities.SignInActivity"
             android:exported="true"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.Healthily.NoActionBar">
@@ -67,10 +70,10 @@
         <activity
             android:name=".view.fragments.FitActivity"
             android:exported="true"
-            android:label="FitActivity"></activity>
+            android:label="FitActivity">
+        </activity>
         <activity
-            android:name=".view.activities.SignInActivity"
+            android:name=".view.activities.MainActivity"
             android:exported="true" />
     </application>
-
 </manifest>

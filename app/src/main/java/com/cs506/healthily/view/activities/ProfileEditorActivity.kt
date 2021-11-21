@@ -1,5 +1,19 @@
 package com.cs506.healthily.view.activities
 
+//import androidx.appcompat.app.AppCompatActivity
+//import android.os.Bundle
+//
+//class ProfileEditorActivity : AppCompatActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_profile_editor)
+//    }
+//}
+
+
+
+//package com.cs506.healthily.view.activities
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,25 +26,68 @@ import com.cs506.healthily.viewModel.goalViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import android.widget.ArrayAdapter
+import com.cs506.healthily.view.fragments.mGoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.fitness.FitnessOptions
+import com.google.android.gms.fitness.data.DataType
 
-class AboutYouActivity : AppCompatActivity() {
+lateinit var mGoogleSignInClient: GoogleSignInClient
+
+class ProfileEditorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about_you)
+        setContentView(R.layout.activity_profile_editor)
         setUpSpinners()
 
-        val next : Button = findViewById<Button>(R.id.btn_next)
-
-        next.setOnClickListener {
+        val home : Button = findViewById<Button>(R.id.btn_home)
+        home.setOnClickListener {
             startActivity(
                 Intent(
-                    this, StepCountGoalActivity
+                    this, MainActivity
                     ::class.java
                 )
             )
             finish()
         }
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        var currActivity: AppCompatActivity = this
+        mGoogleSignInClient = GoogleSignIn.getClient(currActivity, gso)
+        val logout: Button = findViewById<Button>(R.id.btn_log_out)
+        logout.setOnClickListener {
+            mGoogleSignInClient.signOut().addOnCompleteListener {
+                val intent = Intent(currActivity, SignInActivity::class.java)
+                Toast.makeText(currActivity, "Logging Out", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+
+            }
+        }
+        val fitnessOptions = FitnessOptions.builder()
+            .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.AGGREGATE_HEART_POINTS, FitnessOptions.ACCESS_READ)
+            .build()
+        val disable: Button = findViewById<Button>(R.id.btn_disable_fit_permissions)
+        disable.setOnClickListener {
+            val fitnessOptions = FitnessOptions.builder()
+                .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
+                .addDataType(DataType.AGGREGATE_HEART_POINTS, FitnessOptions.ACCESS_READ)
+                .build()
+            val signInOptions = GoogleSignInOptions.Builder().addExtension(fitnessOptions).build()
+            val client = GoogleSignIn.getClient(currActivity, signInOptions)
+            client.revokeAccess()
+        }
+
     }
+
 
     private fun setUpSpinners() {
         val genders = resources.getStringArray(R.array.Genders)
