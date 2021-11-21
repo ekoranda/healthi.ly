@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Initialize the bottom navigation view
         //create bottom navigation view object
-        readWeeklySteps()
-        readWeeklyHP()
-        readHPGoal()
-        readStepGoal()
+       // readWeeklySteps()
+       // readWeeklyHP()
+      //  readHPGoal()
+      //  readStepGoal()
         getActivities()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         val navController = findNavController(R.id.nav_fragment)
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         FitnessOptions.builder()
             .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
             .addDataType(DataType.TYPE_HEART_POINTS, FitnessOptions.ACCESS_READ)
+            .addDataType(DataType.TYPE_ACTIVITY_SEGMENT, FitnessOptions.ACCESS_READ)
             .build()
     }
 
@@ -171,26 +172,67 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getActivities() {
-        val activitiesReadRequest = SessionReadRequest.Builder()
-            .setTimeInterval(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
-            .read(DataType.TYPE_ACTIVITY_SEGMENT)
-            .setSessionName("curr_session")
+        val activitiesReadRequest = DataReadRequest.Builder()
+            .aggregate(DataType.TYPE_ACTIVITY_SEGMENT)
+            .bucketByTime(1, TimeUnit.DAYS)
+            .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
             .build()
 
-        Fitness.getSessionsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
-            .readSession(activitiesReadRequest)
+        Fitness.getHistoryClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+            .readData(activitiesReadRequest)
             .addOnSuccessListener { response ->
-                // Get a list of the sessions that match the criteria to check the result.
-                val sessions = response.sessions
-                Log.i(TAG, "Number of returned sessions is: ${sessions.size}")
-                for (session in sessions) {
-                    // Process the session
-                    // dumpSession(session)
+                for (dataSetMain in response.buckets.flatMap { it.dataSets }) {
+                    for (dpMain in dataSetMain.dataPoints) {
+                        val startTime = Instant.ofEpochSecond(dpMain.getStartTime(TimeUnit.SECONDS)).atZone(
+                            ZoneId.systemDefault())
+                        val endTime = Instant.ofEpochSecond(dpMain.getEndTime(TimeUnit.SECONDS)).atZone(
+                            ZoneId.systemDefault())
 
-                    // Process the data sets for this session
-                    val dataSets = response.getDataSet(session)
-                    for (dataSet in dataSets) {
-                        printAndPostToFirebase(dataSet)
+                        val activityType = dpMain.getValue(Field.FIELD_ACTIVITY).asActivity()
+
+                        Log.i(TAG, "activity type: $activityType")
+                        Log.i(TAG, "start time: $startTime")
+                        Log.i(TAG, "end time: $endTime")
+
+                        // get heart points
+                        val hpReadRequest = DataReadRequest.Builder()
+                            .aggregate(DataType.TYPE_HEART_POINTS)
+                            .bucketByTime(1, TimeUnit.DAYS)
+                            .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
+                            .build()
+
+                        Fitness.getHistoryClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+                            .readData(hpReadRequest)
+                            .addOnSuccessListener { response ->
+                                for (dataSetHP in response.buckets.flatMap { it.dataSets }) {
+                                    for (dpHp in dataSetHP.dataPoints) {
+                                        val heartPoints = dpHp.getValue(Field.FIELD_INTENSITY).toString()
+                                        Log.i(TAG, "heart points: $heartPoints")
+                                    }
+                                }
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG,"There was an error reading data from Google Fit", e)
+                            }
+
+                        //get step count
+                        val stepReadRequest = DataReadRequest.Builder()
+                            .aggregate(DataType.TYPE_STEP_COUNT_DELTA)
+                            .bucketByTime(1, TimeUnit.DAYS)
+                            .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
+                            .build()
+
+
+                        Fitness.getHistoryClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+                            .readData(stepReadRequest)
+                            .addOnSuccessListener { response ->
+                                for (dataSetStep in response.buckets.flatMap { it.dataSets }) {
+                                    for (dpStep in dataSetStep.dataPoints) {
+                                        val stepCount = dpStep.getValue(Field.FIELD_STEPS).toString()
+                                        Log.i(TAG, "step count: $stepCount")
+                                    }
+                                }
+                            }
                     }
                 }
             }
