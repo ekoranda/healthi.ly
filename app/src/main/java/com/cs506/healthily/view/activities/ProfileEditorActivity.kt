@@ -252,6 +252,7 @@ class ProfileEditorActivity : AppCompatActivity() {
             "5'7\"",
             "5'8\"",
             "5'9\"",
+            "5'10\"",
             "5'11\"",
             "6'0\"",
             "6'1\"",

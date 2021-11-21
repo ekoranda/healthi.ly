@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.lifecycle.ViewModelProviders
 import com.cs506.healthily.R
 import com.cs506.healthily.viewModel.AboutYou
+import com.cs506.healthily.viewModel.goalViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -31,7 +32,6 @@ class AboutYouActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setUpSpinners() {
         val genders = resources.getStringArray(R.array.Genders)
         val genderSpinner = findViewById<Spinner>(R.id.sp_gender)
@@ -42,23 +42,58 @@ class AboutYouActivity : AppCompatActivity() {
             )
             genderSpinner.adapter = adapter
 
+            // Added code that should set the spinner to whatever the user's current settings are
+            val goalViewModel: goalViewModel =
+                ViewModelProviders.of(this).get(goalViewModel::class.java)
+            goalViewModel.getUserSettings()?.observe(this) { goals ->
+                var currGender = goals.gender.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var genderIndex = 0
+                for (elem in genders.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (genders[elem].toString().contentEquals(currGender)) {
+                        genderIndex = elem
+                        genderSpinner.setSelection(genderIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+//            Toast.makeText(this, currGender, Toast.LENGTH_SHORT).show()
+
+
+
             genderSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     println("Nothing Selected")
                 }
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    val gender = genders[position]
-                    val user = Firebase.auth.currentUser?.uid
-                    if (user != null) {
-                        bindGender(user, gender)
+                    if (selectionCount > 0) {
+                        val gender = genders[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindGender(user, gender)
+                        }
                     }
+                    selectionCount++
                 }
 
             }
 
         }
+
+
+
+
+
+
+
+
+
+
+
 
         val ages = resources.getStringArray(R.array.Ages)
         val ageSpinner = findViewById<Spinner>(R.id.sp_age)
@@ -68,18 +103,38 @@ class AboutYouActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item, ages
             )
             ageSpinner.adapter = adapter
+
+            val goalViewModel: goalViewModel =
+                ViewModelProviders.of(this).get(goalViewModel::class.java)
+            goalViewModel.getUserSettings()?.observe(this) { goals ->
+                var currAge = goals.age.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var ageIndex = 0
+                for (elem in ages.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (ages[elem].toString().contentEquals(currAge)) {
+                        ageIndex = elem
+                        ageSpinner.setSelection(ageIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
             ageSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     println("Nothing Selected")
                 }
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    val age = ages[position]
-                    val user = Firebase.auth.currentUser?.uid
-                    if (user != null) {
-                        bindAge(user, age)
+                    if (selectionCount > 0) {
+                        val age = ages[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindAge(user, age)
+                        }
                     }
+                    selectionCount++
                 }
 
             }
@@ -94,18 +149,38 @@ class AboutYouActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item, weights
             )
             weightSpinner.adapter = adapter
+
+            val goalViewModel: goalViewModel =
+                ViewModelProviders.of(this).get(goalViewModel::class.java)
+            goalViewModel.getUserSettings()?.observe(this) { goals ->
+                var currWeight = goals.weight.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var weightIndex = 0
+                for (elem in weights.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (weights[elem].toString().contentEquals(currWeight)) {
+                        weightIndex = elem
+                        weightSpinner.setSelection(weightIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
             weightSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     println("Nothing Selected")
                 }
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    val weight = weights[position]
-                    val user = Firebase.auth.currentUser?.uid
-                    if (user != null) {
-                        bindWeight(user, weight)
+                    if (selectionCount > 0) {
+                        val weight = weights[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindWeight(user, weight)
+                        }
                     }
+                    selectionCount++
                 }
 
             }
@@ -120,6 +195,7 @@ class AboutYouActivity : AppCompatActivity() {
             "5'7\"",
             "5'8\"",
             "5'9\"",
+            "5'10\"",
             "5'11\"",
             "6'0\"",
             "6'1\"",
@@ -127,7 +203,7 @@ class AboutYouActivity : AppCompatActivity() {
             "6'3\"",
             "6'4\"",
             "6'5\""
-           )
+        )
 
 
 
@@ -138,18 +214,151 @@ class AboutYouActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item, heights
             )
             heightSpinner.adapter = adapter
+
+            val goalViewModel: goalViewModel =
+                ViewModelProviders.of(this).get(goalViewModel::class.java)
+            goalViewModel.getUserSettings()?.observe(this) { goals ->
+                var currHeight = goals.height.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var heightIndex = 0
+                for (elem in heights.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (heights[elem].toString().contentEquals(currHeight)) {
+                        heightIndex = elem
+                        heightSpinner.setSelection(heightIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
             heightSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     println("Nothing Selected")
                 }
-
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    val height = heights[position]
-                    val user = Firebase.auth.currentUser?.uid
-                    if (user != null) {
-                        bindHeight(user, height)
+                    if (selectionCount > 0) {
+                        val height = heights[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindHeight(user, height)
+                        }
                     }
+                    selectionCount++
+                }
+
+            }
+        }
+
+        val times  = arrayOf("12am",
+            "1am",
+            "2am",
+            "3am",
+            "4am",
+            "5am",
+            "6am",
+            "7am",
+            "8am",
+            "9am",
+            "10am",
+            "11am",
+            "12pm",
+            "1pm",
+            "2pm",
+            "3pm",
+            "4pm",
+            "5pm",
+            "6pm",
+            "7pm",
+            "8pm",
+            "9pm",
+            "10pm",
+            "11pm"
+        )
+
+
+
+        val availabilityStartSpinner = findViewById<Spinner>(R.id.sp_availability_start)
+        if (availabilityStartSpinner != null) {
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item, times
+            )
+            availabilityStartSpinner.adapter = adapter
+
+            val goalViewModel: goalViewModel =
+                ViewModelProviders.of(this).get(goalViewModel::class.java)
+            goalViewModel.getUserSettings()?.observe(this) { goals ->
+                var currStart = goals.availabilityStart.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var startIndex = 0
+                for (elem in times.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (times[elem].toString().contentEquals(currStart)) {
+                        startIndex = elem
+                        availabilityStartSpinner.setSelection(startIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            availabilityStartSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    println("Nothing Selected")
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if (selectionCount > 0) {
+                        val time = times[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindAvailabilityStart(user, time)
+                        }
+                    }
+                    selectionCount++
+                }
+
+            }
+        }
+
+        val availabilityEndSpinner = findViewById<Spinner>(R.id.sp_availability_end)
+        if (availabilityEndSpinner != null) {
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item, times
+            )
+            availabilityEndSpinner.adapter = adapter
+
+            val goalViewModel: goalViewModel =
+                ViewModelProviders.of(this).get(goalViewModel::class.java)
+            goalViewModel.getUserSettings()?.observe(this) { goals ->
+                var currEnd = goals.availabilityEnd.toString()
+//                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show()
+                var endIndex = 0
+                for (elem in times.indices) {
+//                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
+                    if (times[elem].toString().contentEquals(currEnd)) {
+                        endIndex = elem
+                        availabilityEndSpinner.setSelection(endIndex)
+//                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            availabilityEndSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                var selectionCount = 0
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    println("Nothing Selected")
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    if (selectionCount > 0) {
+                        val time = times[position]
+                        val user = Firebase.auth.currentUser?.uid
+                        if (user != null) {
+                            bindAvailabilityEnd(user, time)
+                        }
+                    }
+                    selectionCount++
                 }
 
             }
@@ -184,6 +393,20 @@ class AboutYouActivity : AppCompatActivity() {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
         aboutYouViewModel.setWeightFromRepo(userId, weight)
+
+    }
+
+    private fun bindAvailabilityStart(userId: String, start: String) {
+
+        val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
+        aboutYouViewModel.setAvailabilityStartFromRepo(userId, start)
+
+    }
+
+    private fun bindAvailabilityEnd(userId: String, end: String) {
+
+        val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
+        aboutYouViewModel.setAvailabilityEndFromRepo(userId, end)
 
     }
 
