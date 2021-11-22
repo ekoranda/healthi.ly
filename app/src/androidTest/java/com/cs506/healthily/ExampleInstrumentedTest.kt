@@ -30,7 +30,7 @@ class ExampleInstrumentedTest {
         val goalRepository: GoalsRepository = GoalsRepository("zB30YssDeYds297P4GLiIDYCiUh2")
         assertNotEquals(null, goalRepository)
         goalRepository.setHeartGoal("Testing")
-        var temp: String? = goalRepository.getHeartGoal()
+        var temp: String? = goalRepository.getGoals().toString()
         assertEquals("Testing", temp)
     }
 }
