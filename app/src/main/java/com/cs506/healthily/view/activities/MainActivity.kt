@@ -25,10 +25,7 @@ import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.*
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.fitness.request.GoalsReadRequest
-<<<<<<< HEAD
 import com.google.android.gms.fitness.request.SessionReadRequest
-=======
->>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -53,19 +50,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Initialize the bottom navigation view
         //create bottom navigation view object
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
         readWeeklySteps()
         readWeeklyHP()
         readHPGoal()
         readStepGoal()
-<<<<<<< HEAD
         getActivities()
-=======
->>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigatin_view)
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
@@ -111,12 +100,7 @@ class MainActivity : AppCompatActivity() {
                 deleteDailySteps()
                 for (dataSet in response.buckets.flatMap { it.dataSets }) {
                     // iterates through data points
-<<<<<<< HEAD
-                    printAndPostToFirebase(dataSet)
-=======
                     printAndPostStepsToFirebase(dataSet)
-
->>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
                 }
             }
             .addOnFailureListener { e ->
@@ -135,15 +119,11 @@ class MainActivity : AppCompatActivity() {
             bindData(day)
         }
 
-
-
         for (dp in dataSet.dataPoints) {
             Log.i(TAG,"Data point:")
             Log.i(TAG,"\tType: ${dp.dataType.name}")
             Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
             Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
-
-
 
             for (field in dp.dataType.fields) {
                 Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
@@ -154,12 +134,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
         stepDay++
-
-
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -173,15 +148,11 @@ class MainActivity : AppCompatActivity() {
             bindDataHeart(day)
         }
 
-
-
         for (dp in dataSet.dataPoints) {
             Log.i(TAG,"Data point:")
             Log.i(TAG,"\tType: ${dp.dataType.name}")
             Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
             Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
-
-
 
             for (field in dp.dataType.fields) {
                 Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
@@ -194,9 +165,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         heartDay++
-
-
-
 
     }
 
@@ -244,7 +212,6 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-<<<<<<< HEAD
     private fun readHPGoal() {
         Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
             .readCurrentGoals(hpReadRequest)
@@ -261,8 +228,7 @@ class MainActivity : AppCompatActivity() {
             .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
             .build()
     }
-=======
-    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindDataHeart(day: DayHeart) {
@@ -277,8 +243,8 @@ class MainActivity : AppCompatActivity() {
     private fun deleteDailySteps() {
         val viewModel: DayStepsViewModel =
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
-            viewModel.deleteDailySteps()
->>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
+        viewModel.deleteDailySteps()
+    }
 
     private fun readStepGoal() {
         Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
@@ -292,7 +258,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-<<<<<<< HEAD
     private fun getActivities() {
         // Read the data that's been collected throughout the past week.
         val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
@@ -302,52 +267,6 @@ class MainActivity : AppCompatActivity() {
             .bucketByTime(1, TimeUnit.DAYS)
             .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
             .build()
-=======
-    private fun deleteDailyHeart() {
-        val viewModel: DailyHeartPointsViewModel =
-            ViewModelProviders.of(this).get(DailyHeartPointsViewModel::class.java)
-        viewModel.deleteDailyHeartPoints()
-
-    }
-
-    private val hpReadRequest: GoalsReadRequest by lazy {
-        GoalsReadRequest.Builder()
-            .addDataType(DataType.TYPE_HEART_POINTS)
-            .build()
-    }
-
-    private fun readHPGoal() {
-        Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
-            .readCurrentGoals(hpReadRequest)
-            .addOnSuccessListener { goals ->
-                goals.firstOrNull()?.apply {
-                    val heartPointGoal = metricObjective.value
-                    Log.i(TAG, "HP Goal: $heartPointGoal")
-
-                }
-            }
-    }
-
-    private val stepReadRequest: GoalsReadRequest by lazy {
-        GoalsReadRequest.Builder()
-            .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
-            .build()
-    }
-
-    private fun readStepGoal() {
-        Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
-            .readCurrentGoals(stepReadRequest)
-            .addOnSuccessListener { goals ->
-                goals.firstOrNull()?.apply {
-                    val stepGoal = metricObjective.value
-                    Log.i(TAG, "Step Goal: $stepGoal")
-                }
-            }
-    }
-
-
-
->>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
 
         Fitness.getHistoryClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
             .readData(activitiesReadRequest)
@@ -411,6 +330,14 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG,"Failed to read session", e)
             }
     }
+
+    private fun deleteDailyHeart() {
+        val viewModel: DailyHeartPointsViewModel =
+            ViewModelProviders.of(this).get(DailyHeartPointsViewModel::class.java)
+        viewModel.deleteDailyHeartPoints()
+
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindData(day: DaySteps) {
