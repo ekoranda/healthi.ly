@@ -16,7 +16,40 @@ plugins {
     id 'jacoco'
 }
 
+apply plugin: 'jacoco'
+jacoco {
+    toolVersion = "$jacocoVersion"
+}
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ]))
+}
+
+//testOptions {
+//    t {
+//        jacoco {
+//            includeNoLocationClasses = true
+//        }
+//    }
+//    unitTests.returnDefaultValues = true
+//}
 
 android {
     compileSdk 31
@@ -30,7 +63,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    apply plugin: 'jacoco'
+
     buildTypes {
         release {
             minifyEnabled false
@@ -55,6 +88,13 @@ android {
         animationsDisabled true
         unitTests {
             includeAndroidResources = true
+        }
+    }
+    jacocoTestReport {
+        reports {
+            xml.required = false
+            csv.required = false
+            html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
         }
     }
 }
