@@ -23,6 +23,12 @@ class UserSettingsRepository(var userId: String) {
     fun setWeight(weight : String){
         database.child("Users").child(userId).child("weight").setValue(weight)
     }
+    fun setAvailabilityStart(start : String){
+        database.child("Users").child(userId).child("availabilityStart").setValue(start)
+    }
+    fun setAvailabilityEnd(end : String){
+        database.child("Users").child(userId).child("availabilityEnd").setValue(end)
+    }
 
     fun getUserSettings(): MutableLiveData<UserSettings> {
         val userSettingsObject: MutableLiveData<UserSettings> = MutableLiveData()
@@ -33,6 +39,8 @@ class UserSettingsRepository(var userId: String) {
             data.gender = it.child("gender").value.toString()
             data.height = it.child("height").value.toString()
             data.weight = it.child("weight").value.toString()
+            data.availabilityStart = it.child("availabilityStart").value.toString()
+            data.availabilityEnd = it.child("availabilityEnd").value.toString()
             userSettingsObject.postValue(data)
         }.addOnFailureListener{
 
@@ -41,19 +49,7 @@ class UserSettingsRepository(var userId: String) {
         return userSettingsObject
     }
 
-    fun getAge(): String? {
-        var age: String? = null
-        val userRef = Firebase.database.getReference("Users/${userId}")
-        userRef.get().addOnSuccessListener {
-            age = it.child("age").value.toString()
-            age = "23"
 
-        }.addOnFailureListener{
-            age = "22"
-        }
-
-        return age
-    }
 
 
 }

@@ -23,4 +23,13 @@ class DailyHeartPointsViewModel(application: Application) : AndroidViewModel(app
     fun getAllDays(): MutableLiveData<List<DayHeart>>? {
         return repo.getDailyHeartPoints()
     }
+
+    fun deleteDailyHeartPoints(){
+        repo.deleteDailyHeartPoints()
+    }
+
+    fun addDay(day: DayHeart){
+        repo.addHeartPointsDay(day)
+
+    }
 }

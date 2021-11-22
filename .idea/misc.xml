@@ -13,7 +13,10 @@
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_heart_points.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_journal.xml" value="0.36614583333333334" />
+<<<<<<< HEAD
         <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/fragment_steps.xml" value="0.16822916666666668" />
+=======
+>>>>>>> 9623877b243304bbe1d9b60d4029a023f7c98091
         <entry key="app/src/main/res/drawable-v24/edittext_background.xml" value="0.26510416666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_atm.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_back.xml" value="0.26458333333333334" />

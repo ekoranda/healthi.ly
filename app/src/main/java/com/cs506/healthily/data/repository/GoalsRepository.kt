@@ -14,30 +14,11 @@ class GoalsRepository(var userId: String) {
         database.child("Users").child(userId).child("stepGoal").setValue(stepGoal)
     }
 
-    fun getStepGoal(): String? {
-        var stepGoal: String? = null
-        val userRef = Firebase.database.getReference("Users/${userId}")
-        userRef.get().addOnSuccessListener {
-            stepGoal = it.child("stepGoal").value.toString()
-        }.addOnFailureListener{
-        }
-        return stepGoal
-    }
 
     fun setHeartGoal(heartGoal : String){
         database.child("Users").child(userId).child("heartGoal").setValue(heartGoal)
     }
 
-    fun getHeartGoal(): String? {
-        var heartGoal: String? = null
-        val userRef = Firebase.database.getReference("Users/${userId}")
-        userRef.get().addOnSuccessListener {
-            heartGoal = it.child("heartGoal").value.toString()
-
-        }.addOnFailureListener{
-        }
-        return heartGoal
-    }
 
     fun getGoals(): MutableLiveData<Goals> {
         val goalsObject: MutableLiveData<Goals> = MutableLiveData()
