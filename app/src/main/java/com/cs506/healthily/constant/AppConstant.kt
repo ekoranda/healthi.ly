@@ -5,7 +5,6 @@ import com.cs506.healthily.data.model.PlaceModel
 
 class AppConstant {
     companion object {
-        //TODO: may not these days vals later...
         @JvmStatic
         val STORAGE_REQUEST_CODE = 1000
 

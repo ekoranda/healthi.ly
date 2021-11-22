@@ -52,12 +52,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/API_KEY" />
 
-        <activity android:name=".view.activities.DirectionActivity" />
+        <activity android:name=".view.activities.DirectionActivity"
+            android:exported="true" />
         <activity
             android:name=".view.activities.SignInGoogleFitActivity"
             android:exported="true" />
         <activity
-            android:name=".view.activities.SignInActivity"
+            android:name=".view.activities.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.Healthily.NoActionBar">
@@ -73,7 +74,7 @@
             android:label="FitActivity">
         </activity>
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".view.activities.SignInActivity"
             android:exported="true" />
     </application>
 </manifest>
