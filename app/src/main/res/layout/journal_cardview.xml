@@ -36,15 +36,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_time"
                 app:layout_constraintVertical_bias="0.017" />
 
-            <TextView
-                android:id="@+id/tv_step_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="124dp"
-                android:layout_marginTop="16dp"
-                android:text="14,018 Steps"
-                app:layout_constraintStart_toEndOf="@+id/tv_time"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_step_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="14,018 Steps"
+            app:layout_constraintStart_toStartOf="@+id/tv_heart_points"
+            app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_heart_points"

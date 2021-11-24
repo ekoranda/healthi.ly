@@ -23,6 +23,10 @@ import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.GoogleApi
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.tasks.Task
 import java.time.LocalDateTime
@@ -52,15 +56,23 @@ class SignInGoogleFitActivity : AppCompatActivity() {
             .addDataType(DataType.AGGREGATE_HEART_POINTS, FitnessOptions.ACCESS_READ)
             .build()
 
+
+
+
         val account = GoogleSignIn.getAccountForExtension(this, fitnessOptions)
 
         if (!GoogleSignIn.hasPermissions(account, fitnessOptions)) {
+
 
             GoogleSignIn.requestPermissions(
                 this, // your activity
                 GOOGLE_FIT_PERMISSIONS_REQUEST_CODE, // e.g. 1
                 account,
                 fitnessOptions)
+
+
+
+
 
         } else {
             startActivity(
@@ -76,6 +88,7 @@ class SignInGoogleFitActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {

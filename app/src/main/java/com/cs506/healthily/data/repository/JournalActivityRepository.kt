@@ -26,7 +26,7 @@ class JournalActivityRepository {
                 val children = snapshot!!.children
                 children.forEach{
                     val activity: JournalActivity = JournalActivity()
-                    activity.heartPoints = it.child("heartPoint").value.toString()
+                    activity.heartPoints = it.child("heartPoints").value.toString()
                     activity.stepCount = it.child("stepCount").value.toString()
                     activity.activity = it.child("activity").value.toString()
                     activity.date = it.child("date").value.toString()
@@ -52,5 +52,27 @@ class JournalActivityRepository {
 
 
         return mLiveData
+    }
+
+    fun addJournalActivity(activity: JournalActivity){
+        val day = activity.date
+        val hp = activity.heartPoints
+        val activityType = activity.activity
+        val stepCount = activity.stepCount
+        if(stepCount != null){
+            database.child("Users/$user/dailyActivity/$day/stepCount").setValue(stepCount)
+
+        }
+        if(hp != null){
+            database.child("Users/$user/dailyActivity/$day/heartPoints").setValue(hp)
+
+        }
+        database.child("Users/$user/dailyActivity/$day/date").setValue(day)
+        database.child("Users/$user/dailyActivity/$day/activity").setValue(activityType)
+
+    }
+
+    fun deleteJournal(){
+        database.child("Users/$user/dailyActivity").removeValue()
     }
 }

@@ -9,14 +9,17 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cs506.healthily.R
 import com.cs506.healthily.data.model.DayHeart
 import com.cs506.healthily.data.model.DaySteps
+import com.cs506.healthily.data.model.JournalActivity
 import com.cs506.healthily.viewModel.DailyHeartPointsViewModel
 import com.cs506.healthily.viewModel.DayStepsViewModel
+import com.cs506.healthily.viewModel.JournalViewModel
 import com.cs506.healthily.viewModel.goalViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -84,8 +87,8 @@ class MainActivity : AppCompatActivity() {
         // Read the data that's been collected throughout the past week.
         val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val startTime = endTime.minusWeeks(1)
-        Log.i(TAG, "Range Start: $startTime")
-        Log.i(TAG, "Range End: $endTime")
+      //  Log.i(TAG, "Range Start: $startTime")
+      //  Log.i(TAG, "Range End: $endTime")
 
         val readRequest =
             DataReadRequest.Builder()
@@ -110,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun printAndPostStepsToFirebase(dataSet: DataSet) {
-        Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
+     //   Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
         val day : DaySteps = DaySteps()
 
         if(dataSet.dataPoints.isEmpty()){
@@ -120,13 +123,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         for (dp in dataSet.dataPoints) {
-            Log.i(TAG,"Data point:")
-            Log.i(TAG,"\tType: ${dp.dataType.name}")
-            Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
-            Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
+        //    Log.i(TAG,"Data point:")
+           // Log.i(TAG,"\tType: ${dp.dataType.name}")
+          //  Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
+          //  Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
 
             for (field in dp.dataType.fields) {
-                Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
+              //  Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
                 day.steps = dp.getValue(field).toString()
                 day.day = stepDay.toString()
 
@@ -139,7 +142,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun printAndPostHeartToFirebase(dataSet: DataSet) {
-        Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
+      //  Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
         //val day : DaySteps = DaySteps()
         val day : DayHeart = DayHeart()
         if(dataSet.dataPoints.isEmpty()){
@@ -149,13 +152,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         for (dp in dataSet.dataPoints) {
-            Log.i(TAG,"Data point:")
-            Log.i(TAG,"\tType: ${dp.dataType.name}")
-            Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
-            Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
+          //  Log.i(TAG,"Data point:")
+          //  Log.i(TAG,"\tType: ${dp.dataType.name}")
+          //  Log.i(TAG,"\tStart: ${dp.getStartTimeString()}")
+          //  Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}")
 
             for (field in dp.dataType.fields) {
-                Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
+             //   Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}")
                 day.heartPoints = dp.getValue(field).toString()
                 day.day = heartDay.toString()
 
@@ -183,8 +186,8 @@ class MainActivity : AppCompatActivity() {
         // Read the data that's been collected throughout the past week.
         val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val startTime = endTime.minusWeeks(1)
-        Log.i(TAG, "Range Start: $startTime")
-        Log.i(TAG, "Range End: $endTime")
+      //  Log.i(TAG, "Range Start: $startTime")
+      //  Log.i(TAG, "Range End: $endTime")
 
         val readRequest =
             DataReadRequest.Builder()
@@ -218,7 +221,7 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { goals ->
                 goals.firstOrNull()?.apply {
                     val heartPointGoal = metricObjective.value
-                    Log.i(TAG, "HP Goal: $heartPointGoal")
+                   // Log.i(TAG, "HP Goal: $heartPointGoal")
                 }
             }
     }
@@ -252,7 +255,7 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { goals ->
                 goals.firstOrNull()?.apply {
                     val stepGoal = metricObjective.value
-                    Log.i(TAG, "Step Goal: $stepGoal")
+                  //  Log.i(TAG, "Step Goal: $stepGoal")
                 }
             }
     }
@@ -280,9 +283,16 @@ class MainActivity : AppCompatActivity() {
 
                         val activityType = dpMain.getValue(Field.FIELD_ACTIVITY).asActivity()
 
-                        Log.i(TAG, "activity type: $activityType")
-                        Log.i(TAG, "start time: $startTime")
-                        Log.i(TAG, "end time: $endTime")
+                        deleteJournal()
+
+                      //  val day = startTime.dayOfWeek
+                        val day = startTime.dayOfMonth
+                        val month = startTime.month
+                        val date = startTime.dayOfWeek
+                        val dayString = "$day, $month $date"
+
+
+
 
                         // get heart points
                         val hpReadRequest = DataReadRequest.Builder()
@@ -297,12 +307,21 @@ class MainActivity : AppCompatActivity() {
                                 for (dataSetHP in response.buckets.flatMap { it.dataSets }) {
                                     for (dpHp in dataSetHP.dataPoints) {
                                         val heartPoints = dpHp.getValue(Field.FIELD_INTENSITY).toString()
+                                        Log.i(TAG, "activity type: $activityType")
+                                      //  Log.i(TAG, "start time: $startTime")
+                                       // Log.i(TAG, "end time: $endTime")
+                                        Log.i(TAG, dayString)
                                         Log.i(TAG, "heart points: $heartPoints")
+                                        val activity = JournalActivity()
+                                        activity.date = dayString
+                                        activity.heartPoints = heartPoints
+                                        activity.activity = activityType
+                                        bindJournalActivity(activity)
                                     }
                                 }
                             }
                             .addOnFailureListener { e ->
-                                Log.w(TAG,"There was an error reading data from Google Fit", e)
+                              //  Log.w(TAG,"There was an error reading data from Google Fit", e)
                             }
 
                         //get step count
@@ -319,7 +338,17 @@ class MainActivity : AppCompatActivity() {
                                 for (dataSetStep in response.buckets.flatMap { it.dataSets }) {
                                     for (dpStep in dataSetStep.dataPoints) {
                                         val stepCount = dpStep.getValue(Field.FIELD_STEPS).toString()
+                                        Log.i(TAG, "activity type: $activityType")
+
+                                        Log.i(TAG, dayString)
+
                                         Log.i(TAG, "step count: $stepCount")
+                                        val activity = JournalActivity()
+                                        activity.date = dayString
+                                        //activity.heartPoints = heartPoints
+                                        activity.stepCount = stepCount
+                                        activity.activity = activityType
+                                        bindJournalActivity(activity)
                                     }
                                 }
                             }
@@ -339,11 +368,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindData(day: DaySteps) {
         val viewModel: DayStepsViewModel =
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
             viewModel.addDay(day)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun bindJournalActivity(activity: JournalActivity){
+        val viewModel : JournalViewModel =
+            ViewModelProviders.of(this).get(JournalViewModel::class.java)
+            viewModel.addJournalActivity(activity)
+    }
+
+    private fun deleteJournal(){
+        val viewModel : JournalViewModel =
+            ViewModelProviders.of(this).get(JournalViewModel::class.java)
+            viewModel.deleteJournal()
     }
 }
 

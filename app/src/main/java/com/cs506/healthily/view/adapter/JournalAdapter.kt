@@ -32,8 +32,19 @@ class JournalAdapter(private val mList: List<JournalActivity>) : RecyclerView.Ad
 
         holder.activityTextView.text = journalData.activity
         holder.dateTextView.text = journalData.date
-        holder.heartPointTextView.text = journalData.heartPoints
-        holder.stepCountTextView.text = journalData.stepCount
+        val hp = journalData.heartPoints
+        val steps = journalData.stepCount
+        if (hp != "null"){
+            holder.heartPointTextView.text = "$hp Heart Points"
+        }else{
+            holder.heartPointTextView.text = "0 Heart Points"
+        }
+        if (steps != "null"){
+            holder.stepCountTextView.text = "$steps Steps"
+        }else{
+            holder.stepCountTextView.text = "0 Steps"
+        }
+
 
 
 
