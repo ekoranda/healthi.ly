@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProviders
 import com.cs506.healthily.R
 import com.cs506.healthily.data.repository.GoalsRepository
@@ -86,6 +89,7 @@ class HeartPointGoalActivity : AppCompatActivity() {
     private fun bindHeartGoal(goal: String) {
         val viewModel: goalViewModel =
             ViewModelProviders.of(this).get(goalViewModel::class.java)
+        Toast.makeText(this, "Setting heart goal to: $goal", Toast.LENGTH_SHORT).show()
             viewModel.setHeartGoal(goal)
 
     }
@@ -147,7 +151,12 @@ class HeartPointGoalActivity : AppCompatActivity() {
 
     private fun getGoal(){
         val btn1 : Button = findViewById(R.id.btn_heart_goal_1)
+        val btn2 : Button = findViewById(R.id.btn_heart_goal_2)
+        val btn3 : Button = findViewById(R.id.btn_heart_goal_3)
         btn1.setOnClickListener {
+            pressedBtnColor(btn1)
+            notPressedBtnColor(btn2)
+            notPressedBtnColor(btn3)
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
@@ -155,8 +164,11 @@ class HeartPointGoalActivity : AppCompatActivity() {
             }?.setHeartGoal(btn1.text.toString())
         }
 
-        val btn2 : Button = findViewById(R.id.btn_heart_goal_2)
+
         btn2.setOnClickListener {
+            pressedBtnColor(btn2)
+            notPressedBtnColor(btn1)
+            notPressedBtnColor(btn3)
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
@@ -164,8 +176,11 @@ class HeartPointGoalActivity : AppCompatActivity() {
             }?.setHeartGoal(btn2.text.toString())
         }
 
-        val btn3 : Button = findViewById(R.id.btn_heart_goal_3)
+
         btn3.setOnClickListener {
+            pressedBtnColor(btn3)
+            notPressedBtnColor(btn2)
+            notPressedBtnColor(btn1)
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
@@ -173,4 +188,20 @@ class HeartPointGoalActivity : AppCompatActivity() {
             }?.setHeartGoal(btn3.text.toString())
         }
     }
+
+    private fun pressedBtnColor(b: Button){
+
+        ViewCompat.setBackgroundTintList(
+            b,
+            ContextCompat.getColorStateList(this, R.color.purple_700)
+        )
+    }
+
+    private fun notPressedBtnColor(b: Button){
+        ViewCompat.setBackgroundTintList(
+            b,
+            ContextCompat.getColorStateList(this, R.color.purple_500)
+        )
+    }
+
 }

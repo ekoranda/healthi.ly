@@ -19,12 +19,14 @@
         <entry key="app/src/main/res/drawable-v24/ic_email_filled.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_help 2.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/btn_bg_selector.xml" value="0.275" />
         <entry key="app/src/main/res/drawable/circular_progress_bar.xml" value="0.184375" />
         <entry key="app/src/main/res/drawable/home.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_file_alt_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_heartbeat_solid.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_shoe_prints_solid.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/selectedbutton.xml" value="0.225" />
         <entry key="app/src/main/res/drawable/steps.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/font/playfair_display 2.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/font/playfair_display.xml" value="0.2786458333333333" />

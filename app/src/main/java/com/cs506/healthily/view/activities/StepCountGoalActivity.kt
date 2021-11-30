@@ -1,12 +1,17 @@
 package com.cs506.healthily.view.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProviders
 import com.cs506.healthily.R
 import com.cs506.healthily.data.model.DaySteps
@@ -28,6 +33,12 @@ class StepCountGoalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step_count_goal)
+
+
+
+
+
+
         setButtons()
         getGoal()
 
@@ -43,8 +54,21 @@ class StepCountGoalActivity : AppCompatActivity() {
         }
 
         val importBtn : Button = findViewById(R.id.btn_import_from_google)
+        val btn1 : Button = findViewById(R.id.btn_heart_goal_1)
+        val btn2 : Button = findViewById(R.id.btn_heart_goal_2)
+        val btn3 : Button = findViewById(R.id.btn_heart_goal_3)
+
         importBtn.setOnClickListener {
+            pressedBtnColor(importBtn)
+            notPressedBtnColor(btn1)
+            notPressedBtnColor(btn2)
+            notPressedBtnColor(btn3)
             readStepGoal()
+
+
+
+
+
             startActivity(
                 Intent(
                     this, HeartPointGoalActivity
@@ -80,7 +104,6 @@ class StepCountGoalActivity : AppCompatActivity() {
             .addOnSuccessListener { goals ->
                 goals.firstOrNull()?.apply {
                     val stepGoal = metricObjective.value
-
                     Log.i(TAG, "Step Goal: $stepGoal")
                     bindStepGoal(stepGoal.toInt().toString())
                 }
@@ -91,6 +114,7 @@ class StepCountGoalActivity : AppCompatActivity() {
     private fun bindStepGoal(goal: String) {
         val viewModel: goalViewModel =
             ViewModelProviders.of(this).get(goalViewModel::class.java)
+            Toast.makeText(this, "Setting step goal to: $goal", Toast.LENGTH_SHORT).show()
             viewModel.setStepGoal(goal)
 
     }
@@ -153,7 +177,14 @@ class StepCountGoalActivity : AppCompatActivity() {
 
     private fun getGoal(){
         val btn1 : Button = findViewById(R.id.btn_heart_goal_1)
+        val btn2 : Button = findViewById(R.id.btn_heart_goal_2)
+        val btn3 : Button = findViewById(R.id.btn_heart_goal_3)
         btn1.setOnClickListener {
+
+
+            pressedBtnColor(btn1)
+            notPressedBtnColor(btn2)
+            notPressedBtnColor(btn3)
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
@@ -161,8 +192,13 @@ class StepCountGoalActivity : AppCompatActivity() {
             }?.setStepGoal(btn1.text.toString())
         }
 
-        val btn2 : Button = findViewById(R.id.btn_heart_goal_2)
+
         btn2.setOnClickListener {
+            pressedBtnColor(btn2)
+            notPressedBtnColor(btn1)
+            notPressedBtnColor(btn3)
+
+
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
@@ -170,14 +206,32 @@ class StepCountGoalActivity : AppCompatActivity() {
             }?.setStepGoal(btn2.text.toString())
         }
 
-        val btn3 : Button = findViewById(R.id.btn_heart_goal_3)
+
         btn3.setOnClickListener {
+            pressedBtnColor(btn3)
+            notPressedBtnColor(btn2)
+            notPressedBtnColor(btn1)
             FirebaseAuth.getInstance().currentUser?.let {
                 GoalsRepository(
                     it.uid
                 )
             }?.setStepGoal(btn3.text.toString())
         }
+    }
+
+    private fun pressedBtnColor(b: Button){
+
+        ViewCompat.setBackgroundTintList(
+            b,
+            ContextCompat.getColorStateList(this, R.color.purple_700)
+        )
+    }
+
+    private fun notPressedBtnColor(b: Button){
+        ViewCompat.setBackgroundTintList(
+            b,
+            ContextCompat.getColorStateList(this, R.color.purple_500)
+        )
     }
 
 
