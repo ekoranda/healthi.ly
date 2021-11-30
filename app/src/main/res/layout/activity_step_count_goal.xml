@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Button.Black"
     tools:context=".view.activities.StepCountGoalActivity">
 
     <Button
@@ -15,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        />
 
     <Button
         android:id="@+id/btn_heart_goal_2"
@@ -61,6 +63,7 @@
         app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_heart_goal_3" />
+
 
     <TextView
         android:id="@+id/textView"
