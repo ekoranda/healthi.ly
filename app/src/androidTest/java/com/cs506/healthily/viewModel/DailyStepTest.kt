@@ -38,6 +38,9 @@ class DailyStepTest {
     }
 
 
+
+    /*
+
     @Test
     fun testAddDay(){
         val day: DaySteps = DaySteps()
@@ -55,6 +58,8 @@ class DailyStepTest {
             }
         }
     }
+
+     */
 
 
 
