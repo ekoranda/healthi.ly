@@ -43,6 +43,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+      //  testInstrumentationRunner = "com.cs506.healthily.CustomTestRunner"
+
     }
 
     buildTypes {
@@ -194,6 +196,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.1.0'
 
+    implementation 'javax.annotation:jsr250-api:1.0'
+
+
     // Graphs
     implementation 'com.jjoe64:graphview:4.2.2'
+
+    // For instrumented tests.
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
+    // ...with Kotlin.
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
 }

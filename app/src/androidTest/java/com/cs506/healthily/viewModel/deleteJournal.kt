@@ -28,6 +28,7 @@ class deleteJournal {
         viewModel.deleteJournal()
 
         database.child("Users/$user").get().addOnSuccessListener{
+            Thread.sleep(2000)
             Assert.assertFalse(it.child("dailyActivity").exists())
 
         }.addOnFailureListener{

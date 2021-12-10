@@ -44,6 +44,7 @@ class DailyHeartPointsTest {
         if (userId != null) {
             database.child("Users").child(userId).get().addOnSuccessListener {
                 val hp = it.child("dailyHeartPoints/fakeDay").value
+                Thread.sleep(2000)
                 Assert.assertEquals("40", hp)
                 database.child("Users/$userId/dailyHeartPoints/fakeDay").removeValue()
             }.addOnFailureListener{
@@ -85,6 +86,7 @@ class deleteHP {
         viewModel.deleteDailyHeartPoints()
 
         database.child("Users/$userId").get().addOnSuccessListener{
+            Thread.sleep(2000)
             Assert.assertFalse(it.child("dailyHeartPoints").exists())
 
         }.addOnFailureListener{
@@ -99,46 +101,7 @@ class deleteHP {
 
 }
 
-class getAllDays {
-    @Rule
-    @JvmField
-    var rule: TestRule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: DailyHeartPointsViewModel
-    private val userId = Firebase.auth.currentUser?.uid
-
-
-    private val database = Firebase.database.reference
-
-    @Before
-    fun setup() {
-        viewModel = DailyHeartPointsViewModel(ApplicationProvider.getApplicationContext())
-    }
-
-
-    @Test
-    fun testGetAllDays(){
-        database.child("Users/$userId/dailyHeartPoints/fakeDay").setValue("1234")
-
-        viewModel.getAllDays()?.observeForever{ mList ->
-            var repHP = "-1"
-            for (hp in mList){
-                if(hp.day == "fakeDay"){
-                    repHP = hp.heartPoints.toString()
-                }
-            }
-
-            Assert.assertEquals("1234", repHP)
-            database.child("Users/$userId/dailyHeartPoints/fakeDay").removeValue()
-        }
-
-
-
-
-
-
-    }
-}
 
 class getAllDaysTestt{
 
@@ -159,6 +122,7 @@ class getAllDaysTestt{
         viewModel.getAllDays()?.observeForever{ mList ->
             for (hp in mList){
                 if (hp.day == "fakeDay"){
+                    Thread.sleep(2000)
                     Assert.assertEquals("1234", hp.heartPoints.toString() )
                 }
 

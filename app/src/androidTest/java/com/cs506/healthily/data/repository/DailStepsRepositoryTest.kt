@@ -17,13 +17,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 
-class DailStepsRepositoryTest{
+class DailStepsRepositoryTest {
 
     private val database = Firebase.database.reference
     private val user = Firebase.auth.currentUser?.uid
 
 
-    val repository : DailStepsRepository = DailStepsRepository()
+    val repository: DailStepsRepository = DailStepsRepository()
 
     val api: Application = ApplicationProvider.getApplicationContext()
     val viewModel = DayStepsViewModel(api)
@@ -38,26 +38,22 @@ class DailStepsRepositoryTest{
      */
 
 
+
     @Test
     fun addDailyStepsTest() {
-        val day : DaySteps = DaySteps("10", "100", "1000")
+        val day: DaySteps = DaySteps("10", "100", "1000")
 
         repository.addDailySteps(day)
-
+        Thread.sleep(2000)
         database.child("Users").get().addOnSuccessListener {
+            Thread.sleep(2000)
             Truth.assertThat(it.child(user!!).child("dailySteps/10").value).isEqualTo(day.steps)
             database.child("Users/$user/dailySteps/10").removeValue()
-        }.addOnFailureListener{
+        }.addOnFailureListener {
 
         }
     }
 
-    /*
-
-
-
-
-     */
 }
 
 class getSteps{
@@ -80,10 +76,11 @@ class getSteps{
     @Test
     fun getDailyStepsTest() {
         database.child("Users/$user/dailySteps/testDay").setValue("5000")
-
+        Thread.sleep(2000)
         repository.getDailySteps()?.observeForever{mList ->
             for (goal in mList){
                 if(goal.day == "testDay"){
+                    Thread.sleep(2000)
                     assertEquals("5000", goal.steps)
                     database.child("Users/$user/dailySteps/testDay").removeValue()
                 }
@@ -110,8 +107,9 @@ class removeDailySteps{
 
 
         repository.deleteDailySteps()
-
+        Thread.sleep(2000)
         database.child("Users").get().addOnSuccessListener {
+            Thread.sleep(2000)
             assertFalse(it.child("$user/dailySteps").exists())
         }
     }

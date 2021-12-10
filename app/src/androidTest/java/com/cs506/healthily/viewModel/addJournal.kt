@@ -33,6 +33,7 @@ class addJournal {
         viewModel.addJournalActivity(activity)
 
         database.child("Users/$user/dailyActivity").get().addOnSuccessListener{
+            Thread.sleep(2000)
             Assert.assertTrue(it.child("Test Date").exists())
             database.child("Users/$user/dailyActivity/Test Date").removeValue()
 

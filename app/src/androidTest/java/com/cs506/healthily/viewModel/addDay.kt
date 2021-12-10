@@ -40,6 +40,7 @@ class addDay {
         if (userId != null) {
             database.child("Users").child(userId).get().addOnSuccessListener {
                 val steps = it.child("dailySteps/fakeDay").value
+                Thread.sleep(2000)
                 assertEquals("1000", steps)
                 database.child("Users/$userId/dailySteps/fakeDay").removeValue()
             }.addOnFailureListener{
@@ -73,6 +74,7 @@ class deleteSteps {
         viewModel.deleteDailySteps()
 
         database.child("Users/$userId").get().addOnSuccessListener{
+            Thread.sleep(2000)
             assertFalse(it.child("dailySteps").exists())
 
         }.addOnFailureListener{
@@ -103,24 +105,32 @@ class GetAllDays{
         viewModel = DayStepsViewModel(ApplicationProvider.getApplicationContext())
     }
 
+
     @Test
     fun testGetAllDays(){
         database.child("Users/$userId/dailySteps/fakeDay").setValue("1234")
 
+
+        Thread.sleep(2000)
         viewModel.getAllDays()?.observeForever{ mList ->
             var repSteps = "-1"
             for (step in mList){
-                if(step.day == "fakeDay"){
-                    repSteps = step.steps.toString()
+                Thread.sleep(2000)
+                    if(step.day == "fakeDay"){
+                        Thread.sleep(2000)
+                        assertEquals("1234", step.steps.toString())
+
+
                 }
             }
 
-            assertEquals("1234", repSteps)
-            database.child("Users/$userId/dailySteps/fakeDay").removeValue()
+
         }
 
 
 
     }
+
+
 
 }

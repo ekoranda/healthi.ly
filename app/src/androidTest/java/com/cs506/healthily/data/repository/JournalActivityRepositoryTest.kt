@@ -80,7 +80,9 @@ class deleteActivities{
     fun deleteActivities(){
         database.child("Users/$user/dailyActivity/fakeActivity/activity").setValue("fakeActivity")
         repository.deleteJournal()
+        Thread.sleep(2000)
         database.child("Users/$user").get().addOnSuccessListener{
+            Thread.sleep(2000)
             Assert.assertFalse(it.child("dailyActivity").exists())
 
         }.addOnFailureListener{
@@ -108,8 +110,9 @@ class addActivity {
         activity.heartPoints = "40"
 
         repository.addJournalActivity(activity)
-
+        Thread.sleep(2000)
         database.child("Users/$user/dailyActivity").get().addOnSuccessListener{
+            Thread.sleep(2000)
             Assert.assertTrue(it.child("Test Date").exists())
             database.child("Users/$user/dailyActivity/Test Date").removeValue()
 
@@ -138,8 +141,9 @@ class addActivity2{
         activity.date = "Test Date"
         activity.heartPoints = null
         repository.addJournalActivity(activity)
-
+        Thread.sleep(2000)
         database.child("Users/$user/dailyActivity").get().addOnSuccessListener{
+            Thread.sleep(2000)
             Assert.assertTrue(it.child("Test Date").exists())
             database.child("Users/$user/dailyActivity/Test Date").removeValue()
 
