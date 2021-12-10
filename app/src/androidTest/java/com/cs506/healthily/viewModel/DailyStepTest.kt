@@ -37,68 +37,22 @@ class DailyStepTest {
         assertEquals(4, 2 + 2)
     }
 
-
-
     /*
 
-    @Test
-    fun testAddDay(){
-        val day: DaySteps = DaySteps()
-        day.steps = "1000"
-        day.day = "fakeDay"
-        viewModel.addDay(day)
-
-        if (userId != null) {
-            database.child("Users").child(userId).get().addOnSuccessListener {
-                val steps = it.child("dailySteps/fakeDay").value
-                assertEquals("1000", steps)
-                database.child("Users/$userId/dailySteps/fakeDay").removeValue()
-            }.addOnFailureListener{
-
-            }
-        }
-    }
-
-     */
 
 
 
-    @Test
-    fun testDeleteSteps(){
 
-        viewModel.deleteDailySteps()
 
-        database.child("Users/$userId").get().addOnSuccessListener{
-            assertFalse(it.child("dailySteps").exists())
 
-        }.addOnFailureListener{
 
-        }
+
+
 
 
 
 
-    }
-
-    @Test
-    fun testGetAllDays(){
-        database.child("Users/$userId/dailySteps/fakeDay").setValue("1234")
-
-        viewModel.getAllDays()?.observeForever{ mList ->
-            var repSteps = "-1"
-            for (step in mList){
-                if(step.day == "fakeDay"){
-                    repSteps = step.steps.toString()
-                }
-            }
-
-            Assert.assertEquals("1234", repSteps)
-            database.child("Users/$userId/dailySteps/fakeDay").removeValue()
-        }
-
-
-
-    }
+     */
 
 
 

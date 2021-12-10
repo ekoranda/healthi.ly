@@ -17,20 +17,7 @@ import com.cs506.healthily.viewModel.goalViewModel
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.cs506.healthily", appContext.packageName)
-    }
-    @Test
-    fun testSetHeartGoal() {
-        val goalRepository: GoalsRepository = GoalsRepository("zB30YssDeYds297P4GLiIDYCiUh2")
-        assertNotEquals(null, goalRepository)
-        goalRepository.setHeartGoal("Testing")
-        //var temp: String? = goalRepository.getHeartGoal()
-        //assertEquals("Testing", temp)
-    }
+
+
 }

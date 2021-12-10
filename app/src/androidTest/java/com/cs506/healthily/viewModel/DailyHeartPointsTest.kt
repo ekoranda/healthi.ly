@@ -52,6 +52,34 @@ class DailyHeartPointsTest {
         }
     }
 
+    /*
+
+
+
+
+
+     */
+
+}
+
+
+class deleteHP {
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private lateinit var viewModel: DailyHeartPointsViewModel
+    private val userId = Firebase.auth.currentUser?.uid
+
+
+    private val database = Firebase.database.reference
+
+    @Before
+    fun setup() {
+        viewModel = DailyHeartPointsViewModel(ApplicationProvider.getApplicationContext())
+    }
+
+
     @Test
     fun deleteDailyHeartPoints(){
         viewModel.deleteDailyHeartPoints()
@@ -66,19 +94,39 @@ class DailyHeartPointsTest {
     }
 
     val api: Application = ApplicationProvider.getApplicationContext()
-    val viewModelLive = DailyHeartPointsViewModel(api)
+
+
+
+}
+
+class getAllDays {
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private lateinit var viewModel: DailyHeartPointsViewModel
+    private val userId = Firebase.auth.currentUser?.uid
+
+
+    private val database = Firebase.database.reference
+
+    @Before
+    fun setup() {
+        viewModel = DailyHeartPointsViewModel(ApplicationProvider.getApplicationContext())
+    }
+
 
     @Test
     fun testGetAllDays(){
         database.child("Users/$userId/dailyHeartPoints/fakeDay").setValue("1234")
 
-        viewModelLive.getAllDays()?.observeForever{ mList ->
+        viewModel.getAllDays()?.observeForever{ mList ->
             var repHP = "-1"
             for (hp in mList){
-               if(hp.day == "fakeDay"){
+                if(hp.day == "fakeDay"){
                     repHP = hp.heartPoints.toString()
-               }
-           }
+                }
+            }
 
             Assert.assertEquals("1234", repHP)
             database.child("Users/$userId/dailyHeartPoints/fakeDay").removeValue()
@@ -87,5 +135,38 @@ class DailyHeartPointsTest {
 
 
 
+
+
     }
+}
+
+class getAllDaysTestt{
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private lateinit var viewModel: DailyHeartPointsViewModel
+    private val userId = Firebase.auth.currentUser?.uid
+
+
+    private val database = Firebase.database.reference
+
+    @Test
+    fun getDays() {
+        database.child("Users/$userId/dailyHeartPoints/fakeDay").setValue("1234")
+        viewModel = DailyHeartPointsViewModel(ApplicationProvider.getApplicationContext())
+        viewModel.getAllDays()?.observeForever{ mList ->
+            for (hp in mList){
+                if (hp.day == "fakeDay"){
+                    Assert.assertEquals("1234", hp.heartPoints.toString() )
+                }
+
+            }
+
+        }
+
+
+    }
+
 }
