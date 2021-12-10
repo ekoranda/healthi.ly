@@ -23,7 +23,7 @@ class UserSettingsRepositoryTest{
     @JvmField
     var rule: TestRule = InstantTaskExecutorRule()
 
-    fun tearDown(){
+    private fun tearDown(){
         database.child("Users/$userId").removeValue()
     }
 
@@ -38,10 +38,40 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("gender").value).isEqualTo(gender)
-            tearDown()
+            database.child("Users/$userId").removeValue()
+          //  tearDown()
         }.addOnFailureListener{
 
         }
+    }
+
+    /*
+
+
+
+
+
+
+
+
+     */
+
+
+
+}
+
+class setAge{
+    private val database = Firebase.database.reference
+
+    val userId: String = "testUser"
+    val repository : UserSettingsRepository = UserSettingsRepository(userId)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private fun tearDown(){
+        database.child("Users/$userId").removeValue()
     }
 
     /**
@@ -55,12 +85,27 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("age").value).isEqualTo(age)
-            tearDown()
+            database.child("Users/$userId").removeValue()
+           // tearDown()
         }.addOnFailureListener{
 
         }
     }
+}
 
+class setHeight{
+    private val database = Firebase.database.reference
+
+    val userId: String = "testUser"
+    val repository : UserSettingsRepository = UserSettingsRepository(userId)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private fun tearDown(){
+        database.child("Users/$userId").removeValue()
+    }
     /**
      * Test the function setHeightTest() in UserSettingsRepository
      *
@@ -72,12 +117,27 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("height").value).isEqualTo(height)
-            tearDown()
+            database.child("Users/$userId").removeValue()
+           // tearDown()
         }.addOnFailureListener{
 
         }
     }
+}
 
+class setWeight{
+    private val database = Firebase.database.reference
+
+    val userId: String = "testUser"
+    val repository : UserSettingsRepository = UserSettingsRepository(userId)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private fun tearDown(){
+        database.child("Users/$userId").removeValue()
+    }
     /**
      * Test the function setWeightTest() in UserSettingsRepository
      *
@@ -89,18 +149,36 @@ class UserSettingsRepositoryTest{
 
         database.child("Users").get().addOnSuccessListener {
             assertThat(it.child(userId).child("weight").value).isEqualTo(weight)
-            tearDown()
+            database.child("Users/$userId").removeValue()
+           // tearDown()
         }.addOnFailureListener{
 
         }
     }
 
+}
+
+class getUserSettings {
+    private val database = Firebase.database.reference
+
+    val userId: String = "testUser"
+    val repository : UserSettingsRepository = UserSettingsRepository(userId)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private fun tearDown(){
+        database.child("Users/$userId").removeValue()
+    }
     /**
      * Test the function getUserSettingsTest() in UserSettingsRepository
      *
      */
     @Test
     fun getUserSettingsTest() {
+
+
 
 
 
@@ -117,7 +195,8 @@ class UserSettingsRepositoryTest{
             assertEquals("male", mData.gender)
             assertEquals("180", mData.height)
             assertEquals("60", mData.weight)
-            tearDown()
+            database.child("Users/$userId").removeValue()
+           // tearDown()
         }
 
 
@@ -129,7 +208,4 @@ class UserSettingsRepositoryTest{
 
 
     }
-
-
-
 }

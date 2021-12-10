@@ -41,6 +41,27 @@ class DailyHeartsRepositoryTest {
         }
     }
 
+    /*
+
+
+
+
+
+
+     */
+
+}
+
+class deleteDailyHp{
+    private val database = Firebase.database.reference
+    private val user = Firebase.auth.currentUser?.uid
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+
+    val repository : DailyHeartPointsRepository = DailyHeartPointsRepository()
     @Test
     fun test_deleteDailyHP(){
         repository.deleteDailyHeartPoints()
@@ -51,6 +72,18 @@ class DailyHeartsRepositoryTest {
         }
     }
 
+}
+
+class getDailyHP{
+    private val database = Firebase.database.reference
+    private val user = Firebase.auth.currentUser?.uid
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+
+    val repository : DailyHeartPointsRepository = DailyHeartPointsRepository()
     @Test
     fun test_getDailyHeartPoints(){
         database.child("Users/$user/dailyHeartPoints/testDay").setValue("50")
@@ -65,5 +98,21 @@ class DailyHeartsRepositoryTest {
         }
     }
 
+}
+
+class testFirebase{
+    private val database = Firebase.database.reference
+    private val user = Firebase.auth.currentUser?.uid
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+
+    val repository : DailyHeartPointsRepository = DailyHeartPointsRepository()
+    @Test
+    fun test_firebase(){
+        assertEquals(user, repository.user)
+    }
 }
 

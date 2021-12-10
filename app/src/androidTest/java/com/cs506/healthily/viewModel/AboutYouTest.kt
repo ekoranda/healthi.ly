@@ -5,6 +5,8 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.google.common.truth.Truth.assertThat
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import junit.framework.Assert
+import junit.framework.Assert.assertEquals
 import org.junit.After
 
 
@@ -23,6 +25,13 @@ class AboutYouTest {
     fun setup() {
         viewModel = AboutYou(getApplicationContext())
     }
+
+    private fun tearDown(){
+        database.child("Users/testingAccount").removeValue()
+    }
+
+
+
 
 
 
@@ -120,6 +129,7 @@ class AboutYouTest {
         viewModel.setGenderFromRepo(userId, gender)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
+            Thread.sleep(2000)
             assertThat(it.child("gender").value).isEqualTo("male")
             tearDown()
         }.addOnFailureListener{
@@ -198,26 +208,15 @@ class AboutYouTest {
 
      */
 
+    /*
+
     /**
      * Test the function setAgeFromRepo(userId: String, age: String) of AboutYou viewModel.
      * when: userId = "setAgeFromRepoOfAboutYou4", age = "29", this function should work.
      * function setGenderFromRepo(userId: String, gender: String) should set userId "setAgeFromRepoOfAboutYou4"
      *     age to "20" from database
      */
-    @Test
-    fun setAgeFromRepoOfAboutYou4(){
-        val userId = "testingAccount"
-        val age = "20"
-        viewModel.setAgeFromRepo(userId, age)
 
-        database.child("Users").child(userId).get().addOnSuccessListener {
-            assertThat(it.child("age").value).isEqualTo("20")
-            tearDown()
-        }.addOnFailureListener{
-
-        }
-
-    }
 
     /**
      * Test the function setWeightFromRepo(userId: String, weight: String) of AboutYou viewModel.
@@ -288,26 +287,6 @@ class AboutYouTest {
 
      */
 
-    /**
-     * Test the function setWeightFromRepo(userId: String, weight: String) of AboutYou viewModel.
-     * when: userId = "setWeightFromRepoOfAboutYou4", weight = "60", this function should work.
-     * function setWeightFromRepo(userId: String, weight: String) should set userId "setWeightFromRepoOfAboutYou4"
-     *     weight to "60" from database
-     */
-    @Test
-    fun setWeightFromRepoOfAboutYou4(){
-        val userId = "testingAccount"
-        val weight = "60"
-        viewModel.setWeightFromRepo(userId, weight)
-
-        database.child("Users").child(userId).get().addOnSuccessListener {
-            assertThat(it.child("weight").value).isEqualTo("60")
-            tearDown()
-        }.addOnFailureListener{
-
-        }
-
-    }
 
     /**
      * Test the function setHeightFromRepo(userId: String, Height: String) of AboutYou viewModel.
@@ -378,6 +357,111 @@ class AboutYouTest {
 
      */
 
+
+
+     */
+
+
+
+
+
+
+}
+
+class setAge{
+
+    private lateinit var viewModel: AboutYou
+
+
+    private val database = Firebase.database.reference
+
+    @Before
+    fun setup() {
+        viewModel = AboutYou(getApplicationContext())
+    }
+
+    private fun tearDown(){
+        database.child("Users/testingAccount").removeValue()
+    }
+
+
+
+
+    @Test
+    fun setAgeFromRepoOfAboutYou4(){
+        val userId = "testingAccount"
+        val age = "20"
+        viewModel.setAgeFromRepo(userId, age)
+
+        database.child("Users").child(userId).get().addOnSuccessListener {
+            Thread.sleep(2000)
+            assertThat(it.child("age").value).isEqualTo("20")
+            tearDown()
+        }.addOnFailureListener{
+
+        }
+
+    }
+
+
+}
+
+
+
+class setWeight {
+
+    private lateinit var viewModel: AboutYou
+
+
+    private val database = Firebase.database.reference
+
+    @Before
+    fun setup() {
+        viewModel = AboutYou(getApplicationContext())
+    }
+
+    private fun tearDown(){
+        database.child("Users/testingAccount").removeValue()
+    }
+    /**
+     * Test the function setWeightFromRepo(userId: String, weight: String) of AboutYou viewModel.
+     * when: userId = "setWeightFromRepoOfAboutYou4", weight = "60", this function should work.
+     * function setWeightFromRepo(userId: String, weight: String) should set userId "setWeightFromRepoOfAboutYou4"
+     *     weight to "60" from database
+     */
+    @Test
+    fun setWeightFromRepoOfAboutYou4(){
+        val userId = "testingAccount"
+        val weight = "60"
+        viewModel.setWeightFromRepo(userId, weight)
+
+        database.child("Users").child(userId).get().addOnSuccessListener {
+            Thread.sleep(2000)
+            assertThat(it.child("weight").value).isEqualTo("60")
+            tearDown()
+        }.addOnFailureListener{
+
+        }
+
+    }
+
+}
+
+class setHeight{
+
+    private lateinit var viewModel: AboutYou
+
+
+    private val database = Firebase.database.reference
+
+    @Before
+    fun setup() {
+        viewModel = AboutYou(getApplicationContext())
+    }
+
+    private fun tearDown(){
+        database.child("Users/testingAccount").removeValue()
+    }
     /**
      * Test the function setHeightFromRepo(userId: String, height: String) of AboutYou viewModel.
      * when: userId = "setHeightFromRepoOfAboutYou4", height = "180", this function should work.
@@ -391,6 +475,7 @@ class AboutYouTest {
         viewModel.setHeightFromRepo(userId, height)
 
         database.child("Users").child(userId).get().addOnSuccessListener {
+            Thread.sleep(2000)
             assertThat(it.child("height").value).isEqualTo("180")
             tearDown()
 
@@ -400,9 +485,47 @@ class AboutYouTest {
 
 
     }
+}
 
-    private fun tearDown(){
-        database.child("Users/testingAccount").removeValue()
+class setAvailabilityEnd {
+    private lateinit var viewModel: AboutYou
+    private val database = Firebase.database.reference
+    val userId = "testingAccount"
+
+    @Test
+    fun setAvailEnd(){
+        viewModel = AboutYou(getApplicationContext())
+        viewModel.setAvailabilityEndFromRepo(userId, "6pm")
+        database.child("Users").child(userId).get().addOnSuccessListener {
+            val endTime = it.child("availabilityEnd").value
+            Thread.sleep(2000)
+            assertEquals("6pm", endTime)
+            database.child("Users/testingAccount").removeValue()
+
+        }
     }
 
+
 }
+
+class setAvailabilityStart {
+    private lateinit var viewModel: AboutYou
+    private val database = Firebase.database.reference
+    val userId = "testingAccount"
+
+    @Test
+    fun setAvailEnd(){
+        viewModel = AboutYou(getApplicationContext())
+        viewModel.setAvailabilityStartFromRepo(userId, "6pm")
+        database.child("Users").child(userId).get().addOnSuccessListener {
+            val startTime = it.child("availabilityStar").value
+            Thread.sleep(2000)
+            assertEquals("6pm", startTime)
+            database.child("Users/testingAccount").removeValue()
+
+        }
+    }
+
+
+}
+

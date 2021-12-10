@@ -11,9 +11,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class DailyHeartPointsRepository {
-    private val database = Firebase.database.reference
-    private val user = Firebase.auth.currentUser?.uid
-
+    val user = Firebase.auth.currentUser?.uid
 
     fun getDailyHeartPoints(): MutableLiveData<List<DayHeart>>? {
         val mLiveData: MutableLiveData<List<DayHeart>> = MutableLiveData()
