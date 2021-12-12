@@ -52,6 +52,27 @@ class DailStepsRepositoryTest{
         }
     }
 
+    /*
+
+
+
+
+     */
+}
+
+class getSteps{
+    private val database = Firebase.database.reference
+    private val user = Firebase.auth.currentUser?.uid
+
+
+    val repository : DailStepsRepository = DailStepsRepository()
+
+    val api: Application = ApplicationProvider.getApplicationContext()
+    val viewModel = DayStepsViewModel(api)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
     /**
      * Test the function getDailySteps(): MutableLiveData<List<DaySteps>>? in DailStepsRepository
      *
@@ -69,7 +90,21 @@ class DailStepsRepositoryTest{
             }
         }
     }
+}
 
+class removeDailySteps{
+    private val database = Firebase.database.reference
+    private val user = Firebase.auth.currentUser?.uid
+
+
+    val repository : DailStepsRepository = DailStepsRepository()
+
+    val api: Application = ApplicationProvider.getApplicationContext()
+    val viewModel = DayStepsViewModel(api)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
     @Test
     fun test_removeDailyStep(){
 
@@ -81,3 +116,4 @@ class DailStepsRepositoryTest{
         }
     }
 }
+

@@ -17,6 +17,14 @@ class JournalViewModel(application: Application) : AndroidViewModel(application)
         return repo.getAllActivities()
     }
 
+    fun addJournalActivity(activity: JournalActivity){
+        repo.addJournalActivity(activity)
+    }
+
+    fun deleteJournal(){
+        repo.deleteJournal();
+    }
+
 
 
 }

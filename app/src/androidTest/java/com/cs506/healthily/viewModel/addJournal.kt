@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 
-class JournalViewModelTest {
+class addJournal {
     @Rule
     @JvmField
     var rule: TestRule = InstantTaskExecutorRule()
@@ -23,37 +23,25 @@ class JournalViewModelTest {
     val api: Application = ApplicationProvider.getApplicationContext()
     val viewModel = JournalViewModel(api)
 
-
-
     @Test
-    fun testJournal() {
+    fun testAddJournal(){
+        val activity: JournalActivity = JournalActivity()
+        activity.stepCount = "3000"
+        activity.activity = "Test Activity"
+        activity.date = "Test Date"
+        activity.heartPoints = "40"
+        viewModel.addJournalActivity(activity)
+
+        database.child("Users/$user/dailyActivity").get().addOnSuccessListener{
+            Assert.assertTrue(it.child("Test Date").exists())
+            database.child("Users/$user/dailyActivity/Test Date").removeValue()
 
 
-        database.child("Users/$user/dailyActivity/fakeActivity/activity").setValue("fakeActivity")
 
-
-        viewModel.getAllActivities()?.observeForever {
-
-            database.child("Users/$user/dailyActivity").get().addOnSuccessListener {
-                var repAct = "-1"
-                for (child in it.children){
-                    if(child.value == "fakeActivity"){
-                        repAct = child.child("activity").value.toString()
-                        Assert.assertEquals("fakeActivity", repAct)
-                    }
-                }
-
-
-                database.child("Users/$user/dailyActivity/fakeActivity").removeValue()
-            }
-
-
+        }.addOnFailureListener{
 
         }
-
-
     }
-
-
 }
+
 
