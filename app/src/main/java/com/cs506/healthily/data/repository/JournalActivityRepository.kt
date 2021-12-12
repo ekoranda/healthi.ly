@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
 class JournalActivityRepository {
     private val database = Firebase.database.reference
@@ -26,10 +28,20 @@ class JournalActivityRepository {
                 val children = snapshot!!.children
                 children.forEach{
                     val activity: JournalActivity = JournalActivity()
-                    activity.heartPoints = it.child("heartPoint").value.toString()
+                    activity.heartPoints = it.child("heartPoints").value.toString()
+                    if (activity.heartPoints.toString().contentEquals("null")) {
+                        activity.heartPoints = "0"
+                    }
                     activity.stepCount = it.child("stepCount").value.toString()
-                    activity.activity = it.child("activity").value.toString()
-                    activity.date = it.child("date").value.toString()
+                    if (activity.stepCount.toString().contentEquals("null")) {
+                        activity.stepCount = "0"
+                    }
+                    activity.activity = it.child("activity").value.toString().replace('_',' ', false).lowercase()
+                    activity.activity = activity.activity.toString().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                    activity.date = it.child("date").value.toString().lowercase()
+                    var dateNumber = activity.date.toString().substringBefore(',')
+                    var dateMonth = activity.date.toString().substringAfter(' ').substringBefore(' ').capitalize()
+                    activity.date = "$dateMonth $dateNumber"
 
 
                     data.add(activity)

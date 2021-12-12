@@ -106,19 +106,19 @@
         <!--            android:layout_gravity="bottom"-->
         <!--            android:layout_marginBottom="100dp"/>-->
 
-                <ScrollView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_below="@id/graph"
-                    android:layout_marginTop="0dp">
+<!--                <ScrollView-->
+<!--                    android:layout_width="fill_parent"-->
+<!--                    android:layout_height="fill_parent"-->
+<!--                    android:layout_below="@id/graph"-->
+<!--                    android:layout_marginTop="0dp">-->
 
-                    <com.cs506.healthily.view.logger.LogView
-                        android:id="@+id/sample_logview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/white"
-                        android:scrollbars="vertical" />
-                </ScrollView>
+<!--                    <com.cs506.healthily.view.logger.LogView-->
+<!--                        android:id="@+id/sample_logview"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@android:color/white"-->
+<!--                        android:scrollbars="vertical" />-->
+<!--                </ScrollView>-->
 
         <!--        <Button-->
         <!--            android:id="@+id/step_button"-->

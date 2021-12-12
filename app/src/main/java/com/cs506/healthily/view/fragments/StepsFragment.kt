@@ -111,6 +111,8 @@ class StepsFragment : Fragment() {
         val graph = view?.findViewById(R.id.graph) as GraphView
         graph.addSeries(series)
         series.setSpacing(50)
+        graph.getGridLabelRenderer().horizontalAxisTitle = "Days Since Current Time"
+        graph.getGridLabelRenderer().verticalAxisTitle = "Step Count Achieved"
 
 
     }
