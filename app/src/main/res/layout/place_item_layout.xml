@@ -36,7 +36,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@color/black"
+                android:textColor="?colorOnSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txtPlaceDRating"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="?colorOnSecondary"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/ic_rating"
                     app:drawableTint="@color/primaryColor" />
@@ -71,7 +71,7 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="1dp"
                     android:text="@{googlePlaceModel.rating!=null?String.valueOf(googlePlaceModel.rating):`New`,default=3.4}"
-                    android:textColor="@color/black"
+                    android:textColor="?colorOnSecondary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/txtPlaceDRating2"
                     app:layout_constraintStart_toEndOf="@+id/txtPlaceDRating3"
@@ -86,7 +86,7 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="1dp"
                     android:text="@{googlePlaceModel.userRatingsTotal!=null?`(`+String.valueOf(googlePlaceModel.userRatingsTotal)+`)`:``,default=`(123)`}"
-                    android:textColor="@color/itemTextColor" />
+                    android:textColor="?colorOnSecondary" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -107,17 +107,17 @@
                 android:id="@+id/txtPlaceName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/txtPlaceAddress"
-                app:layout_constraintTop_toBottomOf="@+id/rating"
-                app:layout_constraintStart_toEndOf="@+id/location_image"
-                app:layout_constraintEnd_toStartOf="@+id/imgSav"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{googlePlaceModel.name!=null?googlePlaceModel.name:`No Name`,default=`Place Name`}"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="?colorOnSecondary"
+                app:layout_constraintBottom_toTopOf="@+id/txtPlaceAddress"
+                app:layout_constraintEnd_toStartOf="@+id/imgSav"
+                app:layout_constraintStart_toEndOf="@+id/location_image"
+                app:layout_constraintTop_toBottomOf="@+id/rating" />
 
             <TextView
                 android:id="@+id/txtPlaceAddress"
@@ -132,7 +132,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{googlePlaceModel.vicinity!=null?googlePlaceModel.vicinity:`No Address`,default=`Place Address`}"
-                android:textColor="@color/black" />
+                android:textColor="?colorOnSecondary" />
 
             <ImageView
                 android:id="@+id/imgSav"

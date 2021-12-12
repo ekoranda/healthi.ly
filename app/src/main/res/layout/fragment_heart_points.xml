@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="0"
-            android:textColor="@color/black"
+            android:textColor="?colorOnSecondary"
             android:textSize="28sp"
             android:textStyle="bold" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Your Weekly Heart Points"
-            android:textColor="@color/black"
+            android:textColor="?colorOnSecondary"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
