@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -52,6 +53,20 @@ import com.cs506.healthily.viewModel.LocationViewModel
 import com.google.android.gms.maps.model.*
 import kotlinx.coroutines.flow.collect
 
+//new stuff
+import com.cs506.healthily.data.model.DaySteps
+import com.cs506.healthily.data.model.Goals
+import com.cs506.healthily.data.repository.GoalsRepository
+import com.cs506.healthily.view.adapter.DayStepAdapter
+import com.cs506.healthily.viewModel.DayStepsViewModel
+import com.cs506.healthily.view.fragments.StepsFragment
+
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.maps.android.SphericalUtil
+import com.jjoe64.graphview.series.DataPoint
+import kotlin.math.roundToInt
+
 
 class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, GoogleMap.OnMarkerClickListener {
 
@@ -70,7 +85,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
     private lateinit var firebaseAuth: FirebaseAuth
 
     private var isTrafficEnable: Boolean = false
-    private var radius = 1500
+   // private var radius = 1500
       private val locationViewModel: LocationViewModel by viewModels<LocationViewModel>()
      private lateinit var googlePlaceList: ArrayList<GooglePlaceModel>
     private lateinit var googlePlaceAdapter: GooglePlaceAdapter
@@ -165,8 +180,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
 
             if (checkedId != -1) {
                 val placeModel = AppConstant.placesName[checkedId - 1]
+               // val viewModel: DayStepsViewModel
                 binding.edtPlaceName.setText(placeModel.name)
-                getNearByPlace(placeModel.placeType)
+
+                val viewModel: DayStepsViewModel =
+                    ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
+                    viewModel.getAllDays()?.observe(viewLifecycleOwner) { mDays ->
+                    getNearByPlace(placeModel.placeType,   mDays)
+
+                }
+
+
+
             }
         }
 
@@ -342,11 +367,43 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
         }
     }
 
-    private fun getNearByPlace(placeType: String) {
+    private fun activityRecommend(){
+    //((step count goal - current step count) / (steps to meters conversion)) or maybe that divided by 2,
+    // depending on whether we assume the user is walking there, or going there and back
+
+
+
+
+    }
+
+    private fun getNearByPlace(placeType: String, days: List<DaySteps>) {
+
+// For example, 70 steps on a 50-meter course (5000 cm / 70 steps) would reveal a 71.43 cm step.
+
+        //var steps = StepsFragment()
+       // var currentStepCount = steps.totalSteps
+        //var stepCountGoal = steps.stepGoal
+
+        var radius = 0
+        var totalSteps = 0
+        for (day in days) {
+            totalSteps += day.steps?.toInt()!!
+        }
+        val stepGoal = days[0].stepGoal?.toInt()!!
+        if(totalSteps < stepGoal){//((step count goal - current step count) / (steps to meters conversion))
+            radius = ((stepGoal - totalSteps) * 0.718).toInt()
+        }
+        else{
+             radius=1500
+        }
+
+
         val url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                 + currentLocation.latitude + "," + currentLocation.longitude
                 + "&radius=" + radius + "&type=" + placeType + "&key=" +
                 resources.getString(R.string.API_KEY))
+
+
 
         lifecycleScope.launchWhenStarted {
             locationViewModel.getNearByPlace(url).collect {
@@ -382,9 +439,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
                     }
                     is State.Failed -> {
                         loadingDialog.stopLoading()
-                        Snackbar.make(
-                            binding.root, it.error,
-                            Snackbar.LENGTH_SHORT
+                        Snackbar.make( binding.root, "There are no nearby places of that kind!", Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -458,10 +513,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
         }
 
         snapHelper.attachToRecyclerView(binding.placesRecyclerView)
-    }
-
-    override fun onSaveClick(googlePlaceModel: GooglePlaceModel) {
-        TODO("Not yet implemented")
     }
 
     override fun onDirectionClick(googlePlaceModel: GooglePlaceModel) {
