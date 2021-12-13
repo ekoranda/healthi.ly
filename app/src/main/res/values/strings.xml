@@ -87,6 +87,7 @@
         <item>183</item>
         <item>184</item>
     </string-array>
+    <string name="title_activity_alarm_reciever">AlarmReciever</string>
 
     <!--
 

@@ -13,26 +13,6 @@
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_heart_points.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
         <entry key="..\:/Github/healthi.ly/app/src/main/res/layout/fragment_journal.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/drawable/btn_bg_selector.xml" value="0.2125" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_about_you.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_direction.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_heart_point_goal.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_logout.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_main.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_profile_editor.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/activity_sign_in.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/dialog_layout.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/fragment_heart_points.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/fragment_home.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/fragment_journal.xml" value="0.21927083333333333" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/fragment_steps.xml" value="0.25" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/info_window_layout.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/journal_cardview.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/place_item_layout.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/layout/step_item_layout.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/menu/current_place_menu.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/menu/map_type_menu.xml" value="0.19635416666666666" />
-        <entry key="..\:/Users/Sabrina/Documents/healthi.ly/app/src/main/res/menu/nav_menu.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/drawable-v24/ic_atm.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_back.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_car_wash.xml" value="0.26458333333333334" />
@@ -51,11 +31,13 @@
         <entry key="app/src/main/res/font/playfair_display 2.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/font/playfair_display.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/activity_about_you.xml" value="0.14447463768115942" />
+        <entry key="app/src/main/res/layout/activity_after_notification.xml" value="0.15572916666666667" />
         <entry key="app/src/main/res/layout/activity_direction.xml" value="0.18135764944275581" />
         <entry key="app/src/main/res/layout/activity_google_sign_in.xml" value="0.1503623188405797" />
         <entry key="app/src/main/res/layout/activity_heart_point_goal.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_logout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.15572916666666667" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_sign_in_google_fit.xml" value="0.14375" />
         <entry key="app/src/main/res/layout/activity_signed_in.xml" value="0.14447463768115942" />
@@ -69,10 +51,8 @@
         <entry key="app/src/main/res/layout/fragment_saved_place.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1265625" />
         <entry key="app/src/main/res/layout/fragment_steps.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/info_window_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/journal_cardview.xml" value="0.25" />
         <entry key="app/src/main/res/layout/place_item_layout.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/step_item_layout.xml" value="0.13722826086956522" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.16770833333333332" />
         <entry key="app/src/main/res/menu/map_type_menu.xml" value="0.2484375" />
         <entry key="app/src/main/res/menu/nav_menu.xml" value="0.1984375" />
