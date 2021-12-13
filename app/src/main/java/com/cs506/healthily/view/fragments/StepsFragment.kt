@@ -27,8 +27,7 @@ import com.jjoe64.graphview.series.DataPoint
 //import android.R
 
 import com.jjoe64.graphview.GraphView
-
-
+import java.lang.NumberFormatException
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -121,16 +120,32 @@ class StepsFragment : Fragment() {
     private fun setUpCurrentProgress(days: List<DaySteps>){
         val progressBar: ProgressBar? = view?.findViewById(R.id.progress_bar)
         val progressText: TextView? = view?.findViewById(R.id.progress_text)
+        val errorText: TextView? = view?.findViewById(R.id.error_text)
         var totalSteps = 0
         for (day in days) {
             totalSteps += day.steps?.toInt()!!
         }
 
 
-        val currentProgress = totalSteps / 7 // TODO: Dont we want to compare total steps in a week to step goals (of a week)?
-        val stepGoal = days[0].stepGoal?.toInt()
+        val currentProgress = totalSteps / 7
+        var fitAccess = true
+        var stepGoal: Int? = 0
+
+        try {
+            stepGoal = days[0].stepGoal?.toInt()
+        } catch (e:NumberFormatException) {
+            fitAccess = false
+            stepGoal = 1
+        }
         if (progressText != null) {
-            progressText.text = "" + currentProgress + " / " + stepGoal
+            if (fitAccess) {
+                progressText.text = "" + currentProgress + " / " + stepGoal
+            } else {
+                progressText.text ="N/A"
+                if (errorText != null) {
+                    errorText.text = "Login to the Google Fit app to view data"
+                }
+            }
         }
         val progressPercentage = 100 * currentProgress / stepGoal!!
         if (progressBar != null) {

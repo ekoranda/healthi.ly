@@ -18,6 +18,7 @@ import com.cs506.healthily.viewModel.DailyHeartPointsViewModel
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
+import java.lang.NumberFormatException
 import java.lang.reflect.Array.set
 import java.time.LocalDate
 import java.util.*
@@ -108,6 +109,7 @@ class HeartPointsFragment : Fragment() {
     private fun setUpCurrentProgress(days: List<DayHeart>){
         val progressBar: ProgressBar? = view?.findViewById(R.id.progress_bar)
         val progressText: TextView? = view?.findViewById(R.id.progress_text)
+        val errorText: TextView? = view?.findViewById(R.id.error_text)
         var totalSteps = 0
         for (day in days) {
             totalSteps += day.heartPoints?.toInt()!!
@@ -119,9 +121,23 @@ class HeartPointsFragment : Fragment() {
 
 
         val currentProgress = totalSteps / 7
-        val stepGoal = days[0].heartGoal?.toInt()
+        var stepGoal: Int? = 0
+        var fitAccess = true
+        try {
+            stepGoal = days[0].heartGoal?.toInt()
+        } catch (e:NumberFormatException) {
+            stepGoal = 1
+            fitAccess = false
+        }
         if (progressText != null) {
-            progressText.text = "" + currentProgress + " / " + stepGoal
+            if (fitAccess) {
+                progressText.text = "" + currentProgress + " / " + stepGoal
+            } else {
+                progressText.text = "N/A"
+                if (errorText != null) {
+                    errorText.text = "Login to the Google Fit app to view data"
+                }
+            }
         }
         val progressPercentage = 100 * currentProgress / stepGoal!!
         if (progressBar != null) {

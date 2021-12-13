@@ -186,7 +186,7 @@ class AboutYouActivity : AppCompatActivity() {
             }
         }
 
-        val heights  = arrayOf("Height:", "5'1\"",
+        val heights  = arrayOf("5'1\"",
             "5'2\"",
             "5'3\"",
             "5'4\"",

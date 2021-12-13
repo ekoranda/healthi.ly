@@ -25,7 +25,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string-array name="Genders">
-        <item>Gender:</item>
         <item>Female</item>
         <item>Male</item>
         <item>Other</item>
@@ -33,7 +32,6 @@
     </string-array>
 
     <string-array name="Ages">
-        <item>Age:</item>
         <item>16</item>
         <item>17</item>
         <item>18</item>
@@ -63,7 +61,6 @@
 
 
     <string-array name="Weights">
-        <item>Weight:</item>
         <item>160</item>
         <item>161</item>
         <item>162</item>
