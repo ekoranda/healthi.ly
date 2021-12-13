@@ -123,11 +123,15 @@ class StepsFragment : Fragment() {
         val errorText: TextView? = view?.findViewById(R.id.error_text)
         var totalSteps = 0
         for (day in days) {
-            totalSteps += day.steps?.toInt()!!
+
+            if(day.day == "7"){
+                totalSteps += day.steps?.toInt()!!
+            }
         }
 
 
-        val currentProgress = totalSteps / 7
+        val currentProgress = totalSteps
+        Log.d("FIT", currentProgress.toString())
         var fitAccess = true
         var stepGoal: Int? = 0
 
