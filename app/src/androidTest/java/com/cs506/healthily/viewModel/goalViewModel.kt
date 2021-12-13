@@ -32,6 +32,7 @@ class goalViewModelTest {
         viewModel.getUserSettings()?.observeForever{ mList ->
             val age = mList.age
             database.child("Users/$user/age").get().addOnSuccessListener {
+                Thread.sleep(2000)
                 Assert.assertEquals(age, it.value)
             }
         }
@@ -56,6 +57,7 @@ class testGetUserId{
     @Test
     fun testGetUserId(){
         val userId = viewModel.userId
+        Thread.sleep(2000)
         assertEquals(user, userId)
     }
 
@@ -74,6 +76,7 @@ class testGetAge{
     @Test
     fun testGetAge(){
         val age = user?.let { viewModel.getAge(it) }
+        Thread.sleep(2000)
         assertEquals("0", age)
     }
 
@@ -94,6 +97,7 @@ class testSetHeartGoal{
 
         viewModel.setHeartGoal("90")
         database.child("Users/$user/heartGoal").get().addOnSuccessListener {
+            Thread.sleep(2000)
             Assert.assertEquals("90", it.value)
         }
 
@@ -118,6 +122,7 @@ class testSetStepGoal{
 
         viewModel.setStepGoal("9999")
         database.child("Users/$user/stepGoal").get().addOnSuccessListener {
+            Thread.sleep(2000)
             Assert.assertEquals("9999", it.value)
         }
 

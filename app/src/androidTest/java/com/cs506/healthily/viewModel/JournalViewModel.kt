@@ -39,6 +39,7 @@ class JournalViewModelTest {
                 for (child in it.children){
                     if(child.value == "fakeActivity"){
                         repAct = child.child("activity").value.toString()
+                        Thread.sleep(2000)
                         Assert.assertEquals("fakeActivity", repAct)
                     }
                 }

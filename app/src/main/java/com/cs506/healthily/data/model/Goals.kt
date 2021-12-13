@@ -12,7 +12,7 @@ class Goals {
         stepGoal: String?,
     ){
         this.heartGoal = heartGoal
-        this.stepGoal = heartGoal
+        this.stepGoal = stepGoal
 
     }
 }

@@ -31,9 +31,10 @@ class DailyHeartsRepositoryTest {
         day.heartPoints = "50"
 
         repository.addHeartPointsDay(day)
-
+        Thread.sleep(2000)
         database.child("Users").get().addOnSuccessListener {
             val hp = it.child("$user/dailyHeartPoints/fakeDay").value
+            Thread.sleep(2000)
             assertEquals("50", hp)
             database.child("Users/$user/dailyHeartPoints/fakeDay").removeValue()
         }.addOnFailureListener{
@@ -66,8 +67,9 @@ class deleteDailyHp{
     fun test_deleteDailyHP(){
         repository.deleteDailyHeartPoints()
 
-
+        Thread.sleep(2000)
         database.child("Users").get().addOnSuccessListener {
+            Thread.sleep(2000)
             assertFalse(it.child("$user/dailyHeartPoints").exists())
         }
     }
@@ -87,10 +89,12 @@ class getDailyHP{
     @Test
     fun test_getDailyHeartPoints(){
         database.child("Users/$user/dailyHeartPoints/testDay").setValue("50")
-
+        Thread.sleep(2000)
         repository.getDailyHeartPoints()?.observeForever{mList ->
             for (goal in mList){
+                Thread.sleep(2000)
                 if(goal.day == "testDay"){
+                    Thread.sleep(2000)
                     assertEquals("50", goal.heartPoints)
                     database.child("Users/$user/dailyHeartPoints/testDay").removeValue()
                 }
@@ -112,6 +116,7 @@ class testFirebase{
     val repository : DailyHeartPointsRepository = DailyHeartPointsRepository()
     @Test
     fun test_firebase(){
+        Thread.sleep(2000)
         assertEquals(user, repository.user)
     }
 }
