@@ -138,14 +138,8 @@ class AboutYouActivity : AppCompatActivity() {
 
 
         val ages = resources.getStringArray(R.array.Ages)
-        val ageSpinner = findViewById<Spinner>(R.id.sp_age)
+        val ageSpinner = findViewById<NumberPicker>(R.id.sp_age)
         if (ageSpinner != null) {
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item, ages
-            )
-            ageSpinner.adapter = adapter
-
             val goalViewModel: goalViewModel =
                 ViewModelProviders.of(this).get(goalViewModel::class.java)
             goalViewModel.getUserSettings()?.observe(this) { goals ->
@@ -156,42 +150,45 @@ class AboutYouActivity : AppCompatActivity() {
 //                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
                     if (ages[elem].toString().contentEquals(currAge)) {
                         ageIndex = elem
-                        ageSpinner.setSelection(ageIndex)
+                        ageSpinner.setValue(ageIndex)
 //                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
 
-            ageSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                var selectionCount = 0
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    println("Nothing Selected")
+//            ageSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                var selectionCount = 0
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                    println("Nothing Selected")
+//                }
+//
+//                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                    if (selectionCount > 0) {
+//                        val age = ages[position]
+//                        val user = Firebase.auth.currentUser?.uid
+//                        if (user != null) {
+//                            bindAge(user, age)
+//                        }
+//                    }
+//                    selectionCount++
+//                }
+//
+//            }
+            ageSpinner?.setOnValueChangedListener { picker, oldVal, newVal ->
+                val age = ages[newVal]
+                val user = Firebase.auth.currentUser?.uid
+                if (user != null) {
+                    bindWeight(user, age)
                 }
-
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if (selectionCount > 0) {
-                        val age = ages[position]
-                        val user = Firebase.auth.currentUser?.uid
-                        if (user != null) {
-                            bindAge(user, age)
-                        }
-                    }
-                    selectionCount++
-                }
-
             }
         }
 
 
         val weights = resources.getStringArray(R.array.Weights)
-        val weightSpinner = findViewById<Spinner>(R.id.sp_weight)
+        val weightSpinner = findViewById<NumberPicker>(R.id.sp_weight)
         if (weightSpinner != null) {
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item, weights
-            )
-            weightSpinner.adapter = adapter
-
+            weightSpinner.setMinValue(0)
+            weightSpinner.setMaxValue(weights.size)
             val goalViewModel: goalViewModel =
                 ViewModelProviders.of(this).get(goalViewModel::class.java)
             goalViewModel.getUserSettings()?.observe(this) { goals ->
@@ -202,30 +199,37 @@ class AboutYouActivity : AppCompatActivity() {
 //                Toast.makeText(this, elem, Toast.LENGTH_SHORT).show()
                     if (weights[elem].toString().contentEquals(currWeight)) {
                         weightIndex = elem
-                        weightSpinner.setSelection(weightIndex)
+                        weightSpinner.setValue(weightIndex)
 //                    Toast.makeText(this, "Gender found!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
 
-            weightSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                var selectionCount = 0
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    println("Nothing Selected")
+            weightSpinner?.setOnValueChangedListener { picker, oldVal, newVal ->
+                val weight = weights[newVal]
+                val user = Firebase.auth.currentUser?.uid
+                if (user != null) {
+                    bindWeight(user, weight)
                 }
-
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if (selectionCount > 0) {
-                        val weight = weights[position]
-                        val user = Firebase.auth.currentUser?.uid
-                        if (user != null) {
-                            bindWeight(user, weight)
-                        }
-                    }
-                    selectionCount++
-                }
-
             }
+
+//            var selectionCount = 0
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                    println("Nothing Selected")
+//                }
+//
+//                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                    if (selectionCount > 0) {
+//                        val weight = weights[position]
+//                        val user = Firebase.auth.currentUser?.uid
+//                        if (user != null) {
+//                            bindWeight(user, weight)
+//                        }
+//                    }
+//                    selectionCount++
+//                }
+//
+//            }
         }
 
         val heights  = arrayOf("5'1\"",
@@ -251,12 +255,6 @@ class AboutYouActivity : AppCompatActivity() {
 
         val heightSpinner = findViewById<Spinner>(R.id.sp_height)
         if (heightSpinner != null) {
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item, heights
-            )
-            heightSpinner.adapter = adapter
-
             val goalViewModel: goalViewModel =
                 ViewModelProviders.of(this).get(goalViewModel::class.java)
             goalViewModel.getUserSettings()?.observe(this) { goals ->
