@@ -48,21 +48,21 @@ tools:context=".view.activities.ProfileEditorActivity">
         android:id="@+id/constraint_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/constraint_weight"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_height"
         app:layout_constraintTop_toBottomOf="@+id/constraint_gender"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp">
 
-        <Spinner
+        <NumberPicker
             android:id="@+id/sp_age"
-            android:layout_width="200dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_weight"
             app:layout_constraintStart_toEndOf="@+id/text_age"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,21 +80,9 @@ tools:context=".view.activities.ProfileEditorActivity">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/constraint_height"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_age"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp">
-
-        <Spinner
+        <NumberPicker
             android:id="@+id/sp_weight"
-            android:layout_width="200dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
@@ -115,7 +103,7 @@ tools:context=".view.activities.ProfileEditorActivity">
             android:text="Weight: "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sp_weight"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sp_age"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,12 +113,12 @@ tools:context=".view.activities.ProfileEditorActivity">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/constraint_availability"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_weight"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_age"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp">
 
-        <Spinner
+        <NumberPicker
             android:id="@+id/sp_height"
             android:layout_width="200dp"
             android:layout_height="wrap_content"

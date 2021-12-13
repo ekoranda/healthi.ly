@@ -57,35 +57,270 @@
         <item>38</item>
         <item>39</item>
         <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+        <item>60</item>
+        <item>61</item>
+        <item>62</item>
+        <item>63</item>
+        <item>64</item>
+        <item>65</item>
+        <item>66</item>
+        <item>67</item>
+        <item>68</item>
+        <item>69</item>
+        <item>70</item>
+        <item>71</item>
+        <item>72</item>
+        <item>73</item>
+        <item>74</item>
+        <item>75</item>
+        <item>76</item>
+        <item>77</item>
+        <item>78</item>
+        <item>79</item>
+        <item>70</item>
+        <item>71</item>
+        <item>72</item>
+        <item>73</item>
+        <item>74</item>
+        <item>75</item>
+        <item>76</item>
+        <item>77</item>
+        <item>78</item>
+        <item>79</item>
+        <item>80</item>
+        <item>81</item>
+        <item>82</item>
+        <item>83</item>
+        <item>84</item>
+        <item>85</item>
+        <item>86</item>
+        <item>87</item>
+        <item>88</item>
+        <item>89+</item>
     </string-array>
 
 
     <string-array name="Weights">
-        <item>160</item>
-        <item>161</item>
-        <item>162</item>
-        <item>163</item>
-        <item>164</item>
-        <item>165</item>
-        <item>166</item>
-        <item>167</item>
-        <item>168</item>
-        <item>169</item>
-        <item>170</item>
-        <item>171</item>
-        <item>172</item>
-        <item>173</item>
-        <item>174</item>
-        <item>175</item>
-        <item>176</item>
-        <item>177</item>
-        <item>178</item>
-        <item>179</item>
-        <item>180</item>
-        <item>181</item>
-        <item>182</item>
-        <item>183</item>
-        <item>184</item>
+        <item>50 lb</item>
+        <item>51 lb</item>
+        <item>52 lb</item>
+        <item>53 lb</item>
+        <item>54 lb</item>
+        <item>55 lb</item>
+        <item>56 lb</item>
+        <item>57 lb</item>
+        <item>58 lb</item>
+        <item>59 lb</item>
+        <item>60 lb</item>
+        <item>61 lb</item>
+        <item>62 lb</item>
+        <item>63 lb</item>
+        <item>64 lb</item>
+        <item>65 lb</item>
+        <item>66 lb</item>
+        <item>67 lb</item>
+        <item>68 lb</item>
+        <item>69 lb</item>
+        <item>70 lb</item>
+        <item>71 lb</item>
+        <item>72 lb</item>
+        <item>73 lb</item>
+        <item>74 lb</item>
+        <item>75 lb</item>
+        <item>76 lb</item>
+        <item>77 lb</item>
+        <item>78 lb</item>
+        <item>79 lb</item>
+        <item>80 lb</item>
+        <item>81 lb</item>
+        <item>82 lb</item>
+        <item>83 lb</item>
+        <item>84 lb</item>
+        <item>85 lb</item>
+        <item>86 lb</item>
+        <item>87 lb</item>
+        <item>88 lb</item>
+        <item>89 lb</item>
+        <item>90 lb</item>
+        <item>91 lb</item>
+        <item>92 lb</item>
+        <item>93 lb</item>
+        <item>94 lb</item>
+        <item>95 lb</item>
+        <item>96 lb</item>
+        <item>97 lb</item>
+        <item>98 lb</item>
+        <item>99 lb</item>
+        <item>100 lb</item>
+        <item>101 lb</item>
+        <item>102 lb</item>
+        <item>103 lb</item>
+        <item>104 lb</item>
+        <item>105 lb</item>
+        <item>106 lb</item>
+        <item>107 lb</item>
+        <item>108 lb</item>
+        <item>109 lb</item>
+        <item>110 lb</item>
+        <item>111 lb</item>
+        <item>112 lb</item>
+        <item>113 lb</item>
+        <item>114 lb</item>
+        <item>115 lb</item>
+        <item>116 lb</item>
+        <item>117 lb</item>
+        <item>118 lb</item>
+        <item>119 lb</item>
+        <item>120 lb</item>
+        <item>121 lb</item>
+        <item>122 lb</item>
+        <item>123 lb</item>
+        <item>124 lb</item>
+        <item>125 lb</item>
+        <item>126 lb</item>
+        <item>127 lb</item>
+        <item>128 lb</item>
+        <item>129 lb</item>
+        <item>130 lb</item>
+        <item>131 lb</item>
+        <item>132 lb</item>
+        <item>133 lb</item>
+        <item>134 lb</item>
+        <item>135 lb</item>
+        <item>136 lb</item>
+        <item>137 lb</item>
+        <item>138 lb</item>
+        <item>139 lb</item>
+        <item>140 lb</item>
+        <item>141 lb</item>
+        <item>142 lb</item>
+        <item>143 lb</item>
+        <item>144 lb</item>
+        <item>145 lb</item>
+        <item>146 lb</item>
+        <item>147 lb</item>
+        <item>148 lb</item>
+        <item>149 lb</item>
+        <item>150 lb</item>
+        <item>151 lb</item>
+        <item>152 lb</item>
+        <item>153 lb</item>
+        <item>154 lb</item>
+        <item>155 lb</item>
+        <item>156 lb</item>
+        <item>157 lb</item>
+        <item>158 lb</item>
+        <item>159 lb</item>
+        <item>160 lb</item>
+        <item>161 lb</item>
+        <item>162 lb</item>
+        <item>163 lb</item>
+        <item>164 lb</item>
+        <item>165 lb</item>
+        <item>166 lb</item>
+        <item>167 lb</item>
+        <item>168 lb</item>
+        <item>169 lb</item>
+        <item>170 lb</item>
+        <item>171 lb</item>
+        <item>172 lb</item>
+        <item>173 lb</item>
+        <item>174 lb</item>
+        <item>175 lb</item>
+        <item>176 lb</item>
+        <item>177 lb</item>
+        <item>178 lb</item>
+        <item>179 lb</item>
+        <item>180 lb</item>
+        <item>181 lb</item>
+        <item>182 lb</item>
+        <item>183 lb</item>
+        <item>184 lb</item>
+        <item>185 lb</item>
+        <item>186 lb</item>
+        <item>187 lb</item>
+        <item>188 lb</item>
+        <item>189 lb</item>
+        <item>190 lb</item>
+        <item>191 lb</item>
+        <item>192 lb</item>
+        <item>193 lb</item>
+        <item>194 lb</item>
+        <item>195 lb</item>
+        <item>196 lb</item>
+        <item>197 lb</item>
+        <item>198 lb</item>
+        <item>199 lb</item>
+        <item>200 lb</item>
+        <item>201 lb</item>
+        <item>202 lb</item>
+        <item>203 lb</item>
+        <item>204 lb</item>
+        <item>205 lb</item>
+        <item>206 lb</item>
+        <item>207 lb</item>
+        <item>208 lb</item>
+        <item>209 lb</item>
+        <item>210 lb</item>
+        <item>211 lb</item>
+        <item>212 lb</item>
+        <item>213 lb</item>
+        <item>214 lb</item>
+        <item>215 lb</item>
+        <item>216 lb</item>
+        <item>217 lb</item>
+        <item>218 lb</item>
+        <item>219 lb</item>
+        <item>220 lb</item>
+        <item>221 lb</item>
+        <item>222 lb</item>
+        <item>223 lb</item>
+        <item>224 lb</item>
+        <item>225 lb</item>
+        <item>226 lb</item>
+        <item>227 lb</item>
+        <item>228 lb</item>
+        <item>229 lb</item>
+        <item>230 lb</item>
+        <item>231 lb</item>
+        <item>232 lb</item>
+        <item>233 lb</item>
+        <item>234 lb</item>
+        <item>235 lb</item>
+        <item>236 lb</item>
+        <item>237 lb</item>
+        <item>238 lb</item>
+        <item>239 lb</item>
+        <item>240 lb</item>
+        <item>241 lb</item>
+        <item>242 lb</item>
+        <item>243 lb</item>
+        <item>244 lb</item>
+        <item>245 lb</item>
+        <item>246 lb</item>
+        <item>247 lb</item>
+        <item>248 lb</item>
+        <item>249 lb</item>
+        <item>250+ lb</item>
     </string-array>
     <string name="title_activity_alarm_reciever">AlarmReciever</string>
 
