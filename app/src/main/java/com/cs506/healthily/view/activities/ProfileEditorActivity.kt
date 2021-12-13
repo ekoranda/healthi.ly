@@ -42,6 +42,7 @@ class ProfileEditorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile_editor)
         setUpSpinners()
 
+
         val home : Button = findViewById<Button>(R.id.btn_home)
         home.setOnClickListener {
             startActivity(

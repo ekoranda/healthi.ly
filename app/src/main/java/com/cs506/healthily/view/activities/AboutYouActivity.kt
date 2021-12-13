@@ -1,8 +1,11 @@
 package com.cs506.healthily.view.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProviders
@@ -12,16 +15,55 @@ import com.cs506.healthily.viewModel.goalViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class AboutYouActivity : AppCompatActivity() {
+
+    var notificationTime = "11"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_you)
         setUpSpinners()
 
+
+
         val next : Button = findViewById<Button>(R.id.btn_next)
 
         next.setOnClickListener {
+            val alarmManager =
+                getSystemService(ALARM_SERVICE) as AlarmManager //we are using alarm manager for the notification
+
+
+            val notificationIntent = Intent(
+                this,
+                AlarmReceiver::class.java
+            ) //this intent will be called when taping the notification
+
+            val broadcast = PendingIntent.getBroadcast(
+                this,
+                100,
+                notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            ) //this pendingIntent will be called by the broadcast receiver
+
+
+            val cal = Calendar.getInstance() //getting calender instance
+
+
+            cal.timeInMillis = System.currentTimeMillis() //setting the time from device
+
+            cal[Calendar.HOUR_OF_DAY] = notificationTime.toInt()
+            Log.d("LOG", notificationTime)
+            // cal.set NOT cal.add
+
+            cal[Calendar.MINUTE] = 11
+            cal[Calendar.SECOND] = 0
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                cal.timeInMillis,
+                AlarmManager.INTERVAL_DAY,
+                broadcast
+            ) //alarm manager will repeat the notification each day at the set time
             startActivity(
                 Intent(
                     this, StepCountGoalActivity
@@ -309,10 +351,33 @@ class AboutYouActivity : AppCompatActivity() {
                 }
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (selectionCount > 0) {
-                        val time = times[position]
+                        var time = times[position]
                         val user = Firebase.auth.currentUser?.uid
                         if (user != null) {
                             bindAvailabilityStart(user, time)
+
+                            var hour = ""
+
+
+                            if(time[1]== 'a' || time[1] == 'p'){
+                                 hour = time[0].toString()
+                                 time = time[1].toString() + time[2].toString()
+                            }else{
+
+                                 hour = time[0].toString() + time[1].toString()
+                                 time = time[2].toString() + time[3].toString()
+                            }
+
+                            if (time == "pm"){
+                                var hrInt = hour.toInt()
+                                hrInt += 12
+                                hour = hrInt.toString()
+                            }
+
+                            notificationTime = hour
+
+
+
                         }
                     }
                     selectionCount++
@@ -399,6 +464,7 @@ class AboutYouActivity : AppCompatActivity() {
     private fun bindAvailabilityStart(userId: String, start: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
+
         aboutYouViewModel.setAvailabilityStartFromRepo(userId, start)
 
     }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +71,7 @@ class JournalFragment : Fragment() {
         val v: View =  inflater.inflate(R.layout.fragment_journal, container, false)
 
 
+
         val logoutBtn: Button = v.findViewById<Button>(R.id.btn_logout)
         logoutBtn.setOnClickListener {
             val intent = Intent(activity, LogoutActivity::class.java)
@@ -88,6 +90,8 @@ class JournalFragment : Fragment() {
         val adapter = JournalAdapter(activities)
         rv!!.adapter = adapter
     }
+
+
 
     private fun bindData() {
         val viewModel: JournalViewModel =
