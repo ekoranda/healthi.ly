@@ -81,7 +81,7 @@ class FitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_steps)
 
-        initializeLogging()
+//        initializeLogging()
 
         fitSignIn(FitActionRequestCode.READ_WEEKLY_STEPS)
     }
@@ -142,7 +142,7 @@ class FitActivity : AppCompatActivity() {
             Request code was: $requestCode
             Result code was: $resultCode
         """.trimIndent()
-        Log.e(TAG, message)
+//        Log.e(TAG, message)
     }
 
     private fun oAuthPermissionsApproved() = GoogleSignIn.hasPermissions(getGoogleAccount(), fitnessOptions)
@@ -173,7 +173,7 @@ class FitActivity : AppCompatActivity() {
                     printData(dataReadResponse)
                 }
                 .addOnFailureListener { e ->
-                    Log.e(TAG, "There was a problem reading the data.", e)
+//                    Log.e(TAG, "There was a problem reading the data.", e)
                 }
     }
 
@@ -189,10 +189,10 @@ class FitActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val totalSteps =
                     result.dataPoints.firstOrNull()?.getValue(Field.FIELD_STEPS)?.asInt() ?: 2
-                Log.i(TAG, "STEPS: ${totalSteps}")
+//                Log.i(TAG, "STEPS: ${totalSteps}")
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "There was a problem reading the data.", e)
+//                Log.e(TAG, "There was a problem reading the data.", e)
             }
     }
 
@@ -207,7 +207,7 @@ class FitActivity : AppCompatActivity() {
             .readDailyTotal(DataType.TYPE_HEART_POINTS)
             .addOnSuccessListener { result ->
                 val dailyHeartPoints = result.dataPoints.firstOrNull()?.getValue(Field.FIELD_INTENSITY)?.asFloat()?.toInt() ?: 0
-                Log.i(TAG, "Total heart points: $dailyHeartPoints")
+//                Log.i(TAG, "Total heart points: $dailyHeartPoints")
             }
     }
 
@@ -222,8 +222,8 @@ class FitActivity : AppCompatActivity() {
         calendar.add(Calendar.WEEK_OF_YEAR, -1)
         val startTime = calendar.timeInMillis
 
-        Log.i(TAG, "Range Start: ${dateFormat.format(startTime)}")
-        Log.i(TAG, "Range End: ${dateFormat.format(endTime)}")
+//        Log.i(TAG, "Range Start: ${dateFormat.format(startTime)}")
+//        Log.i(TAG, "Range End: ${dateFormat.format(endTime)}")
 
         return DataReadRequest.Builder()
                 // The data request can specify multiple data types to return, effectively
@@ -253,12 +253,12 @@ class FitActivity : AppCompatActivity() {
         // If the DataReadRequest object specified aggregated data, dataReadResult will be returned
         // as buckets containing DataSets, instead of just DataSets.
         if (dataReadResult.buckets.isNotEmpty()) {
-            Log.i(TAG, "Number of returned buckets of DataSets is: " + dataReadResult.buckets.size)
+//            Log.i(TAG, "Number of returned buckets of DataSets is: " + dataReadResult.buckets.size)
             for (bucket in dataReadResult.buckets) {
                 bucket.dataSets.forEach { dumpDataSet(it) }
             }
         } else if (dataReadResult.dataSets.isNotEmpty()) {
-            Log.i(TAG, "Number of returned DataSets is: " + dataReadResult.dataSets.size)
+//            Log.i(TAG, "Number of returned DataSets is: " + dataReadResult.dataSets.size)
             dataReadResult.dataSets.forEach { dumpDataSet(it) }
         }
         // [END parse_read_data_result]
@@ -266,15 +266,15 @@ class FitActivity : AppCompatActivity() {
 
     // [START parse_dataset]
     private fun dumpDataSet(dataSet: DataSet) {
-        Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
+//        Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
 
         for (dp in dataSet.dataPoints) {
-            Log.i(TAG, "Data point:")
-            Log.i(TAG, "\tType: ${dp.dataType.name}")
-            Log.i(TAG, "\tStart: ${dp.getStartTimeString()}")
-            Log.i(TAG, "\tEnd: ${dp.getEndTimeString()}")
+//            Log.i(TAG, "Data point:")
+//            Log.i(TAG, "\tType: ${dp.dataType.name}")
+//            Log.i(TAG, "\tStart: ${dp.getStartTimeString()}")
+//            Log.i(TAG, "\tEnd: ${dp.getEndTimeString()}")
             dp.dataType.fields.forEach {
-                Log.i(TAG, "\tField: ${it.name} Value: ${dp.getValue(it)}")
+//                Log.i(TAG, "\tField: ${it.name} Value: ${dp.getValue(it)}")
             }
         }
     }
@@ -303,27 +303,27 @@ class FitActivity : AppCompatActivity() {
     }
 
     /** Clears all the logging message in the LogView.  */
-    private fun clearLogView() {
-        val logView = findViewById<LogView>(R.id.sample_logview)
-        logView.text = ""
-    }
-
-    /** Initializes a custom log class that outputs both to in-app targets and logcat.  */
-    private fun initializeLogging() {
-        // Wraps Android's native log framework.
-        val logWrapper = LogWrapper()
-        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
-        Log.setLogNode(logWrapper)
-        // Filter strips out everything except the message text.
-        val msgFilter = MessageOnlyLogFilter()
-        logWrapper.next = msgFilter
-        // On screen logging via a customized TextView.
-        val logView = findViewById<LogView>(R.id.sample_logview)
-
-       // TextViewCompat.setTextAppearance(logView, R.style.Log)
-
-        logView.setBackgroundColor(Color.WHITE)
-        msgFilter.next = logView
-        Log.i(TAG, "Ready.")
-    }
+//    private fun clearLogView() {
+//        val logView = findViewById<LogView>(R.id.sample_logview)
+//        logView.text = ""
+//    }
+//
+//    /** Initializes a custom log class that outputs both to in-app targets and logcat.  */
+//    private fun initializeLogging() {
+//        // Wraps Android's native log framework.
+//        val logWrapper = LogWrapper()
+//        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
+//        Log.setLogNode(logWrapper)
+//        // Filter strips out everything except the message text.
+//        val msgFilter = MessageOnlyLogFilter()
+//        logWrapper.next = msgFilter
+//        // On screen logging via a customized TextView.
+//        val logView = findViewById<LogView>(R.id.sample_logview)
+//
+//       // TextViewCompat.setTextAppearance(logView, R.style.Log)
+//
+//        logView.setBackgroundColor(Color.WHITE)
+//        msgFilter.next = logView
+//        Log.i(TAG, "Ready.")
+//    }
 }
