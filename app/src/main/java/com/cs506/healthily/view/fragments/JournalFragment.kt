@@ -72,11 +72,11 @@ class JournalFragment : Fragment() {
 
 
 
-        val logoutBtn: Button = v.findViewById<Button>(R.id.btn_logout)
-        logoutBtn.setOnClickListener {
-            val intent = Intent(activity, LogoutActivity::class.java)
-            startActivity(intent)
-        }
+//        val logoutBtn: Button = v.findViewById<Button>(R.id.btn_logout)
+//        logoutBtn.setOnClickListener {
+//            val intent = Intent(activity, LogoutActivity::class.java)
+//            startActivity(intent)
+//        }
 
         rv = v.findViewById(R.id.rv_activities)
         bindData()

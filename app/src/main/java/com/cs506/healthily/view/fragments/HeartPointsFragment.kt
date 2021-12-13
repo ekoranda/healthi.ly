@@ -112,7 +112,10 @@ class HeartPointsFragment : Fragment() {
         val errorText: TextView? = view?.findViewById(R.id.error_text)
         var totalSteps = 0
         for (day in days) {
-            totalSteps += day.heartPoints?.toInt()!!
+            if (day.day == "7"){
+                totalSteps += day.heartPoints?.toInt()!!
+            }
+
         }
 
 
@@ -120,7 +123,7 @@ class HeartPointsFragment : Fragment() {
 
 
 
-        val currentProgress = totalSteps / 7
+        val currentProgress = totalSteps
         var stepGoal: Int? = 0
         var fitAccess = true
         try {

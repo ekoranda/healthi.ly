@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun readWeeklySteps() {
+     fun readWeeklySteps() {
         // Read the data that's been collected throughout the past week.
         val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val startTime = endTime.minusWeeks(1)
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
         .toLocalDateTime().toString()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun readWeeklyHP() {
+     fun readWeeklyHP() {
         // Read the data that's been collected throughout the past week.
         val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val startTime = endTime.minusWeeks(1)
@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun readHPGoal() {
+     fun readHPGoal() {
         Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
             .readCurrentGoals(hpReadRequest)
             .addOnSuccessListener { goals ->
@@ -234,7 +234,7 @@ class MainActivity : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun bindDataHeart(day: DayHeart) {
+     fun bindDataHeart(day: DayHeart) {
         val viewModel: DailyHeartPointsViewModel =
             ViewModelProviders.of(this).get(DailyHeartPointsViewModel::class.java)
             viewModel.addDay(day)
@@ -243,13 +243,13 @@ class MainActivity : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun deleteDailySteps() {
+     fun deleteDailySteps() {
         val viewModel: DayStepsViewModel =
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
         viewModel.deleteDailySteps()
     }
 
-    private fun readStepGoal() {
+     fun readStepGoal() {
         Fitness.getGoalsClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
             .readCurrentGoals(stepReadRequest)
             .addOnSuccessListener { goals ->
@@ -261,7 +261,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getActivities() {
+     fun getActivities() {
         // Read the data that's been collected throughout the past week.
         val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val startTime = endTime.minusWeeks(1)
@@ -360,7 +360,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun deleteDailyHeart() {
+     fun deleteDailyHeart() {
         val viewModel: DailyHeartPointsViewModel =
             ViewModelProviders.of(this).get(DailyHeartPointsViewModel::class.java)
         viewModel.deleteDailyHeartPoints()
@@ -370,20 +370,20 @@ class MainActivity : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun bindData(day: DaySteps) {
+     fun bindData(day: DaySteps) {
         val viewModel: DayStepsViewModel =
             ViewModelProviders.of(this).get(DayStepsViewModel::class.java)
             viewModel.addDay(day)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun bindJournalActivity(activity: JournalActivity){
+     fun bindJournalActivity(activity: JournalActivity){
         val viewModel : JournalViewModel =
             ViewModelProviders.of(this).get(JournalViewModel::class.java)
             viewModel.addJournalActivity(activity)
     }
 
-    private fun deleteJournal(){
+     fun deleteJournal(){
         val viewModel : JournalViewModel =
             ViewModelProviders.of(this).get(JournalViewModel::class.java)
             viewModel.deleteJournal()

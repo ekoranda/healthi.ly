@@ -415,35 +415,35 @@ class AboutYouActivity : AppCompatActivity() {
 
     }
 
-    private fun bindGender(userId: String, gender: String) {
+     fun bindGender(userId: String, gender: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
         aboutYouViewModel.setGenderFromRepo(userId, gender)
 
     }
 
-    private fun bindAge(userId: String, age: String) {
+     fun bindAge(userId: String, age: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
         aboutYouViewModel.setAgeFromRepo(userId, age)
 
     }
 
-    private fun bindHeight(userId: String, height: String) {
+     fun bindHeight(userId: String, height: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
         aboutYouViewModel.setHeightFromRepo(userId, height)
 
     }
 
-    private fun bindWeight(userId: String, weight: String) {
+    fun bindWeight(userId: String, weight: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
         aboutYouViewModel.setWeightFromRepo(userId, weight)
 
     }
 
-    private fun bindAvailabilityStart(userId: String, start: String) {
+     fun bindAvailabilityStart(userId: String, start: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
 
@@ -451,7 +451,7 @@ class AboutYouActivity : AppCompatActivity() {
 
     }
 
-    private fun bindAvailabilityEnd(userId: String, end: String) {
+     fun bindAvailabilityEnd(userId: String, end: String) {
 
         val aboutYouViewModel: AboutYou = ViewModelProviders.of(this).get(AboutYou::class.java)
         aboutYouViewModel.setAvailabilityEndFromRepo(userId, end)
