@@ -386,9 +386,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, NearLocationInterface, Goog
 
         var radius = 0
         var totalSteps = 0
-        for (day in days) {
-            totalSteps += day.steps?.toInt()!!
-        }
+        totalSteps = days[0].steps?.toInt()!!
         val stepGoal = days[0].stepGoal?.toInt()!!
         if(totalSteps < stepGoal){//((step count goal - current step count) / (steps to meters conversion))
             radius = ((stepGoal - totalSteps) * 0.718).toInt()

@@ -34,12 +34,14 @@ class InfoWindowAdapter(private val location: Location, context: Context) :
             binding.txtLocationDistance.text = "${distance.roundToInt()} Meters"
 
         }
-        val speed = location.speed
-        if (speed.roundToInt() > 0) {
-            val time = distance / speed
-            binding.txtLocationTime.text = "${time.roundToInt()} sec"
-        } else
-            binding.txtLocationTime.text = "N/A"
+//        val speed = location.speed
+//        if (speed.roundToInt() > 0) {
+//            val time = distance / speed
+//            binding.txtLocationTime.text = "${time.roundToInt()} sec"
+//        } else
+//            binding.txtLocationTime.text = "N/A"
+        val steps = (distance / 0.718).roundToInt()
+        binding.txtLocationTime.text = "$steps steps"
 
         return binding.root
     }
