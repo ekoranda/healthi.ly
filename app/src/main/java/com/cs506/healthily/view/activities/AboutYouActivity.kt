@@ -14,10 +14,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class AboutYouActivity : AppCompatActivity() {
-    var gender = ""
-    var age = ""
-    var weight = ""
-    var height = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_you)
@@ -26,15 +22,13 @@ class AboutYouActivity : AppCompatActivity() {
         val next : Button = findViewById<Button>(R.id.btn_next)
 
         next.setOnClickListener {
-            if (gender != "" && age != "" && weight != "" && height != "") {
-                startActivity(
-                    Intent(
-                        this, StepCountGoalActivity
-                        ::class.java
-                    )
+            startActivity(
+                Intent(
+                    this, StepCountGoalActivity
+                    ::class.java
                 )
-                finish()
-            }
+            )
+            finish()
         }
     }
 
@@ -77,7 +71,7 @@ class AboutYouActivity : AppCompatActivity() {
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (selectionCount > 0) {
-                        gender = genders[position]
+                        val gender = genders[position]
                         val user = Firebase.auth.currentUser?.uid
                         if (user != null) {
                             bindGender(user, gender)
@@ -134,7 +128,7 @@ class AboutYouActivity : AppCompatActivity() {
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (selectionCount > 0) {
-                        age = ages[position]
+                        val age = ages[position]
                         val user = Firebase.auth.currentUser?.uid
                         if (user != null) {
                             bindAge(user, age)
@@ -180,7 +174,7 @@ class AboutYouActivity : AppCompatActivity() {
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (selectionCount > 0) {
-                        weight = weights[position]
+                        val weight = weights[position]
                         val user = Firebase.auth.currentUser?.uid
                         if (user != null) {
                             bindWeight(user, weight)
@@ -244,7 +238,7 @@ class AboutYouActivity : AppCompatActivity() {
                 }
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     if (selectionCount > 0) {
-                        height = heights[position]
+                        val height = heights[position]
                         val user = Firebase.auth.currentUser?.uid
                         if (user != null) {
                             bindHeight(user, height)

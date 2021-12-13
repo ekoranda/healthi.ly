@@ -42,7 +42,6 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityDirectionBinding
     private var mGoogleMap: GoogleMap? = null
-   // private lateinit var appPermissions: AppPermissions
     private var isLocationPermissionOk = false
     private var isTrafficEnable = false
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<RelativeLayout>
@@ -278,7 +277,6 @@ class DirectionActivity : AppCompatActivity(), OnMapReadyCallback {
                                 geodesic(true)
                                 clickable(true)
                                 visible(true)
-
                             }
 
                             val pattern: List<PatternItem>

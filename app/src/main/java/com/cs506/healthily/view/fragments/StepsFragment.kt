@@ -44,7 +44,8 @@ class StepsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+   // var totalSteps=0
+    //var stepGoal: Int =0
 
 
 
@@ -124,13 +125,10 @@ class StepsFragment : Fragment() {
         }
 
 
-
-
-
-
         val currentProgress = totalSteps / 7
         var fitAccess = true
         var stepGoal: Int? = 0
+
         try {
             stepGoal = days[0].stepGoal?.toInt()
         } catch (e:NumberFormatException) {
@@ -151,7 +149,7 @@ class StepsFragment : Fragment() {
         if (progressBar != null) {
             progressBar.setProgress(progressPercentage)
             var color = 0xffff0000
-            if(currentProgress < stepGoal){
+            if(totalSteps < stepGoal){
             }else{
                 color = 0xFF4DCE47
                 progressBar.getIndeterminateDrawable().setColorFilter(color.toInt(), PorterDuff.Mode.SRC_IN);
@@ -161,8 +159,6 @@ class StepsFragment : Fragment() {
 
         }
     }
-
-
 
 
     private fun bindData(){

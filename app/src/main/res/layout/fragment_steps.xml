@@ -64,7 +64,7 @@
             android:layout_marginTop="20dp"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="0"
+            android:text=""
             android:textColor="@color/errorColor"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
