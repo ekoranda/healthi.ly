@@ -52,7 +52,8 @@
                 android:hint="Filter Activities Near By!"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textColorHint="@color/itemTextColor" />
+                android:textColorHint="@color/itemTextColor"
+                android:textColor="@color/itemTextColor"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
